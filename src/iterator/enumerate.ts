@@ -5,14 +5,17 @@ import { pair } from '../types/pair';
 
 export class IteratorEnumerate<T> implements Iterator<[number, T]> {
     constructor(iter: Iterable<T>) {
+        logger.trace('IteratorEnumerate', 'constructor()');
         this._iter = iter;
     }
 
     public [Symbol.iterator]() {
+        logger.trace('IteratorEnumerate', '[Symbol.iterator]()');
         return this;
     }
 
     public next() {
+        logger.trace('IteratorEnumerate', 'next()');
         const { done, value: v } = this._iter[Symbol.iterator]().next();
 
         const value = pair(this.count++, v);
