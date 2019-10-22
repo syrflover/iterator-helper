@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install, build, and test
+      - name: test iterator helper
         run: |
-          npm run build
+          npm install
           npm run test
         env:
           CI: true
