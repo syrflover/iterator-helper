@@ -5,6 +5,7 @@ import { _count } from './iterator/count';
 import { _enumerate } from './iterator/enumerate';
 import { _map } from './iterator/map';
 import { _filter } from './iterator/filter';
+import { _find } from './iterator/find';
 
 export class IteratorHelper<T> implements IterableIterator<T> {
     constructor(iter: Iterable<T>) {
@@ -55,5 +56,9 @@ export class IteratorHelper<T> implements IterableIterator<T> {
 
     public filter(predicate: (elem: T) => boolean) {
         return _filter(this._iter, predicate);
+    }
+
+    public find(predicate: (elem: T) => boolean) {
+        return _find(this._iter, predicate);
     }
 }
