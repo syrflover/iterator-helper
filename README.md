@@ -13,7 +13,7 @@
 | enumerate    | ☑   |
 | filter       | ☑   |
 | filterMap    | ☐   |
-| find         | ☐   |
+| find         | ☑   |
 | findMap      | ☐   |
 | flatMap      | ☐   |
 | flatten      | ☐   |
