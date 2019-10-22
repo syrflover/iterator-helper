@@ -1,5 +1,6 @@
 import { logger } from './logger';
 
+import { _count } from './iterator/count';
 import { _collect } from './iterator/collect';
 import { _map } from './iterator/map';
 import { _filter } from './iterator/filter';
@@ -33,6 +34,10 @@ export class IteratorHelper<T> implements IterableIterator<T> {
             done,
             value,
         };
+    }
+
+    public count() {
+        return _count(this._iter);
     }
 
     public collect() {
