@@ -1,4 +1,5 @@
-import './types/array';
+import './array/iter';
+
 import { logger } from './logger';
 
 export { IteratorHelper } from './iterator';
