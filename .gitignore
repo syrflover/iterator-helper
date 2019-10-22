@@ -125,5 +125,7 @@ public/
 
 # End of https://www.gitignore.io/api/node,macos
 
+build/
+
 package-lock.json
 yarn.lock

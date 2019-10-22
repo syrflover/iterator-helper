@@ -9,7 +9,7 @@
             "es2018.asynciterable",
             "es2018.promise"
         ],
-        "outDir": "build",
+        "noEmit": true,
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,
