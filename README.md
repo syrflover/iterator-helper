@@ -1,57 +1,9 @@
 # Iterator Helper
 
+## Reference
+
+-   https://github.com/tc39/proposal-iterator-helpers
+
 ## TODO
 
-| Method       |     |
-| ------------ | --- |
-| all          | ☐   |
-| any          | ☐   |
-| chain        | ☐   |
-| collect      | ☑   |
-| count        | ☑   |
-| cycle        | ☐   |
-| enumerate    | ☑   |
-| filter       | ☑   |
-| filterMap    | ☐   |
-| find         | ☑   |
-| findMap      | ☐   |
-| flatMap      | ☐   |
-| flatten      | ☐   |
-| forEach      | ☐   |
-| last         | ☐   |
-| map          | ☑   |
-| max          | ☐   |
-| min          | ☐   |
-| nth          | ☐   |
-| partition    | ☐   |
-| peekable     | ☐   |
-| position     | ☐   |
-| product      | ☐   |
-| reverse      | ☐   |
-| scan         | ☐   |
-| skip         | ☐   |
-| skipWhile    | ☐   |
-| stepBy       | ☐   |
-| sum          | ☐   |
-| take         | ☐   |
-| takeWhile    | ☐   |
-| unzip        | ☐   |
-| zip          | ☐   |
-| compress     | ☐   |
-| permutations | ☐   |
-| repeat       | ☐   |
-| slice        | ☐   |
-| starmap      | ☐   |
-| tee          | ☐   |
-| compact      | ☐   |
-| contains     | ☐   |
-| range        | ☐   |
-| reduce       | ☐   |
-| sorted       | ☐   |
-| unique       | ☐   |
-| average      | ☐   |
-| empty        | ☐   |
-| except       | ☐   |
-| intersect    | ☐   |
-| prepend      | ☐   |
-| append       | ☐   |
+-   Change Iterable to AsyncIterable
