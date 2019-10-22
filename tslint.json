@@ -20,7 +20,8 @@
         "import-name": false,
         "forin": false,
         "object-shorthand-properties-first": false,
-        "function-name": false
+        "function-name": false,
+        "no-increment-decrement": false
     },
     "rulesDirectory": []
 }
