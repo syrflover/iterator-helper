@@ -13,7 +13,6 @@
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,
-        "resolveJsonModule": true,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
