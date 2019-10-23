@@ -49,34 +49,58 @@ export class IteratorHelper<T> implements AsyncIterableIterator<T> {
 
     private readonly _iter: AsyncIterable<T>;
 
+    /**
+     * ### Strict Method
+     */
     public collect() {
         return _collect(this._iter);
     }
 
+    /**
+     * ### Strict Method
+     */
     public count() {
         return _count(this._iter);
     }
 
+    /**
+     * ### Lazy Method
+     */
     public enumerate() {
         return _enumerate(this._iter);
     }
 
+    /**
+     * ### Lazy Method
+     */
     public map<R>(fn: MapFn<T, R>) {
         return _map(this._iter, fn);
     }
 
+    /**
+     * ### Lazy Method
+     */
     public filter(predicate: PredicateFn<T>) {
         return _filter(this._iter, predicate);
     }
 
+    /**
+     * ### Lazy Method
+     */
     public forEach(fn: ForEachFn<T>) {
         return _forEach(this._iter, fn);
     }
 
+    /**
+     * ### Strict Method
+     */
     public find(predicate: PredicateFn<T>) {
         return _find(this._iter, predicate);
     }
 
+    /**
+     * ### Strict Method
+     */
     public take(n: number) {
         return _take(this._iter, n);
     }
