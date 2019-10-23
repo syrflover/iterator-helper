@@ -19,6 +19,7 @@ jobs:
       - name: Test Iterator Helper
         run: |
           npm install
+          npm run lint
           npm run test
         env:
           CI: true
