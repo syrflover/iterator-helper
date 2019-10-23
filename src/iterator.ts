@@ -13,9 +13,10 @@ import { _filter } from './iterator/filter';
 import { _forEach } from './iterator/forEach';
 import { _find } from './iterator/find';
 import { ForEachFn } from './types/fn/forEach';
+import { _take } from './iterator/take';
 
 export class IteratorHelper<T> implements AsyncIterableIterator<T> {
-    constructor(iter: Iterable<T> | AsyncIterable<T>) {
+    constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('IteratorHelper', 'constructor()');
         if (Array.isArray(iter)) {
             logger.debug('typeof iter =', 'array');
@@ -74,5 +75,9 @@ export class IteratorHelper<T> implements AsyncIterableIterator<T> {
 
     public find(predicate: PredicateFn<T>) {
         return _find(this._iter, predicate);
+    }
+
+    public take(n: number) {
+        return _take(this._iter, n);
     }
 }

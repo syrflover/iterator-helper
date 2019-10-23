@@ -17,6 +17,6 @@ describe('test forEach', () => {
             (() => 0)();
         }
 
-        assert.deepStrictEqual(actual, expected);
+        assert.strictEqual(actual, expected);
     });
 });

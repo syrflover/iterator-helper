@@ -1,8 +1,10 @@
+import { EP } from '../types/promise';
+
 import { IteratorHelper } from '../iterator';
 
 declare global {
     interface Array<T> {
-        iter(): IteratorHelper<T>;
+        iter(): IteratorHelper<EP<T>>;
     }
 }
 
