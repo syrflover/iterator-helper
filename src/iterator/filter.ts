@@ -1,7 +1,7 @@
 import { logger } from '../logger';
 import { IteratorHelper } from '../iterator';
 
-import { PredicateFn } from '../types/predicate';
+import { PredicateFn } from '../types/fn/predicate';
 
 export class IteratorFilter<T> implements AsyncIterable<T> {
     constructor(iter: AsyncIterable<T>, predicate: PredicateFn<T>) {

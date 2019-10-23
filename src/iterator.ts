@@ -2,14 +2,17 @@ import './array/iter';
 
 import { logger } from './logger';
 
+import { MapFn } from './types/fn/map';
+import { PredicateFn } from './types/fn/predicate';
+
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
 import { _enumerate } from './iterator/enumerate';
 import { _map } from './iterator/map';
 import { _filter } from './iterator/filter';
+import { _forEach } from './iterator/forEach';
 import { _find } from './iterator/find';
-import { MapFn } from './types/map';
-import { PredicateFn } from './types/predicate';
+import { ForEachFn } from './types/fn/forEach';
 
 export class IteratorHelper<T> implements AsyncIterableIterator<T> {
     constructor(iter: Iterable<T> | AsyncIterable<T>) {
@@ -27,8 +30,6 @@ export class IteratorHelper<T> implements AsyncIterableIterator<T> {
         }
     }
 
-    protected readonly _iter: AsyncIterable<T>;
-
     public [Symbol.asyncIterator]() {
         logger.trace('IteratorHelper', '[Symbol.iterator]()');
         return this;
@@ -44,6 +45,8 @@ export class IteratorHelper<T> implements AsyncIterableIterator<T> {
             value,
         };
     }
+
+    private readonly _iter: AsyncIterable<T>;
 
     public collect() {
         return _collect(this._iter);
@@ -65,7 +68,9 @@ export class IteratorHelper<T> implements AsyncIterableIterator<T> {
         return _filter(this._iter, predicate);
     }
 
-    public forEach(fn: (elem: T) => void) {}
+    public forEach(fn: ForEachFn<T>) {
+        return _forEach(this._iter, fn);
+    }
 
     public find(predicate: PredicateFn<T>) {
         return _find(this._iter, predicate);

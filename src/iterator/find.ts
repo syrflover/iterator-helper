@@ -1,4 +1,4 @@
-import { PredicateFn } from '../types/predicate';
+import { PredicateFn } from '../types/fn/predicate';
 
 export async function _find<T>(
     iter: AsyncIterable<T>,
