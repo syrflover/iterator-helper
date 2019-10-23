@@ -4,6 +4,7 @@ import { logger } from './logger';
 
 import { MapFn } from './types/fn/map';
 import { PredicateFn } from './types/fn/predicate';
+import { FoldFn } from './types/fn/fold';
 
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
@@ -14,6 +15,8 @@ import { _forEach } from './iterator/forEach';
 import { _find } from './iterator/find';
 import { ForEachFn } from './types/fn/forEach';
 import { _take } from './iterator/take';
+import { _fold } from './iterator/fold';
+import { _fold1 } from './iterator/fold1';
 
 export class IteratorHelper<T> implements AsyncIterableIterator<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
@@ -96,6 +99,17 @@ export class IteratorHelper<T> implements AsyncIterableIterator<T> {
      */
     public find(predicate: PredicateFn<T>) {
         return _find(this._iter, predicate);
+    }
+
+    /**
+     * ### Strict Method
+     */
+    public fold(init: T | Promise<T>, fn: FoldFn<T>) {
+        return _fold(this._iter, init, fn);
+    }
+
+    public fold1(fn: FoldFn<T>) {
+        return _fold1(this._iter, fn);
     }
 
     /**
