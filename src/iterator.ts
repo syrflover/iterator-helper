@@ -32,7 +32,7 @@ export class IteratorHelper<T> implements AsyncIterableIterator<T> {
     }
 
     public [Symbol.asyncIterator]() {
-        logger.trace('IteratorHelper', '[Symbol.iterator]()');
+        logger.trace('IteratorHelper', '[Symbol.asyncIterator]()');
         return this;
     }
 

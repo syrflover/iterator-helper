@@ -12,7 +12,7 @@ export class IteratorFilter<T> implements AsyncIterable<T> {
     }
 
     public async *[Symbol.asyncIterator]() {
-        logger.trace('IteratorFilter', '[Symbol.iterator]()');
+        logger.trace('IteratorFilter', '[Symbol.asyncIterator]()');
 
         for await (const elem of this._iter) {
             const condition = await this.predicate(elem);

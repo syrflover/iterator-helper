@@ -10,7 +10,7 @@ export class IteratorEnumerate<T> implements AsyncIterator<[number, T]> {
     }
 
     public [Symbol.asyncIterator]() {
-        logger.trace('IteratorEnumerate', '[Symbol.iterator]()');
+        logger.trace('IteratorEnumerate', '[Symbol.asyncIterator]()');
         return this;
     }
 

@@ -12,7 +12,7 @@ export class IteratorMap<T, R> implements AsyncIterableIterator<T> {
     }
 
     public [Symbol.asyncIterator]() {
-        logger.trace('IteratorMap', '[Symbol.iterator]()');
+        logger.trace('IteratorMap', '[Symbol.asyncIterator]()');
         return this;
     }
 
