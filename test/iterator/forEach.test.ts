@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { IteratorHelper } from '../../src';
 
 describe('test forEach', () => {
-    it('[1,2,3,4,5]', async () => {
+    it('[1,2,3,4,5,6]', async () => {
         const a = [1, 2, 3, 4, 5, 6];
 
         let actual = 0;
