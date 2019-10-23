@@ -1,7 +1,7 @@
 import { IteratorHelper } from '../iterator';
 import { logger } from '../logger';
 
-import { MapFn } from '../types/map';
+import { MapFn } from '../types/fn/map';
 
 export class IteratorMap<T, R> implements AsyncIterableIterator<T> {
     constructor(iter: AsyncIterable<T>, fn: MapFn<T, R>) {

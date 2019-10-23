@@ -9,9 +9,13 @@ describe('test forEach', () => {
         let actual = 0;
         const expected = a.length;
 
-        new IteratorHelper(a).forEach((_) => {
+        const it = new IteratorHelper(a).forEach((_) => {
             actual += 1;
         });
+
+        for await (const _ of it) {
+            (() => 0)();
+        }
 
         assert.deepStrictEqual(actual, expected);
     });
