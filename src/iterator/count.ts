@@ -1,10 +1,10 @@
 import { logger } from '../logger';
 
-export function _count<T>(iter: Iterable<T>) {
+export async function _count<T>(iter: AsyncIterable<T>): Promise<number> {
     logger.trace('iterator/count', '_count()');
     let count = 0;
 
-    for (const _ of iter) {
+    for await (const _ of iter) {
         count += 1;
     }
 

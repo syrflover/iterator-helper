@@ -1,19 +1,21 @@
 import { logger } from '../logger';
 import { IteratorHelper } from '../iterator';
 
-export class IteratorFilter<T> implements Iterable<T> {
-    constructor(iter: Iterable<T>, predicate: (elem: T) => boolean) {
+import { PredicateFn } from '../types/predicate';
+
+export class IteratorFilter<T> implements AsyncIterable<T> {
+    constructor(iter: AsyncIterable<T>, predicate: PredicateFn<T>) {
         logger.trace('IteratorFilter', 'constructor()');
 
         this.predicate = predicate;
         this._iter = iter;
     }
 
-    public *[Symbol.iterator]() {
+    public async *[Symbol.asyncIterator]() {
         logger.trace('IteratorFilter', '[Symbol.iterator]()');
 
-        for (const elem of this._iter) {
-            const condition = this.predicate(elem);
+        for await (const elem of this._iter) {
+            const condition = await this.predicate(elem);
 
             logger.debug('elem            =', elem);
             logger.debug('predicate(elem) =', condition);
@@ -24,12 +26,12 @@ export class IteratorFilter<T> implements Iterable<T> {
         }
     }
 
-    private readonly _iter: Iterable<T>;
+    private readonly _iter: AsyncIterable<T>;
 
-    private predicate: (elem: T) => boolean;
+    private predicate: PredicateFn<T>;
 }
 
-export function _filter<T>(iter: Iterable<T>, predicate: (elem: T) => boolean) {
+export function _filter<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>) {
     logger.trace('iterator/filter', '_filter()');
     return new IteratorHelper<T>(new IteratorFilter<T>(iter, predicate));
 }

@@ -1,6 +1,11 @@
-export function _find<T>(iter: Iterable<T>, predicate: (elem: T) => boolean) {
-    for (const elem of iter) {
-        if (predicate(elem)) {
+import { PredicateFn } from '../types/predicate';
+
+export async function _find<T>(
+    iter: AsyncIterable<T>,
+    predicate: PredicateFn<T>,
+) {
+    for await (const elem of iter) {
+        if (await predicate(elem)) {
             return elem;
         }
     }

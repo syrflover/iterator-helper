@@ -3,22 +3,23 @@ import { IteratorHelper } from '../iterator';
 import { logger } from '../logger';
 import { pair } from '../types/pair';
 
-export class IteratorEnumerate<T> implements Iterator<[number, T]> {
-    constructor(iter: Iterable<T>) {
+export class IteratorEnumerate<T> implements AsyncIterator<[number, T]> {
+    constructor(iter: AsyncIterable<T>) {
         logger.trace('IteratorEnumerate', 'constructor()');
         this._iter = iter;
     }
 
-    public [Symbol.iterator]() {
+    public [Symbol.asyncIterator]() {
         logger.trace('IteratorEnumerate', '[Symbol.iterator]()');
         return this;
     }
 
-    public next() {
+    public async next() {
         logger.trace('IteratorEnumerate', 'next()');
-        const { done, value: v } = this._iter[Symbol.iterator]().next();
+        const it = this._iter[Symbol.asyncIterator]();
+        const { done, value: v } = await it.next();
 
-        const value = pair(this.count++, v);
+        const value = pair<number, T>(this.count++, v);
 
         return {
             done,
@@ -28,10 +29,10 @@ export class IteratorEnumerate<T> implements Iterator<[number, T]> {
 
     public count: number = 0;
 
-    public _iter: Iterable<T>;
+    private readonly _iter: AsyncIterable<T>;
 }
 
-export function _enumerate<T>(iter: Iterable<T>) {
+export function _enumerate<T>(iter: AsyncIterable<T>) {
     logger.trace('iterator/enumerate', '_enumerate()');
-    return new IteratorHelper(new IteratorEnumerate(iter));
+    return new IteratorHelper<[number, T]>(new IteratorEnumerate<T>(iter));
 }

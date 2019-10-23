@@ -1,3 +1,5 @@
+import './array/iter';
+
 import { logger } from './logger';
 
 import { _collect } from './iterator/collect';
@@ -6,31 +8,36 @@ import { _enumerate } from './iterator/enumerate';
 import { _map } from './iterator/map';
 import { _filter } from './iterator/filter';
 import { _find } from './iterator/find';
+import { MapFn } from './types/map';
+import { PredicateFn } from './types/predicate';
 
-export class IteratorHelper<T> implements IterableIterator<T> {
-    constructor(iter: Iterable<T>) {
+export class IteratorHelper<T> implements AsyncIterableIterator<T> {
+    constructor(iter: Iterable<T> | AsyncIterable<T>) {
         logger.trace('IteratorHelper', 'constructor()');
         if (Array.isArray(iter)) {
+            logger.debug('typeof iter =', 'array');
             this._iter = iter.iter();
         } else {
+            logger.debug('typeof iter =', 'iterable/asyncIterable');
             this._iter = {
-                *[Symbol.iterator]() {
+                async *[Symbol.asyncIterator]() {
                     yield* iter;
                 },
             };
         }
     }
 
-    protected readonly _iter: Iterable<T>;
+    protected readonly _iter: AsyncIterable<T>;
 
-    public [Symbol.iterator]() {
+    public [Symbol.asyncIterator]() {
         logger.trace('IteratorHelper', '[Symbol.iterator]()');
         return this;
     }
 
-    public next() {
+    public async next() {
         logger.trace('IteratorHelper', 'next()');
-        const { done, value } = this._iter[Symbol.iterator]().next();
+        const it = this._iter[Symbol.asyncIterator]();
+        const { done, value } = await it.next();
 
         return {
             done,
@@ -50,15 +57,17 @@ export class IteratorHelper<T> implements IterableIterator<T> {
         return _enumerate(this._iter);
     }
 
-    public map<U>(fn: (elem: T) => U) {
+    public map<R>(fn: MapFn<T, R>) {
         return _map(this._iter, fn);
     }
 
-    public filter(predicate: (elem: T) => boolean) {
+    public filter(predicate: PredicateFn<T>) {
         return _filter(this._iter, predicate);
     }
 
-    public find(predicate: (elem: T) => boolean) {
+    public forEach(fn: (elem: T) => void) {}
+
+    public find(predicate: PredicateFn<T>) {
         return _find(this._iter, predicate);
     }
 }

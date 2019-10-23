@@ -3,20 +3,28 @@ import { assert } from 'chai';
 import { IteratorHelper } from '../../src';
 
 describe('test map', () => {
-    it('[1,2,3,4,5] -> [2,3,4,5,6]', () => {
+    it('[1,2,3,4,5] -> [2,3,4,5,6]', async () => {
         const a = new IteratorHelper([1, 2, 3, 4, 5]);
 
-        const actual = a.map((e) => e + 1);
-        const expected = new IteratorHelper([2, 3, 4, 5, 6]);
+        const actual: number[] = [];
+        const expected = [2, 3, 4, 5, 6];
+
+        for await (const _ of a.map((e) => e + 1)) {
+            actual.push(_);
+        }
 
         assert.deepStrictEqual(actual, expected);
     });
 
-    it(`[1,2,3,4,5] -> ['1','2','3','4','5']`, () => {
+    it(`[1,2,3,4,5] -> ['1','2','3','4','5']`, async () => {
         const a = new IteratorHelper([1, 2, 3, 4, 5]);
 
-        const actual = a.map((e) => `${e}`);
-        const expected = new IteratorHelper(['1', '2', '3', '4', '5']);
+        const actual: string[] = [];
+        const expected = ['1', '2', '3', '4', '5'];
+
+        for await (const _ of a.map((e) => `${e}`)) {
+            actual.push(_);
+        }
 
         assert.deepStrictEqual(actual, expected);
     });
