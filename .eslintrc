@@ -28,6 +28,7 @@
         "no-restricted-syntax": "off",
         "no-plusplus": "off",
         "no-underscore-dangle": "off",
+        "no-undef": "off",
 
         "indent": ["error", 4],
 
@@ -35,6 +36,15 @@
         "space-before-function-paren": "off",
         "consistent-return": "off",
 
-        "func-names": "off"
+        "func-names": "off",
+
+        "@typescript-eslint/explicit-member-accessibility": [
+            "error",
+            {
+                "overrides": {
+                    "constructors": "off"
+                }
+            }
+        ]
     }
 }
