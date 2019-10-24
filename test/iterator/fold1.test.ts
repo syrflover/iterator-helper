@@ -12,13 +12,13 @@ describe('test fold1', () => {
         assert.strictEqual(actual, expected);
     });
 
-    it(`throw new Error('Least One Element is Required in Iterator')`, async () => {
+    it(`throw new Error('Least one element is required in Iterator')`, async () => {
         const a = iterator<number>([]);
 
         try {
             await a.fold1((acc, e) => acc + e);
         } catch (error) {
-            assert.strictEqual(error.message, 'Least One Element is Required in Iterator');
+            assert.ok(/least one element is required in iterator/i.test(error.message));
         }
     });
 });

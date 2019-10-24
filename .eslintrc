@@ -38,6 +38,11 @@
         "implicit-arrow-linebreak": "off",
         "wrap-iife": "off",
         "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "camelcase": "off",
+        "max-classes-per-file": "off",
+        "class-methods-use-this": "off",
+        "lines-between-class-members": "off",
+        "no-dupe-class-members": "off",
 
         "func-names": "off",
 

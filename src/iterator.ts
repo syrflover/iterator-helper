@@ -2,6 +2,9 @@ import './types/global';
 
 import { getLogger } from './logger';
 
+import { isArrayLike } from './lib/isArrayLike';
+import { toIterable } from './lib/toIterable';
+
 import { ForEachFn } from './types/fn/forEach';
 import { FoldFn } from './types/fn/fold';
 import { MapFn } from './types/fn/map';
@@ -18,42 +21,18 @@ import { _take } from './iterator/take';
 import { _fold } from './iterator/fold';
 import { _fold1 } from './iterator/fold1';
 import { _sum } from './iterator/sum';
+import { _product } from './iterator/product';
 
 const logger = getLogger('iterator');
 
-/*
-if (Type === number) {
-    Iter
-} else if (Type === bigint) {
-    Iter
-} else {
-    Omit<Iter, 'sum'>
-}
-*/
-export type IteratorHelper<Iter> = Iter extends Iterator<infer Type>
-    ? Type extends number
-        ? Iter
-        : Type extends bigint
-        ? Iter
-        : Omit<Iter, 'sum'>
-    : unknown;
-
-function* toIterable<T>(iter: T[]) {
-    yield* iter;
-}
-
-function isTypedArray(iter: Iterable<any> | AsyncIterable<any>) {
-    return ArrayBuffer.isView(iter);
-}
-
-function isArrayLike(iter: Iterable<any> | AsyncIterable<any>): iter is any[] {
-    return Array.isArray(iter) || isTypedArray(iter);
-}
+export type ToIterator<Type> = Type extends number
+    ? Iterator<Type>
+    : Omit<Iterator<Type>, 'sum' | 'product'>;
 
 export class Iterator<T> implements AsyncIterableIterator<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
-        const it = isArrayLike(iter) ? toIterable<T>(iter) : iter;
+        const it = isArrayLike(iter) ? toIterable(iter) : iter;
 
         this._iter = {
             async *[Symbol.asyncIterator]() {
@@ -125,6 +104,11 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
         return _map(this._iter, fn);
     }
 
+    public product() {
+        logger.trace('product()');
+        return _product(this._iter as any);
+    }
+
     public sum() {
         logger.trace('sum()');
         return _sum(this._iter as any);
@@ -138,5 +122,5 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
     logger.trace('iterator()');
-    return new Iterator<T>(iter) as IteratorHelper<Iterator<T>>;
+    return new Iterator<T>(iter) as ToIterator<T>;
 }

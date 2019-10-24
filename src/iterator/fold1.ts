@@ -12,7 +12,7 @@ export async function _fold1<T>(iter: AsyncIterable<T>, fn: FoldFn<T>) {
     const { done, value: head } = await it.next();
 
     if (done) {
-        throw new Error('Least One Element is Required in Iterator');
+        throw new Error('Least one element is required in Iterator');
     }
 
     return _fold<T>(iter, head, fn);

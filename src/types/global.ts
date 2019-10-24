@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { iterator, Iterator, IteratorHelper } from '../iterator';
+import { iterator, ToIterator } from '../iterator';
 
 import { EP } from './promise';
 
@@ -8,51 +8,43 @@ const logger = getLogger('global');
 
 declare global {
     interface Array<T> {
-        iter(): IteratorHelper<Iterator<EP<T>>>;
+        iter(): ToIterator<EP<T>>;
     }
 
     interface Int8Array {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Int16Array {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Int32Array {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Uint8Array {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Uint8ClampedArray {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Uint16Array {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Uint32Array {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Float32Array {
-        iter(): Iterator<number>;
+        iter(): ToIterator<number>;
     }
 
     interface Float64Array {
-        iter(): Iterator<number>;
-    }
-
-    interface BigInt64Array {
-        iter(): Iterator<bigint>;
-    }
-
-    interface BigUint64Array {
-        iter(): Iterator<bigint>;
+        iter(): ToIterator<number>;
     }
 }
 
@@ -103,16 +95,6 @@ Float32Array.prototype.iter = function() {
 
 Float64Array.prototype.iter = function() {
     logger.trace('Float64Array', 'iter()');
-    return iterator(this);
-};
-
-BigInt64Array.prototype.iter = function() {
-    logger.trace('BigInt32Array', 'iter()');
-    return iterator(this);
-};
-
-BigUint64Array.prototype.iter = function() {
-    logger.trace('BigInt64Array', 'iter()');
     return iterator(this);
 };
 
