@@ -9,7 +9,7 @@
         "test": "tsc -p tsconfig.test.json && eslint test/**/*.ts && ts-mocha -p tsconfig.test.json test/**/*.test.ts",
         "build": "rm -rf ./build && tsc -p tsconfig.build.json",
         "lint": "eslint src/**/*.ts",
-        "prettier": "eslint-config-airbnb"
+        "prepublishOnly": "npm run lint && npm run test && npm run build"
     },
     "author": {
         "name": "Lee Tae Woo"
