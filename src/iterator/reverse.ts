@@ -14,7 +14,7 @@ const logger = getLogger('iterator/reverse');
 export function _reverse<T>(iter: AsyncIterable<T>) {
     logger.trace('_reverse()');
     const emptyIter = toAsyncIterable<T>([]);
-    const it = _foldl(iter, emptyIter, (acc, e) => flip(acc, e, cons));
+    const it = _foldl((acc, e) => flip(cons, acc, e), emptyIter, iter);
 
     return new Iterator(toAsyncIterable(it));
 }

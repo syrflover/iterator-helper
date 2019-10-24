@@ -7,9 +7,8 @@ import { MapFn } from '../types/fn/map';
 const logger = getLogger('iterator/map');
 
 export class IteratorMap<T, R> implements AsyncIterableIterator<T> {
-    constructor(iter: AsyncIterable<T>, fn: MapFn<T, R>) {
+    constructor(fn: MapFn<T, R>, iter: AsyncIterable<T>) {
         logger.trace('constructor()');
-
         this.fn = fn;
         this._iter = iter;
     }
@@ -41,7 +40,7 @@ export class IteratorMap<T, R> implements AsyncIterableIterator<T> {
     private fn: MapFn<T, R>;
 }
 
-export function _map<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, R>) {
+export function _map<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) {
     logger.trace('_map()');
-    return new Iterator<R>(new IteratorMap<T, R>(iter, fn));
+    return new Iterator<R>(new IteratorMap<T, R>(fn, iter));
 }

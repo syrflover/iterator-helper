@@ -6,7 +6,7 @@ import { Iterator } from '../iterator';
 const logger = getLogger('iterator/forEach');
 
 export class IteratorForEach<T> implements AsyncIterableIterator<void> {
-    constructor(iter: AsyncIterable<T>, fn: ForEachFn<T>) {
+    constructor(fn: ForEachFn<T>, iter: AsyncIterable<T>) {
         logger.trace('constructor()');
         this._iter = iter;
         this.fn = fn;
@@ -37,7 +37,7 @@ export class IteratorForEach<T> implements AsyncIterableIterator<void> {
     private fn: ForEachFn<T>;
 }
 
-export function _forEach<T>(iter: AsyncIterable<T>, fn: ForEachFn<T>) {
+export function _forEach<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_forEach()');
-    return new Iterator<void>(new IteratorForEach<T>(iter, fn));
+    return new Iterator<void>(new IteratorForEach<T>(fn, iter));
 }

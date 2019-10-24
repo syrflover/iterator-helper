@@ -4,7 +4,7 @@ import { PredicateFn } from '../types/fn/predicate';
 
 const logger = getLogger('iterator/any');
 
-export async function _any<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>) {
+export async function _any<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_any()');
     for await (const elem of iter) {
         const condition = await fn(elem);

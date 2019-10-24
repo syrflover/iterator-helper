@@ -4,7 +4,7 @@ import { _foldl } from './foldl';
 
 const logger = getLogger('iterator/sum');
 
-export function _sum(iter: AsyncIterable<number>, init: number = 0) {
+export function _sum(iter: AsyncIterable<number>) {
     logger.trace('_sum()');
-    return _foldl(iter, init, (acc, e) => acc + e);
+    return _foldl((acc, e) => acc + e, 0, iter);
 }

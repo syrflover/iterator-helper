@@ -64,12 +64,12 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
 
     public all(fn: PredicateFn<T>) {
         logger.trace('all()');
-        return _all(this, fn);
+        return _all(fn, this);
     }
 
     public any(fn: PredicateFn<T>) {
         logger.trace('any()');
-        return _any(this, fn);
+        return _any(fn, this);
     }
 
     public collect() {
@@ -89,32 +89,32 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
 
     public filter(predicate: PredicateFn<T>) {
         logger.trace('filter()');
-        return _filter(this, predicate);
+        return _filter(predicate, this);
     }
 
     public find(predicate: PredicateFn<T>) {
         logger.trace('find()');
-        return _find(this, predicate);
+        return _find(predicate, this);
     }
 
     public foldl<B>(init: B | Promise<B>, fn: FoldFn<T, B>) {
         logger.trace('fold()');
-        return _foldl(this, init, fn);
+        return _foldl(fn, init, this);
     }
 
     public foldl1(fn: FoldFn<T, T>) {
         logger.trace('fold1()');
-        return _foldl1(this, fn);
+        return _foldl1(fn, this);
     }
 
     public forEach(fn: ForEachFn<T>) {
         logger.trace('forEach()');
-        return _forEach(this, fn);
+        return _forEach(fn, this);
     }
 
     public map<R>(fn: MapFn<T, R>) {
         logger.trace('map()');
-        return _map(this, fn);
+        return _map(fn, this);
     }
 
     public product() {
@@ -134,7 +134,7 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
 
     public take(count: number) {
         logger.trace('take()');
-        return _take(this, count);
+        return _take(count, this);
     }
 }
 

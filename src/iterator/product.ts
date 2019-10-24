@@ -4,7 +4,7 @@ import { _foldl } from './foldl';
 
 const logger = getLogger('iterator/product');
 
-export function _product(iter: AsyncIterable<number>, init: number = 1) {
+export function _product(iter: AsyncIterable<number>) {
     logger.trace('_product()');
-    return _foldl(iter, init, (acc, e) => acc * e);
+    return _foldl((acc, e) => acc * e, 1, iter);
 }

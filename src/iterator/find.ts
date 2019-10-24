@@ -4,7 +4,7 @@ import { PredicateFn } from '../types/fn/predicate';
 
 const logger = getLogger('iterator/find');
 
-export async function _find<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>) {
+export async function _find<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_find()');
     for await (const elem of iter) {
         if (await predicate(elem)) {
