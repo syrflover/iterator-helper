@@ -1,17 +1,20 @@
 # Iterator Helper
 
+![](https://github.com/syrflover/iterator-helper/workflows/test/badge.svg)
+[![npm version](https://badge.fury.io/js/%40syrflover%2Fiterator.svg)](https://badge.fury.io/js/%40syrflover%2Fiterator)
+
 Iterator Helper used `AsyncIterator`, not used `Iterator`
 
 ## Installation
 
 ```bash
-npm install @syrflover/iterator-helper
+npm install @syrflover/iterator
 ```
 
 ## Usage
 
 ```typescript
-import '@syrflover/iterator-helper';
+import '@syrflover/iterator';
 
 [1, 2, 3, 4, 5, 6]
     .iter()
@@ -24,7 +27,7 @@ import '@syrflover/iterator-helper';
 or
 
 ```typescript
-import { iterator } from '@syrflover/iterator-helper';
+import { iterator } from '@syrflover/iterator';
 
 iterator([1, 2, 3, 4, 5, 6])
     .filter((e) => e % 2 === 0)
