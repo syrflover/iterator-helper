@@ -29,4 +29,17 @@ describe('test all', () => {
 
         assert.deepStrictEqual(actual, expected);
     });
+
+    it('empty iter', async () => {
+        const a = iterator<number>([]);
+
+        const actual: Pair<boolean, number[]> = [await a.all((e) => e > 3), []];
+        const expected: Pair<boolean, number[]> = [true, []];
+
+        for await (const _ of a) {
+            actual[1].push(_);
+        }
+
+        assert.deepStrictEqual(actual, expected);
+    });
 });
