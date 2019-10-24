@@ -1,5 +1,7 @@
 # Iterator Helper
 
+Iterator Helper used `AsyncIterator`, not used `Iterator`
+
 ## Usage
 
 ```typescript
