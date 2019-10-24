@@ -4,29 +4,40 @@ import { Iterator } from '../iterator';
 
 const logger = getLogger('iterator/take');
 
-export class IteratorTake<T> implements AsyncIterable<T> {
+export class IteratorTake<T> implements AsyncIterableIterator<T> {
     constructor(iter: AsyncIterable<T>, count: number) {
         logger.trace('constructor()');
         this._iter = iter;
         this.count = count;
     }
 
-    public async *[Symbol.asyncIterator]() {
+    public [Symbol.asyncIterator]() {
         logger.trace('[Symbol.asyncIterator]()');
-        for await (const elem of this._iter) {
-            logger.debug('elem    =', elem);
-            logger.debug('current =', this.current);
-            logger.debug('count   =', this.count);
+        return this;
+    }
 
-            if (this.current <= this.count) {
-                yield elem;
-            }
+    public async next() {
+        logger.trace('next()');
+        const it = this._iter[Symbol.asyncIterator]();
+        const { done, value } = await it.next();
 
-            if (this.current + 1 > this.count) {
-                return;
-            }
+        logger.debug('done    =', done);
+        logger.debug('value   =', value);
+        logger.debug('current =', this.current);
+        logger.debug('count   =', this.count);
+
+        if (!done && this.current <= this.count) {
             this.current += 1;
+            return {
+                done,
+                value,
+            };
         }
+
+        return {
+            done: true as any,
+            value: undefined,
+        };
     }
 
     private readonly _iter: AsyncIterable<T>;
@@ -36,7 +47,7 @@ export class IteratorTake<T> implements AsyncIterable<T> {
     private current = 1;
 }
 
-export function _take<T>(iter: AsyncIterable<T>, n: number) {
+export function _take<T>(iter: AsyncIterable<T>, count: number) {
     logger.trace('_take()');
-    return new Iterator<T>(new IteratorTake<T>(iter, n));
+    return new Iterator<T>(new IteratorTake<T>(iter, count));
 }

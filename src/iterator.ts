@@ -1,4 +1,4 @@
-import './array/iter';
+import './types/global';
 
 import { getLogger } from './logger';
 
@@ -27,14 +27,14 @@ export type IteratorHelper<Iter> = Iter extends Iterator<infer Type>
         : Omit<Iter, 'sum'>
     : unknown;
 
-function* toIt<T>(iter: T[]) {
+function* toIterable<T>(iter: T[]) {
     yield* iter;
 }
 
 export class Iterator<T> implements AsyncIterableIterator<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
-        const it = Array.isArray(iter) ? toIt(iter) : iter;
+        const it = Array.isArray(iter) ? toIterable(iter) : iter;
 
         this._iter = {
             async *[Symbol.asyncIterator]() {

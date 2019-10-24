@@ -1,11 +1,11 @@
 import { assert } from 'chai';
 
-import { Iterator } from '../../src';
+import { iterator } from '../../src';
 import { pair, Pair } from '../../src/types/pair';
 
 describe('test enumerate', () => {
     it(`enumerate(['a', 'b', 'c', 'd', 'e'])`, async () => {
-        const a = new Iterator(['a', 'b', 'c', 'd', 'e']);
+        const a = iterator(['a', 'b', 'c', 'd', 'e']);
 
         const actual: Pair<number, string>[] = [];
         const expected = [pair(0, 'a'), pair(1, 'b'), pair(2, 'c'), pair(3, 'd'), pair(4, 'e')];

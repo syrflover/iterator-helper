@@ -1,3 +1,5 @@
+import { iterator } from '.';
+
 import { getLogger } from './logger';
 
 const logger = getLogger('playground');

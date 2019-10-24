@@ -2,9 +2,9 @@ import { getLogger } from '../logger';
 
 import { iterator, Iterator, IteratorHelper } from '../iterator';
 
-import { EP } from '../types/promise';
+import { EP } from './promise';
 
-const logger = getLogger('Array');
+const logger = getLogger('global');
 
 declare global {
     interface Array<T> {
@@ -13,7 +13,7 @@ declare global {
 }
 
 Array.prototype.iter = function() {
-    logger.trace('iter()');
+    logger.trace('array', 'iter()');
     return iterator(this);
 };
 

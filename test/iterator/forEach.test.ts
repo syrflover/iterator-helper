@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { Iterator } from '../../src';
+import { iterator } from '../../src';
 
 describe('test forEach', () => {
     it('[1,2,3,4,5,6]', async () => {
@@ -9,7 +9,7 @@ describe('test forEach', () => {
         let actual = 0;
         const expected = a.length;
 
-        const it = new Iterator(a).forEach((_) => {
+        const it = iterator(a).forEach((_) => {
             actual += 1;
         });
 
