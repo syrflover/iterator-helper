@@ -1,4 +1,4 @@
-import { IteratorHelper } from '../iterator';
+import { Iterator } from '../iterator';
 import { logger } from '../logger';
 
 import { MapFn } from '../types/fn/map';
@@ -40,5 +40,5 @@ export class IteratorMap<T, R> implements AsyncIterableIterator<T> {
 
 export function _map<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, R>) {
     logger.trace('iterator/map', '_map()');
-    return new IteratorHelper<R>(new IteratorMap<T, R>(iter, fn));
+    return new Iterator<R>(new IteratorMap<T, R>(iter, fn));
 }

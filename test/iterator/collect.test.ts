@@ -1,10 +1,10 @@
 import { assert } from 'chai';
 
-import { IteratorHelper } from '../../src';
+import { Iterator } from '../../src';
 
 describe('test collect', () => {
     it('[1,2,3,4,5]', async () => {
-        const a = new IteratorHelper([1, 2, 3, 4, 5]);
+        const a = new Iterator([1, 2, 3, 4, 5]);
 
         const actual = await a.collect();
         const expected = [1, 2, 3, 4, 5];

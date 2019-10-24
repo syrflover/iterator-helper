@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { IteratorHelper } from '../../src';
+import { Iterator } from '../../src';
 
 describe('test Array.prototype.iter', () => {
     it('[1,2,3,4,5]', async () => {

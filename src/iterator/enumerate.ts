@@ -1,4 +1,4 @@
-import { IteratorHelper } from '../iterator';
+import { Iterator } from '../iterator';
 
 import { logger } from '../logger';
 import { pair } from '../types/pair';
@@ -34,5 +34,5 @@ export class IteratorEnumerate<T> implements AsyncIterator<[number, T]> {
 
 export function _enumerate<T>(iter: AsyncIterable<T>) {
     logger.trace('iterator/enumerate', '_enumerate()');
-    return new IteratorHelper<[number, T]>(new IteratorEnumerate<T>(iter));
+    return new Iterator<[number, T]>(new IteratorEnumerate<T>(iter));
 }

@@ -5,7 +5,7 @@
     "main": "build/index.js",
     "types": "build/index.d.ts",
     "scripts": {
-        "test": "tsc -p tsconfig.test.json && ts-mocha -p tsconfig.test.json test/**/*.test.ts",
+        "test": "tsc -p tsconfig.test.json && eslint test/**/*.ts && ts-mocha -p tsconfig.test.json test/**/*.test.ts",
         "build": "rm -rf ./build && tsc -p tsconfig.build.json",
         "lint": "eslint src/**/*.ts",
         "prettier": "eslint-config-airbnb"

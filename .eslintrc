@@ -35,6 +35,9 @@
         "generator-star-spacing": "off",
         "space-before-function-paren": "off",
         "consistent-return": "off",
+        "implicit-arrow-linebreak": "off",
+        "wrap-iife": "off",
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
 
         "func-names": "off",
 

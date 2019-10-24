@@ -1,5 +1,5 @@
 import { logger } from '../logger';
-import { IteratorHelper } from '../iterator';
+import { Iterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
@@ -33,5 +33,5 @@ export class IteratorFilter<T> implements AsyncIterable<T> {
 
 export function _filter<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>) {
     logger.trace('iterator/filter', '_filter()');
-    return new IteratorHelper<T>(new IteratorFilter<T>(iter, predicate));
+    return new Iterator<T>(new IteratorFilter<T>(iter, predicate));
 }
