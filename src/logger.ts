@@ -1,5 +1,10 @@
-import { getLogger } from 'log4js';
+import { getLogger as gl } from 'log4js';
 
-export const logger = getLogger('iterator-helper');
+const LOG_LEVEL = globalThis?.process?.env?.ITER_HELPER_LOG_LEVEL ?? '';
 
-logger.level = globalThis?.process?.env?.ITER_HELPER_LOG_LEVEL ?? '';
+export const getLogger = (label: string) => {
+    const logger = gl(label);
+    logger.level = LOG_LEVEL;
+
+    return logger;
+};

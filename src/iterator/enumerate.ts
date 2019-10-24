@@ -1,21 +1,24 @@
+import { getLogger } from '../logger';
+
 import { Iterator } from '../iterator';
 
-import { logger } from '../logger';
 import { pair } from '../types/pair';
+
+const logger = getLogger('iterator/enumerate');
 
 export class IteratorEnumerate<T> implements AsyncIterator<[number, T]> {
     constructor(iter: AsyncIterable<T>) {
-        logger.trace('IteratorEnumerate', 'constructor()');
+        logger.trace('constructor()');
         this._iter = iter;
     }
 
     public [Symbol.asyncIterator]() {
-        logger.trace('IteratorEnumerate', '[Symbol.asyncIterator]()');
+        logger.trace('[Symbol.asyncIterator]()');
         return this;
     }
 
     public async next() {
-        logger.trace('IteratorEnumerate', 'next()');
+        logger.trace('next()');
         const it = this._iter[Symbol.asyncIterator]();
         const { done, value: v } = await it.next();
 
@@ -33,6 +36,6 @@ export class IteratorEnumerate<T> implements AsyncIterator<[number, T]> {
 }
 
 export function _enumerate<T>(iter: AsyncIterable<T>) {
-    logger.trace('iterator/enumerate', '_enumerate()');
+    logger.trace('_enumerate()');
     return new Iterator<[number, T]>(new IteratorEnumerate<T>(iter));
 }

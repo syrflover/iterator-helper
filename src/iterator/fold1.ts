@@ -1,11 +1,13 @@
-import { logger } from '../logger';
+import { getLogger } from '../logger';
 
 import { FoldFn } from '../types/fn/fold';
 
 import { _fold } from './fold';
 
+const logger = getLogger('iterator/fold1');
+
 export async function _fold1<T>(iter: AsyncIterable<T>, fn: FoldFn<T>) {
-    logger.trace('iterator/fold1', '_fold1()');
+    logger.trace('_fold1()');
     const it = iter[Symbol.asyncIterator]();
     const { done, value: head } = await it.next();
 

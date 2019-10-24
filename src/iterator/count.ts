@@ -1,7 +1,9 @@
-import { logger } from '../logger';
+import { getLogger } from '../logger';
+
+const logger = getLogger('iterator/count');
 
 export async function _count<T>(iter: AsyncIterable<T>): Promise<number> {
-    logger.trace('iterator/count', '_count()');
+    logger.trace('_count()');
     let count = 0;
 
     for await (const _ of iter) {
