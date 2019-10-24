@@ -10,6 +10,8 @@ import { FoldFn } from './types/fn/fold';
 import { MapFn } from './types/fn/map';
 import { PredicateFn } from './types/fn/predicate';
 
+import { _all } from './iterator/all';
+import { _any } from './iterator/any';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
 import { _enumerate } from './iterator/enumerate';
@@ -60,69 +62,79 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
 
     private readonly _iter: AsyncIterable<T>;
 
+    public all(fn: PredicateFn<T>) {
+        logger.trace('all()');
+        return _all(this, fn);
+    }
+
+    public any(fn: PredicateFn<T>) {
+        logger.trace('any()');
+        return _any(this, fn);
+    }
+
     public collect() {
         logger.trace('collect()');
-        return _collect(this._iter);
+        return _collect(this);
     }
 
     public count() {
         logger.trace('count()');
-        return _count(this._iter);
+        return _count(this);
     }
 
     public enumerate() {
         logger.trace('enumerate()');
-        return _enumerate(this._iter);
+        return _enumerate(this);
     }
 
     public filter(predicate: PredicateFn<T>) {
         logger.trace('filter()');
-        return _filter(this._iter, predicate);
+        return _filter(this, predicate);
     }
 
     public find(predicate: PredicateFn<T>) {
         logger.trace('find()');
-        return _find(this._iter, predicate);
+        return _find(this, predicate);
     }
 
     public foldl<B>(init: B | Promise<B>, fn: FoldFn<T, B>) {
         logger.trace('fold()');
-        return _foldl(this._iter, init, fn);
+        return _foldl(this, init, fn);
     }
 
     public foldl1(fn: FoldFn<T, T>) {
         logger.trace('fold1()');
-        return _foldl1(this._iter, fn);
+        return _foldl1(this, fn);
     }
 
     public forEach(fn: ForEachFn<T>) {
         logger.trace('forEach()');
-        return _forEach(this._iter, fn);
+        return _forEach(this, fn);
     }
 
     public map<R>(fn: MapFn<T, R>) {
         logger.trace('map()');
-        return _map(this._iter, fn);
+        return _map(this, fn);
     }
 
     public product() {
         logger.trace('product()');
-        return _product(this._iter as any);
+        return _product(this as any);
     }
 
     public reverse() {
         logger.trace('reverse()');
-        return _reverse(this._iter);
+        return _reverse(this);
     }
 
     public sum() {
         logger.trace('sum()');
-        return _sum(this._iter as any);
+        return _sum(this as any);
     }
 
     public take(count: number) {
         logger.trace('take()');
-        return _take(this._iter, count);
+        return _take(this, count);
     }
 }
 
