@@ -2,6 +2,12 @@
 
 Iterator Helper used `AsyncIterator`, not used `Iterator`
 
+## Installation
+
+```bash
+npm install @syrflover/iterator-helper
+```
+
 ## Usage
 
 ```typescript
