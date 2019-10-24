@@ -18,10 +18,11 @@ import { _filter } from './iterator/filter';
 import { _forEach } from './iterator/forEach';
 import { _find } from './iterator/find';
 import { _take } from './iterator/take';
-import { _fold } from './iterator/fold';
-import { _fold1 } from './iterator/fold1';
-import { _sum } from './iterator/sum';
+import { _foldl } from './iterator/foldl';
+import { _foldl1 } from './iterator/foldl1';
 import { _product } from './iterator/product';
+import { _reverse } from './iterator/reverse';
+import { _sum } from './iterator/sum';
 
 const logger = getLogger('iterator');
 
@@ -84,14 +85,14 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
         return _find(this._iter, predicate);
     }
 
-    public fold(init: T | Promise<T>, fn: FoldFn<T>) {
+    public foldl<B>(init: B | Promise<B>, fn: FoldFn<T, B>) {
         logger.trace('fold()');
-        return _fold(this._iter, init, fn);
+        return _foldl(this._iter, init, fn);
     }
 
-    public fold1(fn: FoldFn<T>) {
+    public foldl1(fn: FoldFn<T, T>) {
         logger.trace('fold1()');
-        return _fold1(this._iter, fn);
+        return _foldl1(this._iter, fn);
     }
 
     public forEach(fn: ForEachFn<T>) {
@@ -107,6 +108,11 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
     public product() {
         logger.trace('product()');
         return _product(this._iter as any);
+    }
+
+    public reverse() {
+        logger.trace('reverse()');
+        return _reverse(this._iter);
     }
 
     public sum() {

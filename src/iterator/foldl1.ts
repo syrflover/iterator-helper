@@ -2,11 +2,11 @@ import { getLogger } from '../logger';
 
 import { FoldFn } from '../types/fn/fold';
 
-import { _fold } from './fold';
+import { _foldl } from './foldl';
 
 const logger = getLogger('iterator/fold1');
 
-export async function _fold1<T>(iter: AsyncIterable<T>, fn: FoldFn<T>) {
+export async function _foldl1<A, B>(iter: AsyncIterable<A>, fn: FoldFn<A, B>) {
     logger.trace('_fold1()');
     const it = iter[Symbol.asyncIterator]();
     const { done, value: head } = await it.next();
@@ -15,5 +15,5 @@ export async function _fold1<T>(iter: AsyncIterable<T>, fn: FoldFn<T>) {
         throw new Error('Least one element is required in Iterator');
     }
 
-    return _fold<T>(iter, head, fn);
+    return _foldl<A, B>(iter, head, fn);
 }

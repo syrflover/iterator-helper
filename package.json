@@ -6,7 +6,7 @@
     "types": "build/index.d.ts",
     "scripts": {
         "start": "ITER_HELPER_LOG_LEVEL=trace ts-node -P tsconfig.json src/playground.ts",
-        "test": "tsc -p tsconfig.test.json && eslint test/**/*.ts && ts-mocha -p tsconfig.test.json test/**/*.test.ts",
+        "test": "tsc -p tsconfig.test.json && eslint test/**/*.ts && ts-mocha -p tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts",
         "build": "rm -rf ./build && tsc -p tsconfig.build.json",
         "lint": "eslint src/**/*.ts",
         "prepublishOnly": "npm run lint && npm run test && npm run build"

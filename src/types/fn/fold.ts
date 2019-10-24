@@ -1,1 +1,1 @@
-export type FoldFn<T> = (acc: T, elem: T) => T | Promise<T>;
+export type FoldFn<A, B> = (acc: B, elem: A) => B | Promise<B>;
