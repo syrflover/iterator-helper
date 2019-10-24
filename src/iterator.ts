@@ -106,9 +106,9 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
         return _fold1(this._iter, fn);
     }
 
-    public take(n: number) {
+    public take(count: number) {
         logger.trace('take()');
-        return _take(this._iter, n);
+        return _take(this._iter, count);
     }
 
     public sum() {
