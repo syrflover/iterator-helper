@@ -1,3 +1,5 @@
+import './types/global';
+
 import { iterator } from '.';
 
 import { getLogger } from './logger';
