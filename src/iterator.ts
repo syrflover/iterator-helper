@@ -21,8 +21,19 @@ import { _sum } from './iterator/sum';
 
 const logger = getLogger('iterator');
 
+/*
+if (Type === number) {
+    Iter
+} else if (Type === bigint) {
+    Iter
+} else {
+    Omit<Iter, 'sum'>
+}
+*/
 export type IteratorHelper<Iter> = Iter extends Iterator<infer Type>
     ? Type extends number
+        ? Iter
+        : Type extends bigint
         ? Iter
         : Omit<Iter, 'sum'>
     : unknown;
@@ -31,10 +42,18 @@ function* toIterable<T>(iter: T[]) {
     yield* iter;
 }
 
+function isTypedArray(iter: Iterable<any> | AsyncIterable<any>) {
+    return ArrayBuffer.isView(iter);
+}
+
+function isArrayLike(iter: Iterable<any> | AsyncIterable<any>): iter is any[] {
+    return Array.isArray(iter) || isTypedArray(iter);
+}
+
 export class Iterator<T> implements AsyncIterableIterator<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
-        const it = Array.isArray(iter) ? toIterable<T>(iter) : iter;
+        const it = isArrayLike(iter) ? toIterable<T>(iter) : iter;
 
         this._iter = {
             async *[Symbol.asyncIterator]() {
