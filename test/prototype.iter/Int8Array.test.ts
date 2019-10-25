@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { Iterator } from '../../src';
+import { AsyncIterator_ } from '../../src';
 
 describe('test prototype.iter()', () => {
     it('Int8Array', async () => {

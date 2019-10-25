@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 
 import { iterator } from '../../src';
+
 import { Pair } from '../../src/types/pair';
 
 describe('test any', () => {
