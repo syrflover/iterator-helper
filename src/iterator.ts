@@ -15,16 +15,17 @@ import { _any } from './iterator/any';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
 import { _enumerate } from './iterator/enumerate';
-import { _map } from './iterator/map';
 import { _filter } from './iterator/filter';
-import { _forEach } from './iterator/forEach';
 import { _find } from './iterator/find';
-import { _take } from './iterator/take';
 import { _foldl } from './iterator/foldl';
 import { _foldl1 } from './iterator/foldl1';
+import { _forEach } from './iterator/forEach';
+import { _map } from './iterator/map';
 import { _product } from './iterator/product';
 import { _reverse } from './iterator/reverse';
 import { _sum } from './iterator/sum';
+import { _take } from './iterator/take';
+import { _takeWhile } from './iterator/takeWhile';
 
 const logger = getLogger('iterator');
 
@@ -132,9 +133,14 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
         return _sum(this as any);
     }
 
-    public take(count: number) {
+    public take(limit: number) {
         logger.trace('take()');
-        return _take(count, this);
+        return _take(limit, this);
+    }
+
+    public takeWhile(predicate: PredicateFn<T>) {
+        logger.trace('takeWhile()');
+        return _takeWhile(predicate, this);
     }
 }
 
