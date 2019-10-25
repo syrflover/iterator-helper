@@ -12,7 +12,11 @@
         "prepublishOnly": "npm run lint && npm run test && npm run build"
     },
     "author": {
-        "name": "Lee Tae Woo"
+        "name": "Lee Tae Woo",
+        "email": "syr@meu.works"
+    },
+    "bugs": {
+        "url": "https://github.com/syrflover/iterator-helper/issues"
     },
     "repository": {
         "url": "https://github.com/syrflover/iterator-helper.git",

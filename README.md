@@ -14,7 +14,7 @@ npm install @syrflover/iterator
 ## Usage
 
 ```typescript
-import '@syrflover/iterator';
+import '@syrflover/iterator/build/types/global';
 
 [1, 2, 3, 4, 5, 6]
     .iter()

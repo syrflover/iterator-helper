@@ -1,5 +1,3 @@
-import './types/global';
-
 import { getLogger } from './logger';
 
 import { toIterable } from './lib/iterable';

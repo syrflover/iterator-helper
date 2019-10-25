@@ -1,6 +1,6 @@
-import { assert } from 'chai';
+import '../../src/types/global';
 
-import { AsyncIterator_ } from '../../src';
+import { assert } from 'chai';
 
 describe('test prototype.iter()', () => {
     it('Array<number>', async () => {
