@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { Iterator } from '../iterator';
+import { AsyncIterator_ } from '../iterator';
 
 import { _foldl } from './foldl';
 
@@ -16,5 +16,5 @@ export function _reverse<T>(iter: AsyncIterable<T>) {
     const emptyIter = toAsyncIterable<T>([]);
     const p = _foldl((acc, e) => flip(cons, acc, e), emptyIter, iter);
 
-    return new Iterator<T>(toAsyncIterable<T>(p));
+    return new AsyncIterator_<T>(toAsyncIterable<T>(p));
 }

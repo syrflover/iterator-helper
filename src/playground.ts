@@ -3,7 +3,7 @@ import './types/global';
 import { iterator } from '.';
 
 import { getLogger } from './logger';
-import { Iterator } from './iterator';
+import { AsyncIterator_ } from './iterator';
 
 const logger = getLogger('playground');
 

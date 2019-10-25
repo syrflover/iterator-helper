@@ -4,11 +4,7 @@ import { FoldFn } from '../types/fn/fold';
 
 const logger = getLogger('iterator/fold');
 
-async function _foldl_impl_fn<A, B>(
-    fn: FoldFn<A, B>,
-    iter: AsyncIterable<A>,
-    accumulator: B | Promise<B>,
-): Promise<B> {
+async function _foldl_impl_fn<A, B>(fn: FoldFn<A, B>, iter: AsyncIterable<A>, accumulator: B | Promise<B>): Promise<B> {
     logger.trace('_foldl_impl_fn()');
     const acc = await accumulator;
     const it = iter[Symbol.asyncIterator]();

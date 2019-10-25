@@ -1,5 +1,5 @@
 import './types/global';
 
-import { Iterator, ToIterator, iterator } from './iterator';
+import { AsyncIterator_, ToAsyncIterator, iterator } from './iterator';
 
-export { Iterator, ToIterator, iterator };
+export { AsyncIterator_, ToAsyncIterator, iterator };

@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { iterator, ToIterator } from '../iterator';
+import { iterator, ToAsyncIterator } from '../iterator';
 
 import { EP } from './promise';
 
@@ -8,43 +8,43 @@ const logger = getLogger('global');
 
 declare global {
     interface Array<T> {
-        iter(): ToIterator<EP<T>>;
+        iter(): ToAsyncIterator<EP<T>>;
     }
 
     interface Int8Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Int16Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Int32Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Uint8Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Uint8ClampedArray {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Uint16Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Uint32Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Float32Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 
     interface Float64Array {
-        iter(): ToIterator<number>;
+        iter(): ToAsyncIterator<number>;
     }
 }
 

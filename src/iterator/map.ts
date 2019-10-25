@@ -1,12 +1,12 @@
 import { getLogger } from '../logger';
 
-import { Iterator } from '../iterator';
+import { AsyncIterator_ } from '../iterator';
 
 import { MapFn } from '../types/fn/map';
 
 const logger = getLogger('iterator/map');
 
-export class IteratorMap<T, R> implements AsyncIterableIterator<T> {
+export class AsyncIteratorMap<T, R> implements AsyncIterableIterator<T> {
     constructor(fn: MapFn<T, R>, iter: AsyncIterable<T>) {
         logger.trace('constructor()');
         this.fn = fn;
@@ -42,5 +42,5 @@ export class IteratorMap<T, R> implements AsyncIterableIterator<T> {
 
 export function _map<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) {
     logger.trace('_map()');
-    return new Iterator<R>(new IteratorMap<T, R>(fn, iter));
+    return new AsyncIterator_<R>(new AsyncIteratorMap<T, R>(fn, iter));
 }

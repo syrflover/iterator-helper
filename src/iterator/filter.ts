@@ -1,12 +1,12 @@
 import { getLogger } from '../logger';
 
-import { Iterator } from '../iterator';
+import { AsyncIterator_ } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
 const logger = getLogger('iterator/filter');
 
-export class IteratorFilter<T> implements AsyncIterable<T> {
+export class AsyncIteratorFilter<T> implements AsyncIterable<T> {
     constructor(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
         logger.trace('constructor()');
 
@@ -36,5 +36,5 @@ export class IteratorFilter<T> implements AsyncIterable<T> {
 
 export function _filter<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_filter()');
-    return new Iterator<T>(new IteratorFilter<T>(predicate, iter));
+    return new AsyncIterator_<T>(new AsyncIteratorFilter<T>(predicate, iter));
 }

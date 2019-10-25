@@ -1,10 +1,10 @@
 import { getLogger } from '../logger';
 
-import { Iterator } from '../iterator';
+import { AsyncIterator_ } from '../iterator';
 
 const logger = getLogger('iterator/take');
 
-export class IteratorTake<T> implements AsyncIterableIterator<T> {
+export class AsyncIteratorTake<T> implements AsyncIterableIterator<T> {
     constructor(limit: number, iter: AsyncIterable<T>) {
         logger.trace('constructor()');
         this._iter = iter;
@@ -49,5 +49,5 @@ export class IteratorTake<T> implements AsyncIterableIterator<T> {
 
 export function _take<T>(limit: number, iter: AsyncIterable<T>) {
     logger.trace('_take()');
-    return new Iterator<T>(new IteratorTake<T>(limit, iter));
+    return new AsyncIterator_<T>(new AsyncIteratorTake<T>(limit, iter));
 }

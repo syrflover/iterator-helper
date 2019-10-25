@@ -1,12 +1,12 @@
 import { getLogger } from '../logger';
 
-import { Iterator } from '../iterator';
+import { AsyncIterator_ } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
 const logger = getLogger('iterator/takeWhile');
 
-export class IteratorTakeWhile<T> implements AsyncIterableIterator<T> {
+export class AsyncIteratorTakeWhile<T> implements AsyncIterableIterator<T> {
     constructor(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
         logger.trace('constructor()');
         this._iter = iter;
@@ -48,5 +48,5 @@ export class IteratorTakeWhile<T> implements AsyncIterableIterator<T> {
 }
 
 export function _takeWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
-    return new Iterator<T>(new IteratorTakeWhile<T>(predicate, iter));
+    return new AsyncIterator_<T>(new AsyncIteratorTakeWhile<T>(predicate, iter));
 }

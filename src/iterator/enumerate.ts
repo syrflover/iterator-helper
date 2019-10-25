@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { Iterator } from '../iterator';
+import { AsyncIterator_ } from '../iterator';
 
 import { pair } from '../types/pair';
 
@@ -37,5 +37,5 @@ export class IteratorEnumerate<T> implements AsyncIterator<[number, T]> {
 
 export function _enumerate<T>(iter: AsyncIterable<T>) {
     logger.trace('_enumerate()');
-    return new Iterator<[number, T]>(new IteratorEnumerate<T>(iter));
+    return new AsyncIterator_<[number, T]>(new IteratorEnumerate<T>(iter));
 }

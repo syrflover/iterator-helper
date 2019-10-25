@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { Iterator } from '../iterator';
+import { AsyncIterator_ } from '../iterator';
 
 const logger = getLogger('iterator/chain');
 
@@ -12,5 +12,5 @@ async function* _chain_impl_fn<T>(iter: AsyncIterable<T>, other: Iterable<T> | A
 
 export function _chain<T>(iter: AsyncIterable<T>, other: Iterable<T> | AsyncIterable<T>) {
     logger.trace('_chain()');
-    return new Iterator(_chain_impl_fn(iter, other));
+    return new AsyncIterator_(_chain_impl_fn(iter, other));
 }

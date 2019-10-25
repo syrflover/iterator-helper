@@ -32,11 +32,11 @@ import { _takeWhile } from './iterator/takeWhile';
 
 const logger = getLogger('iterator');
 
-export type ToIterator<Type> = Type extends number
-    ? Iterator<Type>
-    : Omit<Iterator<Type>, 'sum' | 'product'>;
+export type ToAsyncIterator<Type> = Type extends number
+    ? AsyncIterator_<Type>
+    : Omit<AsyncIterator_<Type>, 'sum' | 'product'>;
 
-export class Iterator<T> implements AsyncIterableIterator<T> {
+export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
         const it = isArrayLike(iter) ? toIterable(iter) : iter;
@@ -164,5 +164,5 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
     logger.trace('iterator()');
-    return new Iterator<T>(iter) as ToIterator<T>;
+    return new AsyncIterator_<T>(iter) as ToAsyncIterator<T>;
 }
