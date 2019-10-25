@@ -15,6 +15,7 @@ import { _any } from './iterator/any';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
 import { _drop } from './iterator/drop';
+import { _dropWhile } from './iterator/dropWhile';
 import { _enumerate } from './iterator/enumerate';
 import { _filter } from './iterator/filter';
 import { _find } from './iterator/find';
@@ -87,6 +88,11 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
     public drop(count: number) {
         logger.trace('drop()');
         return _drop(count, this);
+    }
+
+    public dropWhile(predicate: PredicateFn<T>) {
+        logger.trace('dropWhile()');
+        return _dropWhile(predicate, this);
     }
 
     public enumerate() {

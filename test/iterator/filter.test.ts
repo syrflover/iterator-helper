@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { iterator } from '../../src';
 
 describe('test filter', () => {
-    it('even', async () => {
+    it('is even', async () => {
         const a = iterator([1, 2, 3, 4, 5, 6]);
 
         const actual: number[] = [];
