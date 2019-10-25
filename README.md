@@ -36,6 +36,8 @@ iterator([1, 2, 3, 4, 5, 6])
     .then((r) => logger.info(r)); // 15
 ```
 
-## Reference
+## References
 
 -   https://github.com/tc39/proposal-iterator-helpers
+-   https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html
+-   https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html
