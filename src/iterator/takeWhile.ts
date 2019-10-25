@@ -4,49 +4,34 @@ import { AsyncIterator_ } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
+import { next } from './lib/next';
+
 const logger = getLogger('iterator/takeWhile');
 
-export class AsyncIteratorTakeWhile<T> implements AsyncIterableIterator<T> {
-    constructor(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
-        logger.trace('constructor()');
-        this._iter = iter;
-        this.predicate = predicate;
+async function* _take_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
+    logger.trace('_take_while_impl_fn()');
+    const { done, value } = await next(iter);
+
+    logger.debug('done      =', done);
+    logger.debug('value     =', value);
+
+    if (done) {
+        return;
     }
 
-    public [Symbol.asyncIterator]() {
-        logger.trace('[Symbol.asyncIterator]()');
-        return this;
+    const condition = await predicate(value);
+
+    logger.debug('condition =', condition);
+
+    if (!condition) {
+        return;
     }
 
-    public async next() {
-        logger.trace('next()');
-        const it = this._iter[Symbol.asyncIterator]();
-        const { done, value } = await it.next();
+    yield value;
 
-        logger.debug('done             =', done);
-        logger.debug('value            =', value);
-
-        if (!done) {
-            const condition = await this.predicate(value);
-            logger.debug('predicate(value) =', condition);
-
-            return {
-                done: !condition,
-                value,
-            };
-        }
-
-        return {
-            done,
-            value,
-        };
-    }
-
-    private readonly _iter: AsyncIterable<T>;
-
-    private readonly predicate: PredicateFn<T>;
+    yield* _take_while_impl_fn(iter, predicate);
 }
 
 export function _takeWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
-    return new AsyncIterator_<T>(new AsyncIteratorTakeWhile<T>(predicate, iter));
+    return new AsyncIterator_(_take_while_impl_fn(iter, predicate));
 }

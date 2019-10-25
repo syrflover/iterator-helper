@@ -4,43 +4,31 @@ import { AsyncIterator_ } from '../iterator';
 
 import { MapFn } from '../types/fn/map';
 
+import { next } from './lib/next';
+
 const logger = getLogger('iterator/map');
 
-export class AsyncIteratorMap<T, R> implements AsyncIterableIterator<T> {
-    constructor(fn: MapFn<T, R>, iter: AsyncIterable<T>) {
-        logger.trace('constructor()');
-        this.fn = fn;
-        this._iter = iter;
+async function* _map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, R>): AsyncIterable<R> {
+    logger.trace('_map_impl_fn()');
+    const { done, value } = await next(iter);
+
+    logger.debug('done   =', done);
+    logger.debug('value  =', value);
+
+    if (done) {
+        return;
     }
 
-    public [Symbol.asyncIterator]() {
-        logger.trace('[Symbol.asyncIterator]()');
-        return this;
-    }
+    const mapped = await fn(value);
 
-    public async next() {
-        logger.trace('next()');
-        const it = this._iter[Symbol.asyncIterator]();
-        const { done, value: v } = await it.next();
+    logger.debug('mapped =', mapped);
 
-        const value = !done ? await this.fn(v) : v;
+    yield mapped;
 
-        logger.debug('done      =', done);
-        logger.debug('value     =', v);
-        logger.debug('fn(value) =', value);
-
-        return {
-            done,
-            value,
-        };
-    }
-
-    private readonly _iter: AsyncIterable<T>;
-
-    private fn: MapFn<T, R>;
+    yield* _map_impl_fn(iter, fn);
 }
 
 export function _map<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) {
     logger.trace('_map()');
-    return new AsyncIterator_<R>(new AsyncIteratorMap<T, R>(fn, iter));
+    return new AsyncIterator_(_map_impl_fn(iter, fn));
 }

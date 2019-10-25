@@ -2,13 +2,14 @@ import { getLogger } from '../logger';
 
 import { FoldFn } from '../types/fn/fold';
 
+import { next } from './lib/next';
+
 const logger = getLogger('iterator/fold');
 
-async function _foldl_impl_fn<A, B>(fn: FoldFn<A, B>, iter: AsyncIterable<A>, accumulator: B | Promise<B>): Promise<B> {
+async function _foldl_impl_fn<A, B>(iter: AsyncIterable<A>, accumulator: B | Promise<B>, fn: FoldFn<A, B>): Promise<B> {
     logger.trace('_foldl_impl_fn()');
     const acc = await accumulator;
-    const it = iter[Symbol.asyncIterator]();
-    const { done, value: elem } = await it.next();
+    const { done, value: elem } = await next(iter);
 
     logger.debug('done        =', done);
     logger.debug('value       =', elem);
@@ -18,11 +19,11 @@ async function _foldl_impl_fn<A, B>(fn: FoldFn<A, B>, iter: AsyncIterable<A>, ac
         return acc;
     }
 
-    return _foldl_impl_fn(fn, iter, await fn(acc, elem));
+    return _foldl_impl_fn(iter, await fn(acc, elem), fn);
 }
 
 // (b -> a -> b) -> b -> t a -> b
 export function _foldl<A, B>(fn: FoldFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) {
     logger.trace('_fold()');
-    return _foldl_impl_fn(fn, iter, init);
+    return _foldl_impl_fn(iter, init, fn);
 }

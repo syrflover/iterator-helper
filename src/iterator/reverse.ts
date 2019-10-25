@@ -11,10 +11,13 @@ import { cons } from './lib/cons';
 
 const logger = getLogger('iterator/reverse');
 
+function _reverse_impl_fn<T>(iter: AsyncIterable<T>) {
+    logger.trace('_reverse_impl_fn()');
+    const emptyIter = toAsyncIterable<T>([]);
+    return _foldl((acc, e) => flip(cons, acc, e), emptyIter, iter);
+}
+
 export function _reverse<T>(iter: AsyncIterable<T>) {
     logger.trace('_reverse()');
-    const emptyIter = toAsyncIterable<T>([]);
-    const p = _foldl((acc, e) => flip(cons, acc, e), emptyIter, iter);
-
-    return new AsyncIterator_<T>(toAsyncIterable<T>(p));
+    return new AsyncIterator_(toAsyncIterable(_reverse_impl_fn(iter)));
 }

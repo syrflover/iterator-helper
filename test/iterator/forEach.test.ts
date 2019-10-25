@@ -9,13 +9,9 @@ describe('test forEach', () => {
         let actual = 0;
         const expected = a.length;
 
-        const it = iterator(a).forEach((_) => {
+        const it = await iterator(a).forEach((_) => {
             actual += 1;
         });
-
-        for await (const _ of it) {
-            (() => 0)();
-        }
 
         assert.strictEqual(actual, expected);
     });

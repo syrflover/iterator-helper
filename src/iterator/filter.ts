@@ -4,37 +4,33 @@ import { AsyncIterator_ } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
+import { next } from './lib/next';
+
 const logger = getLogger('iterator/filter');
 
-export class AsyncIteratorFilter<T> implements AsyncIterable<T> {
-    constructor(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
-        logger.trace('constructor()');
+async function* _filter_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
+    logger.trace('_filter_impl_fn()');
+    const { done, value } = await next(iter);
 
-        this.predicate = predicate;
-        this._iter = iter;
+    logger.debug('done      =', done);
+    logger.debug('value     =', value);
+
+    if (done) {
+        return;
     }
 
-    public async *[Symbol.asyncIterator]() {
-        logger.trace('[Symbol.asyncIterator]()');
+    const condition = await predicate(value);
 
-        for await (const elem of this._iter) {
-            const condition = await this.predicate(elem);
+    logger.debug('condition =', condition);
 
-            logger.debug('elem            =', elem);
-            logger.debug('predicate(elem) =', condition);
-
-            if (condition) {
-                yield elem;
-            }
-        }
+    if (condition) {
+        yield value;
     }
 
-    private readonly _iter: AsyncIterable<T>;
-
-    private predicate: PredicateFn<T>;
+    yield* _filter_impl_fn(iter, predicate);
 }
 
 export function _filter<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_filter()');
-    return new AsyncIterator_<T>(new AsyncIteratorFilter<T>(predicate, iter));
+    return new AsyncIterator_(_filter_impl_fn(iter, predicate));
 }

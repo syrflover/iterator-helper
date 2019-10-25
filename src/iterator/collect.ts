@@ -1,11 +1,12 @@
 import { getLogger } from '../logger';
 
+import { next } from './lib/next';
+
 const logger = getLogger('iterator/collect');
 
 async function _collect_impl_fn<T>(iter: AsyncIterable<T>, r: T[] = []): Promise<T[]> {
     logger.trace('_collect_impl_fn()');
-    const it = iter[Symbol.asyncIterator]();
-    const { done, value } = await it.next();
+    const { done, value } = await next(iter);
 
     logger.debug('done  =', done);
     logger.debug('value =', value);
@@ -17,7 +18,7 @@ async function _collect_impl_fn<T>(iter: AsyncIterable<T>, r: T[] = []): Promise
     return _collect_impl_fn(iter, [...r, value]);
 }
 
-export function _collect<T>(iter: AsyncIterable<T>): Promise<T[]> {
+export function _collect<T>(iter: AsyncIterable<T>) {
     logger.trace('_collect()');
     return _collect_impl_fn(iter);
 }

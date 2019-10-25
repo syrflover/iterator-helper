@@ -2,40 +2,26 @@ import { getLogger } from '../logger';
 
 import { AsyncIterator_ } from '../iterator';
 
-import { pair } from '../types/pair';
+import { pair, Pair } from '../types/pair';
+
+import { next } from './lib/next';
 
 const logger = getLogger('iterator/enumerate');
 
-export class IteratorEnumerate<T> implements AsyncIterator<[number, T]> {
-    constructor(iter: AsyncIterable<T>) {
-        logger.trace('constructor()');
-        this._iter = iter;
+async function* _enumerate_impl_fn<T>(iter: AsyncIterable<T>, current: number = 0): AsyncIterable<Pair<number, T>> {
+    logger.trace('_enumerate_impl_fn()');
+    const { done, value } = await next(iter);
+
+    if (done) {
+        return;
     }
 
-    public [Symbol.asyncIterator]() {
-        logger.trace('[Symbol.asyncIterator]()');
-        return this;
-    }
+    yield [current, value];
 
-    public async next() {
-        logger.trace('next()');
-        const it = this._iter[Symbol.asyncIterator]();
-        const { done, value: v } = await it.next();
-
-        const value = pair<number, T>(this.count++, v);
-
-        return {
-            done,
-            value,
-        };
-    }
-
-    public count: number = 0;
-
-    private readonly _iter: AsyncIterable<T>;
+    yield* _enumerate_impl_fn(iter, current + 1);
 }
 
 export function _enumerate<T>(iter: AsyncIterable<T>) {
     logger.trace('_enumerate()');
-    return new AsyncIterator_<[number, T]>(new IteratorEnumerate<T>(iter));
+    return new AsyncIterator_(_enumerate_impl_fn(iter));
 }

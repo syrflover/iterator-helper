@@ -3,36 +3,35 @@ import { getLogger } from '../logger';
 import { AsyncIterator_ } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
+
 import { cons } from './lib/cons';
-import { toAsyncIterable } from '../lib/toIterable';
+import { next } from './lib/next';
 
 const logger = getLogger('iterator/dropWhile');
 
-async function* _drop_while_impl_fn<T>(
-    predicate: PredicateFn<T>,
-    iter: AsyncIterable<T>,
-): AsyncIterable<T> {
+async function* _drop_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
     logger.trace('_drop_while_impl_fn()');
-    const it = iter[Symbol.asyncIterator]();
-    const { done, value } = await it.next();
+    const { done, value } = await next(iter);
+
+    logger.debug('done      =', done);
+    logger.debug('value     =', value);
 
     if (done) {
-        yield* toAsyncIterable([]);
         return;
     }
+
     const condition = await predicate(value);
+
+    logger.debug('condition =', condition);
 
     if (!condition) {
         yield* cons(value, iter);
         return;
     }
-    yield* _drop_while_impl_fn(predicate, iter);
+    yield* _drop_while_impl_fn(iter, predicate);
 }
 
-export function _dropWhile<T>(
-    predicate: PredicateFn<T>,
-    iter: AsyncIterable<T>,
-): AsyncIterator_<T> {
+export function _dropWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>): AsyncIterator_<T> {
     logger.trace('_dropWhile()');
-    return new AsyncIterator_<T>(_drop_while_impl_fn<T>(predicate, iter));
+    return new AsyncIterator_(_drop_while_impl_fn(iter, predicate));
 }
