@@ -13,9 +13,10 @@ const a = [1, 2, 3, Promise.resolve(4), 5, 6, 7, 8];
 const b = [1, 2, 3].iter();
 
 a.iter()
-    .chain([4, 5, 6])
+    .cycle()
+    .take(30)
     .collect()
-    .then((r) => logger.info(r));
+    .then((r) => logger.debug(r));
 
 /* b.filter((e) => e % 2 === 0)
     .map((e) => e + 1)

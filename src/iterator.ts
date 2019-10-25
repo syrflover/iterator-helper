@@ -2,8 +2,9 @@ import './types/global';
 
 import { getLogger } from './logger';
 
-import { isArrayLike } from './lib/isArrayLike';
-import { toIterable } from './lib/toIterable';
+import { toIterable } from './lib/iterable';
+
+import { isArrayLike } from './types/guard/isArrayLike';
 
 import { ForEachFn } from './types/fn/forEach';
 import { FoldFn } from './types/fn/fold';
@@ -15,6 +16,7 @@ import { _any } from './iterator/any';
 import { _chain } from './iterator/chain';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
+import { _cycle } from './iterator/cycle';
 import { _drop } from './iterator/drop';
 import { _dropWhile } from './iterator/dropWhile';
 import { _enumerate } from './iterator/enumerate';
@@ -89,6 +91,11 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
     public count() {
         logger.trace('count()');
         return _count<T>(this);
+    }
+
+    public cycle() {
+        logger.trace('cycle()');
+        return _cycle<T>(this);
     }
 
     public drop(count: number) {

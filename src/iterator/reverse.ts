@@ -4,7 +4,7 @@ import { AsyncIterator_ } from '../iterator';
 
 import { _foldl } from './foldl';
 
-import { toAsyncIterable } from '../lib/toIterable';
+import { toAsyncIterable } from '../lib/iterable';
 
 import { flip } from './lib/flip';
 import { cons } from './lib/cons';
