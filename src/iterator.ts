@@ -14,6 +14,7 @@ import { _all } from './iterator/all';
 import { _any } from './iterator/any';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
+import { _drop } from './iterator/drop';
 import { _enumerate } from './iterator/enumerate';
 import { _filter } from './iterator/filter';
 import { _find } from './iterator/find';
@@ -81,6 +82,11 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
     public count() {
         logger.trace('count()');
         return _count(this);
+    }
+
+    public drop(count: number) {
+        logger.trace('drop()');
+        return _drop(count, this);
     }
 
     public enumerate() {

@@ -1,7 +1,8 @@
 import { getLogger } from '../logger';
 
-import { ForEachFn } from '../types/fn/forEach';
 import { Iterator } from '../iterator';
+
+import { ForEachFn } from '../types/fn/forEach';
 
 const logger = getLogger('iterator/forEach');
 

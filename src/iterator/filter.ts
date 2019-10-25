@@ -1,4 +1,5 @@
 import { getLogger } from '../logger';
+
 import { Iterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';

@@ -1,7 +1,8 @@
 import { getLogger } from '../logger';
 
-import { PredicateFn } from '../types/fn/predicate';
 import { Iterator } from '../iterator';
+
+import { PredicateFn } from '../types/fn/predicate';
 
 const logger = getLogger('iterator/takeWhile');
 
