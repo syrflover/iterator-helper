@@ -2,13 +2,14 @@ import { getLogger } from '../logger';
 
 const logger = getLogger('iterator/collect');
 
-export async function _collect<T>(iter: AsyncIterable<T>): Promise<T[]> {
+export async function _collect<T>(iter: AsyncIterable<T>, r: T[] = []): Promise<T[]> {
     logger.trace('_collect()');
-    const res: T[] = [];
+    const it = iter[Symbol.asyncIterator]();
+    const { done, value } = await it.next();
 
-    for await (const elem of iter) {
-        res.push(elem);
+    if (done) {
+        return r;
     }
 
-    return res;
+    return _collect(iter, [...r, value]);
 }

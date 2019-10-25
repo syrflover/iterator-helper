@@ -2,13 +2,14 @@ import { getLogger } from '../logger';
 
 const logger = getLogger('iterator/count');
 
-export async function _count<T>(iter: AsyncIterable<T>): Promise<number> {
+export async function _count<T>(iter: AsyncIterable<T>, r: number = 0): Promise<number> {
     logger.trace('_count()');
-    let count = 0;
+    const it = iter[Symbol.asyncIterator]();
+    const { done } = await it.next();
 
-    for await (const _ of iter) {
-        count += 1;
+    if (done) {
+        return r;
     }
 
-    return count;
+    return _count(iter, r + 1);
 }
