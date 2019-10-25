@@ -12,6 +12,7 @@ import { PredicateFn } from './types/fn/predicate';
 
 import { _all } from './iterator/all';
 import { _any } from './iterator/any';
+import { _chain } from './iterator/chain';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
 import { _drop } from './iterator/drop';
@@ -73,6 +74,11 @@ export class Iterator<T> implements AsyncIterableIterator<T> {
     public any(fn: PredicateFn<T>) {
         logger.trace('any()');
         return _any(fn, this);
+    }
+
+    public chain(other: Iterable<T> | AsyncIterable<T>) {
+        logger.trace('chain()');
+        return _chain<T>(this, other);
     }
 
     public collect() {

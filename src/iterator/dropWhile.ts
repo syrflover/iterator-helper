@@ -8,27 +8,28 @@ import { toAsyncIterable } from '../lib/toIterable';
 
 const logger = getLogger('iterator/dropWhile');
 
-async function _dropWhileRecursively<T>(
+async function* _drop_while_impl_fn<T>(
     predicate: PredicateFn<T>,
     iter: AsyncIterable<T>,
-): Promise<AsyncIterable<T>> {
+): AsyncIterable<T> {
+    logger.trace('_drop_while_impl_fn()');
     const it = iter[Symbol.asyncIterator]();
     const { done, value } = await it.next();
 
     if (done) {
-        return toAsyncIterable([]);
+        yield* toAsyncIterable([]);
+        return;
     }
-
     const condition = await predicate(value);
 
     if (!condition) {
-        return cons(value, iter);
+        yield* cons(value, iter);
+        return;
     }
-
-    return _dropWhileRecursively(predicate, iter);
+    yield* _drop_while_impl_fn(predicate, iter);
 }
 
 export function _dropWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>): Iterator<T> {
     logger.trace('_dropWhile()');
-    return new Iterator<T>(toAsyncIterable<T>(_dropWhileRecursively<T>(predicate, iter)));
+    return new Iterator<T>(_drop_while_impl_fn<T>(predicate, iter));
 }

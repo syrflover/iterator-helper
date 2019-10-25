@@ -3,6 +3,7 @@ import './types/global';
 import { iterator } from '.';
 
 import { getLogger } from './logger';
+import { Iterator } from './iterator';
 
 const logger = getLogger('playground');
 
@@ -12,7 +13,7 @@ const a = [1, 2, 3, Promise.resolve(4), 5, 6, 7, 8];
 const b = [1, 2, 3].iter();
 
 a.iter()
-    .takeWhile((e) => e < 4)
+    .chain([4, 5, 6])
     .collect()
     .then((r) => logger.info(r));
 
