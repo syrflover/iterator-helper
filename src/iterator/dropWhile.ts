@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_ } from '../iterator';
+import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
@@ -31,7 +31,7 @@ async function* _drop_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: Predic
     yield* _drop_while_impl_fn(iter, predicate);
 }
 
-export function _dropWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>): AsyncIterator_<T> {
+export function _dropWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_dropWhile()');
-    return new AsyncIterator_(_drop_while_impl_fn(iter, predicate));
+    return (new AsyncIterator_(_drop_while_impl_fn(iter, predicate)) as unknown) as ToAsyncIterator<T>;
 }

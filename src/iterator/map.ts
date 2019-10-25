@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_ } from '../iterator';
+import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { MapFn } from '../types/fn/map';
 
@@ -30,5 +30,5 @@ async function* _map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, R>): Asy
 
 export function _map<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) {
     logger.trace('_map()');
-    return new AsyncIterator_(_map_impl_fn(iter, fn));
+    return (new AsyncIterator_(_map_impl_fn(iter, fn)) as unknown) as ToAsyncIterator<R>;
 }

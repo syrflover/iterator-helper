@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_ } from '../iterator';
+import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { _foldl } from './foldl';
 
@@ -19,5 +19,5 @@ function _reverse_impl_fn<T>(iter: AsyncIterable<T>) {
 
 export function _reverse<T>(iter: AsyncIterable<T>) {
     logger.trace('_reverse()');
-    return new AsyncIterator_(toAsyncIterable(_reverse_impl_fn(iter)));
+    return (new AsyncIterator_(toAsyncIterable(_reverse_impl_fn(iter))) as unknown) as ToAsyncIterator<T>;
 }

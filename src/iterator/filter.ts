@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_ } from '../iterator';
+import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
@@ -32,5 +32,5 @@ async function* _filter_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateF
 
 export function _filter<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_filter()');
-    return new AsyncIterator_(_filter_impl_fn(iter, predicate));
+    return (new AsyncIterator_(_filter_impl_fn(iter, predicate)) as unknown) as ToAsyncIterator<T>;
 }

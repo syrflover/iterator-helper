@@ -33,10 +33,36 @@ import { _takeWhile } from './iterator/takeWhile';
 const logger = getLogger('iterator');
 
 // prettier-ignore
-export type ToAsyncIterator<Type> =
-    Type extends number ? AsyncIterator_<Type> : Omit<AsyncIterator_<Type>, 'sum' | 'product'>;
+export type ToAsyncIterator<T> =
+    T extends number ? IAsyncIterator_number : IAsyncIterator_<T>;
 
-export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
+export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
+    all(fn: PredicateFn<T>): Promise<boolean>;
+    any(fn: PredicateFn<T>): Promise<boolean>;
+    chain(other: Iterable<T> | AsyncIterable<T>): ToAsyncIterator<T>;
+    collect(): Promise<T[]>;
+    count(): Promise<number>;
+    cycle(): ToAsyncIterator<T>;
+    drop(count: number): ToAsyncIterator<T>;
+    dropWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+    enumerate(): ToAsyncIterator<[number, T]>;
+    filter(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+    find(predicate: PredicateFn<T>): Promise<T | undefined>;
+    foldl<U>(init: U | Promise<U>, fn: FoldFn<T, U>): Promise<U>;
+    foldl1(fn: FoldFn<T, T>): Promise<T>;
+    forEach(fn: ForEachFn<T>): Promise<void>;
+    map<R>(fn: MapFn<T, R>): ToAsyncIterator<R>;
+    reverse(): ToAsyncIterator<T>;
+    take(limit: number): ToAsyncIterator<T>;
+    takeWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+}
+
+export interface IAsyncIterator_number extends IAsyncIterator_<number> {
+    product(): Promise<number>;
+    sum(): Promise<number>;
+}
+
+export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
         const it = isArrayLike(iter) ? toIterable(iter) : iter;
@@ -81,12 +107,12 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
         return _chain<T>(other, this);
     }
 
-    public collect() {
+    public collect(): Promise<T[]> {
         logger.trace('collect()');
         return _collect<T>(this);
     }
 
-    public count() {
+    public count(): Promise<number> {
         logger.trace('count()');
         return _count<T>(this);
     }
@@ -121,9 +147,9 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
         return _find<T>(predicate, this);
     }
 
-    public foldl<B>(init: B | Promise<B>, fn: FoldFn<T, B>) {
+    public foldl<U>(init: U | Promise<U>, fn: FoldFn<T, U>) {
         logger.trace('fold()');
-        return _foldl<T, B>(fn, init, this);
+        return _foldl<T, U>(fn, init, this);
     }
 
     public foldl1(fn: FoldFn<T, T>) {
@@ -169,5 +195,5 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
     logger.trace('iterator()');
-    return new AsyncIterator_<T>(iter) as ToAsyncIterator<T>;
+    return (new AsyncIterator_<T>(iter) as unknown) as ToAsyncIterator<T>;
 }

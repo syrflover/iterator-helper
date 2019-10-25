@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_ } from '../iterator';
+import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 const logger = getLogger('iterator/drop');
 
@@ -27,5 +27,5 @@ async function* _drop_impl_fn<T>(iter: AsyncIterable<T>, count: number, current:
 
 export function _drop<T>(count: number, iter: AsyncIterable<T>) {
     logger.trace('_drop()');
-    return new AsyncIterator_(_drop_impl_fn(iter, count));
+    return (new AsyncIterator_(_drop_impl_fn(iter, count)) as unknown) as ToAsyncIterator<T>;
 }

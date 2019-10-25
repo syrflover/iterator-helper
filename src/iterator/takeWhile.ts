@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_ } from '../iterator';
+import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
@@ -33,5 +33,5 @@ async function* _take_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: Predic
 }
 
 export function _takeWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
-    return new AsyncIterator_(_take_while_impl_fn(iter, predicate));
+    return (new AsyncIterator_(_take_while_impl_fn(iter, predicate)) as unknown) as ToAsyncIterator<T>;
 }

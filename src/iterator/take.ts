@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_ } from '../iterator';
+import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { next } from './lib/next';
 
@@ -25,5 +25,5 @@ async function* _take_impl_fn<T>(iter: AsyncIterable<T>, limit: number, current:
 
 export function _take<T>(limit: number, iter: AsyncIterable<T>) {
     logger.trace('_take()');
-    return new AsyncIterator_(_take_impl_fn(iter, limit));
+    return (new AsyncIterator_(_take_impl_fn(iter, limit)) as unknown) as ToAsyncIterator<T>;
 }
