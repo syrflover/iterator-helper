@@ -9,7 +9,7 @@ describe('test forEach', () => {
         let actual = 0;
         const expected = a.length;
 
-        const it = await iterator(a).forEach((_) => {
+        await iterator(a).forEach((_) => {
             actual += 1;
         });
 

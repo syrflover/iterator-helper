@@ -15,14 +15,11 @@ async function* _take_impl_fn<T>(iter: AsyncIterable<T>, limit: number, current:
     logger.debug('limit   =', limit);
     logger.debug('current =', current);
 
-    if (done) {
+    if (done || current > limit) {
         return;
     }
 
-    if (current <= limit) {
-        yield value;
-    }
-
+    yield value;
     yield* _take_impl_fn(iter, limit, current + 1);
 }
 

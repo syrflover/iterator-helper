@@ -68,12 +68,12 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
 
     public all(fn: PredicateFn<T>) {
         logger.trace('all()');
-        return _all(fn, this);
+        return _all<T>(fn, this);
     }
 
     public any(fn: PredicateFn<T>) {
         logger.trace('any()');
-        return _any(fn, this);
+        return _any<T>(fn, this);
     }
 
     public chain(other: Iterable<T> | AsyncIterable<T>) {
@@ -83,57 +83,57 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
 
     public collect() {
         logger.trace('collect()');
-        return _collect(this);
+        return _collect<T>(this);
     }
 
     public count() {
         logger.trace('count()');
-        return _count(this);
+        return _count<T>(this);
     }
 
     public drop(count: number) {
         logger.trace('drop()');
-        return _drop(count, this);
+        return _drop<T>(count, this);
     }
 
     public dropWhile(predicate: PredicateFn<T>) {
         logger.trace('dropWhile()');
-        return _dropWhile(predicate, this);
+        return _dropWhile<T>(predicate, this);
     }
 
     public enumerate() {
         logger.trace('enumerate()');
-        return _enumerate(this);
+        return _enumerate<T>(this);
     }
 
     public filter(predicate: PredicateFn<T>) {
         logger.trace('filter()');
-        return _filter(predicate, this);
+        return _filter<T>(predicate, this);
     }
 
     public find(predicate: PredicateFn<T>) {
         logger.trace('find()');
-        return _find(predicate, this);
+        return _find<T>(predicate, this);
     }
 
     public foldl<B>(init: B | Promise<B>, fn: FoldFn<T, B>) {
         logger.trace('fold()');
-        return _foldl(fn, init, this);
+        return _foldl<T, B>(fn, init, this);
     }
 
     public foldl1(fn: FoldFn<T, T>) {
         logger.trace('fold1()');
-        return _foldl1(fn, this);
+        return _foldl1<T>(fn, this);
     }
 
     public forEach(fn: ForEachFn<T>) {
         logger.trace('forEach()');
-        return _forEach(fn, this);
+        return _forEach<T>(fn, this);
     }
 
     public map<R>(fn: MapFn<T, R>) {
         logger.trace('map()');
-        return _map(fn, this);
+        return _map<T, R>(fn, this);
     }
 
     public product() {
@@ -143,7 +143,7 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
 
     public reverse() {
         logger.trace('reverse()');
-        return _reverse(this);
+        return _reverse<T>(this);
     }
 
     public sum() {
@@ -153,12 +153,12 @@ export class AsyncIterator_<T> implements AsyncIterableIterator<T> {
 
     public take(limit: number) {
         logger.trace('take()');
-        return _take(limit, this);
+        return _take<T>(limit, this);
     }
 
     public takeWhile(predicate: PredicateFn<T>) {
         logger.trace('takeWhile()');
-        return _takeWhile(predicate, this);
+        return _takeWhile<T>(predicate, this);
     }
 }
 
