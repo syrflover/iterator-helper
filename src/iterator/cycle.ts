@@ -4,7 +4,7 @@ import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { toAsyncIterable } from '../lib/iterable';
 
-import { next_async } from '../lib/next';
+import { next_async } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/cycle');
 

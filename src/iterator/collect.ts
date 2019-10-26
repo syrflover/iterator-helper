@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { next_async } from '../lib/next';
+import { next_async } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/collect');
 

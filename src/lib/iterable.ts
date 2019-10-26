@@ -3,7 +3,7 @@ import { getLogger } from '../logger';
 import { isArrayLike } from '../types/guard/isArrayLike';
 import { isPromise } from '../types/guard/isPromise';
 
-import { next } from './next';
+import { next } from './iterable/next';
 
 const logger = getLogger('lib/iterable');
 

@@ -4,7 +4,7 @@ import { ByKeyFn } from '../types/fn/byKey';
 import { CompareFn } from '../types/fn/cmp';
 
 import { cmp, maxBy } from '../lib/cmp';
-import { next_async } from '../lib/next';
+import { next_async } from '../lib/iterable/next';
 
 import { _foldl } from './foldl';
 import { _maxBy } from './maxBy';

@@ -4,8 +4,8 @@ import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
-import { cons } from '../lib/cons';
-import { next_async } from '../lib/next';
+import { prepend } from '../lib/iterable/prepend';
+import { next_async } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/dropWhile');
 
@@ -25,7 +25,7 @@ async function* _drop_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: Predic
     logger.debug('condition =', condition);
 
     if (!condition) {
-        yield* cons(value, iter);
+        yield* prepend(value, iter);
         return;
     }
     yield* _drop_while_impl_fn(iter, predicate);

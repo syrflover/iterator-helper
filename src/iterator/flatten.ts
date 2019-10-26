@@ -7,7 +7,7 @@ import { Flatten } from '../types/flatten';
 import { isIterable } from '../types/guard/isIterable';
 import { isAsyncIterable } from '../types/guard/isAsyncIterable';
 
-import { next_async } from '../lib/next';
+import { next_async } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/flatten');
 
