@@ -2,8 +2,8 @@ import { getLogger } from '../logger';
 
 import { CompareFn } from '../types/fn/cmp';
 
-import { maxBy } from './lib/cmp';
-import { next_async } from './lib/next';
+import { maxBy } from '../lib/cmp';
+import { next_async } from '../lib/next';
 
 import { _foldl } from './foldl';
 

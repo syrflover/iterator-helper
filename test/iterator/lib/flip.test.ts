@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { flip } from '../../../src/iterator/lib/flip';
+import { flip } from '../../../src/lib/flip';
 
 describe('test flip', () => {
     it('div', () => {

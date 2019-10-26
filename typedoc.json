@@ -1,0 +1,8 @@
+{
+    "mode": "file",
+    "ignoreCompilerErrors": true,
+    "includes": "src/",
+    "exclude": ["src/iterator/*.ts", "src/logger.ts", "src/playground.ts", "src/lib/*.ts"],
+    "tsconfig": "tsconfig.json",
+    "out": "doc/"
+}

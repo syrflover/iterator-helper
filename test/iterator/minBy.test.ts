@@ -2,7 +2,7 @@ import { assert } from 'chai';
 
 import { iterator } from '../../src';
 
-import { cmp } from '../../src/iterator/lib/cmp';
+import { cmp } from '../../src/lib/cmp';
 import { Ord } from '../../src/types/ordering';
 
 describe('test minBy', () => {

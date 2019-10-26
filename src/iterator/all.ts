@@ -2,7 +2,7 @@ import { getLogger } from '../logger';
 
 import { PredicateFn } from '../types/fn/predicate';
 
-import { next_async } from './lib/next';
+import { next_async } from '../lib/next';
 
 const logger = getLogger('iterator/all');
 

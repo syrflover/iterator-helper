@@ -1,4 +1,4 @@
-import { isIterable } from '../../types/guard/isIterable';
+import { isIterable } from '../types/guard/isIterable';
 
 export type NextReturn<T> = {
     done?: boolean;

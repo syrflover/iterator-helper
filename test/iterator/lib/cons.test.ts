@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { cons } from '../../../src/iterator/lib/cons';
+import { cons } from '../../../src/lib/cons';
 
 describe('test cons', () => {
     it('0:[1]', async () => {

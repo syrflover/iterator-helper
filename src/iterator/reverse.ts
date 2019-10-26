@@ -6,8 +6,8 @@ import { _foldl } from './foldl';
 
 import { toAsyncIterable } from '../lib/iterable';
 
-import { flip } from './lib/flip';
-import { cons } from './lib/cons';
+import { flip } from '../lib/flip';
+import { cons } from '../lib/cons';
 
 const logger = getLogger('iterator/reverse');
 

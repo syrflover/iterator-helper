@@ -2,7 +2,7 @@ import { getLogger } from '../logger';
 
 import { FoldFn } from '../types/fn/fold';
 
-import { next_async } from './lib/next';
+import { next_async } from '../lib/next';
 
 const logger = getLogger('iterator/fold');
 

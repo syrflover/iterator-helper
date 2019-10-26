@@ -1,3 +1,17 @@
-import { AsyncIterator_, ToAsyncIterator, iterator } from './iterator';
+// prettier-ignore
+import {
+    AsyncIterator_,
+    ToAsyncIterator,
+    IAsyncIterator_,
+    IAsyncIterator_number,
+    iterator,
+} from './iterator';
 
-export { AsyncIterator_, ToAsyncIterator, iterator };
+// prettier-ignore
+export {
+    AsyncIterator_,
+    ToAsyncIterator,
+    IAsyncIterator_,
+    IAsyncIterator_number,
+    iterator,
+};

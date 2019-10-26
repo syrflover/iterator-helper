@@ -4,7 +4,7 @@ import { ToAsyncIterator, AsyncIterator_ } from '../iterator';
 
 import { ForEachFn } from '../types/fn/forEach';
 
-import { next_async } from './lib/next';
+import { next_async } from '../lib/next';
 
 const logger = getLogger('iterator/inspect');
 

@@ -3,8 +3,8 @@ import { getLogger } from '../logger';
 import { ByKeyFn } from '../types/fn/byKey';
 import { CompareFn } from '../types/fn/cmp';
 
-import { cmp, minBy } from './lib/cmp';
-import { next_async } from './lib/next';
+import { cmp, minBy } from '../lib/cmp';
+import { next_async } from '../lib/next';
 
 import { _foldl } from './foldl';
 import { _maxBy } from './maxBy';

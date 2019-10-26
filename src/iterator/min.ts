@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { cmp } from './lib/cmp';
+import { cmp } from '../lib/cmp';
 
 import { _minBy } from './minBy';
 

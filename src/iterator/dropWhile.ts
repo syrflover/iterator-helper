@@ -4,8 +4,8 @@ import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
-import { cons } from './lib/cons';
-import { next_async } from './lib/next';
+import { cons } from '../lib/cons';
+import { next_async } from '../lib/next';
 
 const logger = getLogger('iterator/dropWhile');
 

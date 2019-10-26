@@ -1,5 +1,5 @@
-import { CompareFn } from '../../types/fn/cmp';
-import { Ord } from '../../types/ordering';
+import { CompareFn } from '../types/fn/cmp';
+import { Ord } from '../types/ordering';
 
 export function cmp<T>(a: T, b: T): Ord {
     if (a < b) {
