@@ -37,6 +37,7 @@ import { _maxByKey } from './iterator/maxByKey';
 import { _min } from './iterator/min';
 import { _minBy } from './iterator/minBy';
 import { _minByKey } from './iterator/minByKey';
+import { _nth } from './iterator/nth';
 import { _partition } from './iterator/partition';
 import { _position } from './iterator/position';
 import { _product } from './iterator/product';
@@ -168,6 +169,11 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.min_by_key
      */
     minByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>): Promise<T | undefined>;
+
+    /**
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.nth
+     */
+    nth(index: number): Promise<T | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.partition
@@ -349,6 +355,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public minByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
         logger.trace('minByKey()');
         return _minByKey<T>(cmpFn, keyFn, this);
+    }
+
+    public nth(index: number) {
+        logger.trace('nth()');
+        return _nth<T>(index, this);
     }
 
     public partition(fn: PredicateFn<T>) {
