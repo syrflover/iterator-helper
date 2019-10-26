@@ -8,6 +8,7 @@ import { ForEachFn } from './types/fn/forEach';
 import { FoldFn } from './types/fn/fold';
 import { MapFn } from './types/fn/map';
 import { PredicateFn } from './types/fn/predicate';
+import { Flatten } from './types/flatten';
 
 import { _all } from './iterator/all';
 import { _any } from './iterator/any';
@@ -20,6 +21,7 @@ import { _dropWhile } from './iterator/dropWhile';
 import { _enumerate } from './iterator/enumerate';
 import { _filter } from './iterator/filter';
 import { _find } from './iterator/find';
+import { _flatten } from './iterator/flatten';
 import { _foldl } from './iterator/foldl';
 import { _foldl1 } from './iterator/foldl1';
 import { _forEach } from './iterator/forEach';
@@ -48,6 +50,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     enumerate(): ToAsyncIterator<[number, T]>;
     filter(predicate: PredicateFn<T>): ToAsyncIterator<T>;
     find(predicate: PredicateFn<T>): Promise<T | undefined>;
+    flatten(): ToAsyncIterator<Flatten<T>>;
     foldl<U>(init: U | Promise<U>, fn: FoldFn<T, U>): Promise<U>;
     foldl1(fn: FoldFn<T, T>): Promise<T>;
     forEach(fn: ForEachFn<T>): Promise<void>;
@@ -107,12 +110,12 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _chain<T>(other, this);
     }
 
-    public collect(): Promise<T[]> {
+    public collect() {
         logger.trace('collect()');
         return _collect<T>(this);
     }
 
-    public count(): Promise<number> {
+    public count() {
         logger.trace('count()');
         return _count<T>(this);
     }
@@ -145,6 +148,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public find(predicate: PredicateFn<T>) {
         logger.trace('find()');
         return _find<T>(predicate, this);
+    }
+
+    public flatten() {
+        logger.trace('flatten()');
+        return _flatten<T>(this);
     }
 
     public foldl<U>(init: U | Promise<U>, fn: FoldFn<T, U>) {
