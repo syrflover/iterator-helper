@@ -1,6 +1,7 @@
 import { getLogger } from '../logger';
 
 import { ByKeyFn } from '../types/fn/byKey';
+import { CompareFn } from '../types/fn/cmp';
 
 import { cmp, maxBy } from './lib/cmp';
 import { next_async } from './lib/next';
@@ -10,7 +11,7 @@ import { _maxBy } from './maxBy';
 
 const logger = getLogger('iterator/maxByKey');
 
-async function _max_by_key_impl_fn<T>(iter: AsyncIterable<T>, fn: ByKeyFn<T>): Promise<T | undefined> {
+async function _max_by_key_impl_fn<T>(iter: AsyncIterable<T>, keyFn: ByKeyFn<T>, cmpFn: CompareFn<T>): Promise<T | undefined> {
     logger.trace('_max_by_key_impl_fn()');
     const { done, value } = await next_async(iter);
 
@@ -18,10 +19,10 @@ async function _max_by_key_impl_fn<T>(iter: AsyncIterable<T>, fn: ByKeyFn<T>): P
         return;
     }
 
-    return _foldl(async (acc, e) => maxBy(await fn(acc), await fn(e), cmp), value, iter);
+    return _foldl(async (acc, e) => maxBy(await keyFn(acc), await keyFn(e), cmpFn), value, iter);
 }
 
-export function _maxByKey<T>(fn: ByKeyFn<T>, iter: AsyncIterable<T>) {
+export function _maxByKey<T>(cmpFn: CompareFn<T> | undefined, keyFn: ByKeyFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_maxByKey()');
-    return _max_by_key_impl_fn(iter, fn);
+    return _max_by_key_impl_fn(iter, keyFn, cmpFn ?? cmp);
 }
