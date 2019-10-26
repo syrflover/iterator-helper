@@ -2,13 +2,13 @@ import { getLogger } from '../logger';
 
 import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
-import { next } from './lib/next';
+import { next_async } from './lib/next';
 
 const logger = getLogger('iterator/take');
 
 async function* _take_impl_fn<T>(iter: AsyncIterable<T>, limit: number, current: number = 1): AsyncIterable<T> {
     logger.trace('_take_impl_fn()');
-    const { done, value } = await next(iter);
+    const { done, value } = await next_async(iter);
 
     logger.debug('done    =', done);
     logger.debug('value   =', value);

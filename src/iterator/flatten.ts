@@ -7,13 +7,13 @@ import { Flatten } from '../types/flatten';
 import { isIterable } from '../types/guard/isIterable';
 import { isAsyncIterable } from '../types/guard/isAsyncIterable';
 
-import { next } from './lib/next';
+import { next_async } from './lib/next';
 
 const logger = getLogger('iterator/flatten');
 
 async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatten<T>> {
     logger.trace('_flatten_impl_fn()');
-    const { done, value } = await next(iter);
+    const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
     logger.debug('value =', value);

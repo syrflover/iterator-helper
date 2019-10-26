@@ -2,12 +2,13 @@ import { getLogger } from '../logger';
 
 import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
+import { next_async } from './lib/next';
+
 const logger = getLogger('iterator/drop');
 
 async function* _drop_impl_fn<T>(iter: AsyncIterable<T>, count: number, current: number = 1): AsyncIterable<T> {
     logger.trace('_drop()');
-    const it = iter[Symbol.asyncIterator]();
-    const { done } = await it.next();
+    const { done } = await next_async(iter);
 
     logger.debug('done    =', done);
     logger.debug('count   =', count);

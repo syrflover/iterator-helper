@@ -1,15 +1,16 @@
 import { getLogger } from '../logger';
 
+import { ToAsyncIterator, AsyncIterator_ } from '../iterator';
+
 import { ForEachFn } from '../types/fn/forEach';
 
-import { next } from './lib/next';
-import { ToAsyncIterator, AsyncIterator_ } from '../iterator';
+import { next_async } from './lib/next';
 
 const logger = getLogger('iterator/inspect');
 
 async function* _inspect_impl_fn<T>(iter: AsyncIterable<T>, fn: ForEachFn<T>): AsyncIterable<T> {
     logger.trace('_inspect_impl_fn()');
-    const { done, value } = await next(iter);
+    const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
     logger.debug('value =', value);

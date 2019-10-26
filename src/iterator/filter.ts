@@ -4,13 +4,13 @@ import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { PredicateFn } from '../types/fn/predicate';
 
-import { next } from './lib/next';
+import { next_async } from './lib/next';
 
 const logger = getLogger('iterator/filter');
 
 async function* _filter_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
     logger.trace('_filter_impl_fn()');
-    const { done, value } = await next(iter);
+    const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
     logger.debug('value     =', value);

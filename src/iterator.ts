@@ -210,5 +210,5 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
     logger.trace('iterator()');
-    return (new AsyncIterator_<T>(iter) as unknown) as ToAsyncIterator<T>;
+    return (new AsyncIterator_(iter) as unknown) as ToAsyncIterator<T>;
 }

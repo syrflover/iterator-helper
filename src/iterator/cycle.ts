@@ -4,13 +4,13 @@ import { AsyncIterator_, ToAsyncIterator } from '../iterator';
 
 import { toAsyncIterable } from '../lib/iterable';
 
-import { next } from './lib/next';
+import { next_async } from './lib/next';
 
 const logger = getLogger('iterator/cycle');
 
 async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>, r: T[] = []): AsyncIterable<T> {
     logger.trace('_cycle_impl_fn()');
-    const { done, value } = await next(iter);
+    const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
     logger.debug('value =', value);

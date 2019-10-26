@@ -2,13 +2,13 @@ import { getLogger } from '../logger';
 
 import { PredicateFn } from '../types/fn/predicate';
 
-import { next } from './lib/next';
+import { next_async } from './lib/next';
 
 const logger = getLogger('iterator/all');
 
 async function _all_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>): Promise<boolean> {
     logger.trace('_all_impl_fn()');
-    const { done, value } = await next(iter);
+    const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
     logger.debug('value     =', value);
