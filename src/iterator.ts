@@ -25,6 +25,7 @@ import { _flatten } from './iterator/flatten';
 import { _foldl } from './iterator/foldl';
 import { _foldl1 } from './iterator/foldl1';
 import { _forEach } from './iterator/forEach';
+import { _inspect } from './iterator/inspect';
 import { _map } from './iterator/map';
 import { _product } from './iterator/product';
 import { _reverse } from './iterator/reverse';
@@ -54,6 +55,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     foldl<U>(init: U | Promise<U>, fn: FoldFn<T, U>): Promise<U>;
     foldl1(fn: FoldFn<T, T>): Promise<T>;
     forEach(fn: ForEachFn<T>): Promise<void>;
+    inspect(fn: ForEachFn<T>): ToAsyncIterator<T>;
     map<R>(fn: MapFn<T, R>): ToAsyncIterator<R>;
     reverse(): ToAsyncIterator<T>;
     take(limit: number): ToAsyncIterator<T>;
@@ -168,6 +170,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public forEach(fn: ForEachFn<T>) {
         logger.trace('forEach()');
         return _forEach<T>(fn, this);
+    }
+
+    public inspect(fn: ForEachFn<T>) {
+        logger.trace('inspect()');
+        return _inspect<T>(fn, this);
     }
 
     public map<R>(fn: MapFn<T, R>) {
