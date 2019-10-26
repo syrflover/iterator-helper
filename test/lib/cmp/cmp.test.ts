@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 
-import { Ord } from '../../../../src/types/ordering';
+import { Ord } from '../../../src/types/ordering';
 
-import { cmp } from '../../../../src/lib/cmp';
+import { cmp } from '../../../src/lib/cmp';
 
 describe('test cmp', () => {
     it('cmp(100, 1) == Greater', () => {

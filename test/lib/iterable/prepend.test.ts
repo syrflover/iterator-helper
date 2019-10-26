@@ -2,8 +2,8 @@ import { assert } from 'chai';
 
 import { prepend } from '../../../src/lib/iterable/prepend';
 
-describe('test cons', () => {
-    it('0:[1]', async () => {
+describe('test prepend', () => {
+    it('prepend(0, [1])', async () => {
         const actual: number[] = [];
         const expected = [0, 1];
 

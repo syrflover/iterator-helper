@@ -7,7 +7,6 @@ import { cmp, maxBy } from '../lib/cmp';
 import { next_async } from '../lib/iterable/next';
 
 import { _foldl } from './foldl';
-import { _maxBy } from './maxBy';
 
 const logger = getLogger('iterator/maxByKey');
 

@@ -27,10 +27,10 @@ async function _partition_impl_fn<T>(
     const condition = await fn(value);
 
     if (condition) {
-        return _partition_impl_fn(iter, fn, append(left, value), right);
+        return _partition_impl_fn(iter, fn, append(value, left), right);
     }
 
-    return _partition_impl_fn(iter, fn, left, append(right, value));
+    return _partition_impl_fn(iter, fn, left, append(value, right));
 }
 
 export async function _partition<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) {
