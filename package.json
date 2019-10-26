@@ -6,9 +6,10 @@
     "types": "build/index.d.ts",
     "scripts": {
         "start": "ITER_HELPER_LOG_LEVEL=trace ts-node -P tsconfig.json src/playground.ts",
-        "test": "tsc -p tsconfig.test.json && eslint test/**/*.ts && ts-mocha -p tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts",
+        "test": "tsc -p tsconfig.test.json && ts-mocha -p tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts",
         "build": "rm -rf ./build && tsc -p tsconfig.build.json",
         "lint": "eslint src/**/*.ts",
+        "doc": "typedoc --ignoreCompilerErrors --tsconfig tsconfig.json --out doc/ src/",
         "prepublishOnly": "npm run lint && npm run test && npm run build"
     },
     "author": {
@@ -45,6 +46,7 @@
         "ts-node": "^8.4.1",
         "tslint": "^5.20.0",
         "tslint-config-airbnb": "^5.11.2",
+        "typedoc": "^0.15.0",
         "typescript": "^3.7.1-rc"
     }
 }

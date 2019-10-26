@@ -2,11 +2,7 @@
     "env": {
         "es6": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "airbnb/base"
-    ],
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "airbnb/base"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly",
@@ -30,7 +26,7 @@
         "no-underscore-dangle": "off",
         "no-undef": "off",
 
-        "indent": ["error", 4],
+        "indent": "off",
 
         "generator-star-spacing": "off",
         "space-before-function-paren": "off",
@@ -45,6 +41,8 @@
         "no-dupe-class-members": "off",
         "require-yield": "off",
         "max-len": "off",
+        "default-case": "off",
+        "no-nested-ternary": "off",
 
         "func-names": "off",
 

@@ -127,5 +127,7 @@ public/
 
 build/
 
+doc/
+
 package-lock.json
 yarn.lock
