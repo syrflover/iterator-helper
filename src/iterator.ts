@@ -37,6 +37,7 @@ import { _maxByKey } from './iterator/maxByKey';
 import { _min } from './iterator/min';
 import { _minBy } from './iterator/minBy';
 import { _minByKey } from './iterator/minByKey';
+import { _position } from './iterator/position';
 import { _product } from './iterator/product';
 import { _reverse } from './iterator/reverse';
 import { _sum } from './iterator/sum';
@@ -166,6 +167,11 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.min_by_key
      */
     minByKey(fn: ByKeyFn<T>): Promise<T | undefined>;
+
+    /**
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.position
+     */
+    position(fn: PredicateFn<T>): Promise<number | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.rev
@@ -337,6 +343,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public minByKey(fn: ByKeyFn<T>) {
         logger.trace('minByKey()');
         return _minByKey<T>(fn, this);
+    }
+
+    public position(fn: PredicateFn<T>) {
+        logger.trace('position()');
+        return _position<T>(fn, this);
     }
 
     public product() {
