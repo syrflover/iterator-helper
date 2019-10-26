@@ -9,7 +9,7 @@ import { next_async } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/dropWhile');
 
-async function* _drop_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
+async function* _skip_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
     logger.trace('_drop_while_impl_fn()');
     const { done, value } = await next_async(iter);
 
@@ -28,10 +28,10 @@ async function* _drop_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: Predic
         yield* prepend(value, iter);
         return;
     }
-    yield* _drop_while_impl_fn(iter, predicate);
+    yield* _skip_while_impl_fn(iter, predicate);
 }
 
-export function _dropWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
+export function _skipWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_dropWhile()');
-    return (new AsyncIterator_(_drop_while_impl_fn(iter, predicate)) as unknown) as ToAsyncIterator<T>;
+    return (new AsyncIterator_(_skip_while_impl_fn(iter, predicate)) as unknown) as ToAsyncIterator<T>;
 }

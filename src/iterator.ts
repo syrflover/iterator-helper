@@ -20,8 +20,6 @@ import { _chain } from './iterator/chain';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
 import { _cycle } from './iterator/cycle';
-import { _drop } from './iterator/drop';
-import { _dropWhile } from './iterator/dropWhile';
 import { _enumerate } from './iterator/enumerate';
 import { _filter } from './iterator/filter';
 import { _find } from './iterator/find';
@@ -42,6 +40,8 @@ import { _partition } from './iterator/partition';
 import { _position } from './iterator/position';
 import { _product } from './iterator/product';
 import { _reverse } from './iterator/reverse';
+import { _skip } from './iterator/skip';
+import { _skipWhile } from './iterator/skipWhile';
 import { _sum } from './iterator/sum';
 import { _take } from './iterator/take';
 import { _takeWhile } from './iterator/takeWhile';
@@ -84,16 +84,6 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.cycle
      */
     cycle(): ToAsyncIterator<T>;
-
-    /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:drop
-     */
-    drop(count: number): ToAsyncIterator<T>;
-
-    /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:dropWhile
-     */
-    dropWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.enumerate
@@ -191,6 +181,16 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     reverse(): ToAsyncIterator<T>;
 
     /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:drop
+     */
+    skip(count: number): ToAsyncIterator<T>;
+
+    /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:dropWhile
+     */
+    skipWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+
+    /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.take
      */
     take(limit: number): ToAsyncIterator<T>;
@@ -270,16 +270,6 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public cycle() {
         logger.trace('cycle()');
         return _cycle<T>(this);
-    }
-
-    public drop(count: number) {
-        logger.trace('drop()');
-        return _drop<T>(count, this);
-    }
-
-    public dropWhile(predicate: PredicateFn<T>) {
-        logger.trace('dropWhile()');
-        return _dropWhile<T>(predicate, this);
     }
 
     public enumerate() {
@@ -380,6 +370,16 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public reverse() {
         logger.trace('reverse()');
         return _reverse<T>(this);
+    }
+
+    public skip(count: number) {
+        logger.trace('drop()');
+        return _skip<T>(count, this);
+    }
+
+    public skipWhile(predicate: PredicateFn<T>) {
+        logger.trace('dropWhile()');
+        return _skipWhile<T>(predicate, this);
     }
 
     public sum() {

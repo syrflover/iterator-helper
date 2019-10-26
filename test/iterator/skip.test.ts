@@ -2,14 +2,14 @@ import { assert } from 'chai';
 
 import { iterator } from '../../src';
 
-describe('test drop', () => {
-    it('drop(4)', async () => {
+describe('test skip', () => {
+    it('skip(4)', async () => {
         const a = iterator([1, 2, 3, 4, 5, 6, 7, 8]);
 
         const actual: number[] = [];
         const expected = [5, 6, 7, 8];
 
-        const it = a.drop(4);
+        const it = a.skip(4);
 
         for await (const _ of it) {
             actual.push(_);
@@ -18,13 +18,13 @@ describe('test drop', () => {
         assert.deepStrictEqual(actual, expected);
     });
 
-    it('drop(Infinity)', async () => {
+    it('skip(Infinity)', async () => {
         const a = iterator([1, 2, 3, 4, 5, 6, 7, 8]);
 
         const actual: number[] = [];
         const expected: number[] = [];
 
-        const it = a.drop(Infinity);
+        const it = a.skip(Infinity);
 
         for await (const _ of it) {
             actual.push(_);
