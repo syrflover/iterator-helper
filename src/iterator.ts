@@ -51,12 +51,14 @@ import { _takeWhile } from './iterator/takeWhile';
 import { _foldr } from './iterator/foldr';
 import { _foldr1 } from './iterator/foldr1';
 import { _zip } from './iterator/zip';
+import { _unzip } from './iterator/unzip';
 
 const logger = getLogger('iterator');
 
 // prettier-ignore
 export type ToAsyncIterator<T> =
     T extends number ? IAsyncIterator_number :
+    T extends Pair<infer A, infer B> ? IAsyncIterator_zip<A, B> :
     IAsyncIterator_<T>;
 
 export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
@@ -244,6 +246,13 @@ export interface IAsyncIterator_number extends IAsyncIterator_<number> {
     sum(): Promise<number>;
 }
 
+export interface IAsyncIterator_zip<T, U> extends IAsyncIterator_<Pair<T, U>> {
+    /**
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.unzip
+     */
+    unzip(): Promise<Pair<ToAsyncIterator<T>, ToAsyncIterator<U>>>;
+}
+
 export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
@@ -376,7 +385,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public maxByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
         logger.trace('maxByKey()');
-        return _maxByKey<T>(cmpFn ?? cmp, keyFn, this);
+        return _maxByKey<T>(cmpFn || cmp, keyFn, this);
     }
 
     public min() {
@@ -391,7 +400,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public minByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
         logger.trace('minByKey()');
-        return _minByKey<T>(cmpFn ?? cmp, keyFn, this);
+        return _minByKey<T>(cmpFn || cmp, keyFn, this);
     }
 
     public nth(n: number) {
@@ -448,6 +457,12 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public takeWhile(predicate: PredicateFn<T>) {
         logger.trace('takeWhile()');
         return (new AsyncIterator_<T>(_takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
+    }
+
+    public async unzip() {
+        logger.trace('unzip()');
+        const [left, right] = await _unzip<any, any>(this as any);
+        return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
     }
 
     public zip<U>(other: Iterable<U> | AsyncIterable<U>) {
