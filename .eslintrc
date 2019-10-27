@@ -43,6 +43,7 @@
         "max-len": "off",
         "default-case": "off",
         "no-nested-ternary": "off",
+        "no-template-curly-in-string": "off",
 
         "func-names": "off",
 

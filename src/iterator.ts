@@ -11,6 +11,7 @@ import { MapFn } from './types/fn/map';
 import { PredicateFn } from './types/fn/predicate';
 import { CompareFn } from './types/fn/cmp';
 import { ByKeyFn } from './types/fn/byKey';
+import { ScanlFn, ScanrFn } from './types/fn/scan';
 
 import { Flatten } from './types/flatten';
 import { Pair, pair } from './types/pair';
@@ -42,6 +43,10 @@ import { _partition } from './iterator/partition';
 import { _position } from './iterator/position';
 import { _product } from './iterator/product';
 import { _reverse } from './iterator/reverse';
+import { _scanl } from './iterator/scanl';
+import { _scanl1 } from './iterator/scanl1';
+import { _scanr } from './iterator/scanr';
+import { _scanr1 } from './iterator/scanr1';
 import { _skip } from './iterator/skip';
 import { _skipWhile } from './iterator/skipWhile';
 import { _stepBy } from './iterator/stepBy';
@@ -50,8 +55,8 @@ import { _take } from './iterator/take';
 import { _takeWhile } from './iterator/takeWhile';
 import { _foldr } from './iterator/foldr';
 import { _foldr1 } from './iterator/foldr1';
-import { _zip } from './iterator/zip';
 import { _unzip } from './iterator/unzip';
+import { _zip } from './iterator/zip';
 
 const logger = getLogger('iterator');
 
@@ -205,6 +210,26 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     reverse(): ToAsyncIterator<T>;
 
     /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanl
+     */
+    scanl<U>(init: U | Promise<U>, fn: ScanlFn<T, U>): ToAsyncIterator<U>;
+
+    /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanl1
+     */
+    scanl1(fn: ScanlFn<T, T>): ToAsyncIterator<T>;
+
+    /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanr
+     */
+    scanr<U>(init: U | Promise<U>, fn: ScanrFn<T, U>): ToAsyncIterator<U>;
+
+    /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanr1
+     */
+    scanr1(fn: ScanrFn<T, T>): ToAsyncIterator<T>;
+
+    /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.skip
      */
     skip(count: number): ToAsyncIterator<T>;
@@ -240,6 +265,7 @@ export interface IAsyncIterator_number extends IAsyncIterator_<number> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.product
      */
     product(): Promise<number>;
+
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.sum
      */
@@ -427,6 +453,26 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public reverse() {
         logger.trace('reverse()');
         return (new AsyncIterator_<T>(_reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
+    }
+
+    public scanl<U>(init: U | Promise<U>, fn: ScanlFn<T, U>) {
+        logger.trace('scanl()');
+        return (new AsyncIterator_<U>(_scanl<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
+    }
+
+    public scanl1(fn: ScanlFn<T, T>) {
+        logger.trace('scanl1()');
+        return (new AsyncIterator_<T>(_scanl1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
+    }
+
+    public scanr<U>(init: U | Promise<U>, fn: ScanrFn<T, U>) {
+        logger.trace('scanr()');
+        return (new AsyncIterator_<U>(_scanr<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
+    }
+
+    public scanr1(fn: ScanrFn<T, T>) {
+        logger.trace('scanr1()');
+        return (new AsyncIterator_<T>(_scanr1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skip(count: number) {
