@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { iterator } from '../../src';
 import { Pair } from '../../src/types/pair';
 
-describe('test zip', () => {
+describe('test unzip', () => {
     it('[[1, 5], [2, 6], [3, 7], [4, 8]].unzip()', async () => {
         const a = iterator<Pair<number, number>>([[1, 5], [2, 6], [3, 7], [4, 8]]);
 

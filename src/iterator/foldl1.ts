@@ -22,7 +22,7 @@ async function _foldl1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldlFn<T, T>) {
     return _foldl(fn, head, iter);
 }
 
-export async function _foldl1<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) {
+export function _foldl1<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) {
     logger.trace('_foldl1()');
     return _foldl1_impl_fn(iter, fn);
 }
