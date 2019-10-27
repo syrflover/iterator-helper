@@ -50,6 +50,7 @@ import { _take } from './iterator/take';
 import { _takeWhile } from './iterator/takeWhile';
 import { _foldr } from './iterator/foldr';
 import { _foldr1 } from './iterator/foldr1';
+import { _zip } from './iterator/zip';
 
 const logger = getLogger('iterator');
 
@@ -225,6 +226,11 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.take_while
      */
     takeWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+
+    /**
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.zip
+     */
+    zip<U>(other: Iterable<U> | AsyncIterable<U>): ToAsyncIterator<Pair<T, U>>;
 }
 
 export interface IAsyncIterator_number extends IAsyncIterator_<number> {
@@ -442,6 +448,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public takeWhile(predicate: PredicateFn<T>) {
         logger.trace('takeWhile()');
         return (new AsyncIterator_<T>(_takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
+    }
+
+    public zip<U>(other: Iterable<U> | AsyncIterable<U>) {
+        logger.trace('zip()');
+        return (new AsyncIterator_<Pair<T, U>>(_zip<T, U>(other, this)) as unknown) as ToAsyncIterator<Pair<T, U>>;
     }
 }
 
