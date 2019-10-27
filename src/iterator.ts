@@ -29,6 +29,7 @@ import { _foldl } from './iterator/foldl';
 import { _foldl1 } from './iterator/foldl1';
 import { _forEach } from './iterator/forEach';
 import { _inspect } from './iterator/inspect';
+import { _last } from './iterator/last';
 import { _map } from './iterator/map';
 import { _max } from './iterator/max';
 import { _maxBy } from './iterator/maxBy';
@@ -53,7 +54,8 @@ const logger = getLogger('iterator');
 
 // prettier-ignore
 export type ToAsyncIterator<T> =
-    T extends number ? IAsyncIterator_number : IAsyncIterator_<T>;
+    T extends number ? IAsyncIterator_number :
+    IAsyncIterator_<T>;
 
 export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
@@ -137,6 +139,11 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.inspect
      */
     inspect(fn: ForEachFn<T>): ToAsyncIterator<T>;
+
+    /**
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.last
+     */
+    last(): Promise<T | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.map
@@ -335,6 +342,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return (new AsyncIterator_<T>(_inspect<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
+    public last() {
+        logger.trace('last()');
+        return _last<T>(this);
+    }
+
     public map<R>(fn: MapFn<T, R>) {
         logger.trace('map()');
         return (new AsyncIterator_<R>(_map<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
@@ -393,7 +405,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public reverse() {
         logger.trace('reverse()');
-        return (new AsyncIterator_(_reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(_reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skip(count: number) {
@@ -424,5 +436,5 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
     logger.trace('iterator()');
-    return (new AsyncIterator_(iter) as unknown) as ToAsyncIterator<T>;
+    return (new AsyncIterator_<T>(iter) as unknown) as ToAsyncIterator<T>;
 }
