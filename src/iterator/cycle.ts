@@ -26,5 +26,5 @@ async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>, r: T[] = []): AsyncIte
 
 export function _cycle<T>(iter: AsyncIterable<T>) {
     logger.trace('_cycle()');
-    return (new AsyncIterator_(_cycle_impl_fn(iter)) as unknown) as ToAsyncIterator<T>;
+    return _cycle_impl_fn(iter);
 }

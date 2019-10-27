@@ -2,17 +2,17 @@ import { assert } from 'chai';
 
 import { iterator } from '../../src';
 
-describe('test foldl', () => {
+describe('test foldr', () => {
     it('sum', async () => {
         const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
         const actual_elements: number[] = [];
-        const expected_elements = [1, 2, 3, 4, 5];
+        const expected_elements = [5, 4, 3, 2, 1];
 
         const actual_accumulator_without_result: number[] = [];
-        const expected_accumulator_without_result = [1, 2, 4, 7, 11];
+        const expected_accumulator_without_result = [1, 6, 10, 13, 15];
 
-        const actual_result = await a.foldl(Promise.resolve(1), (acc, e) => {
+        const actual_result = await a.foldr(Promise.resolve(1), (e, acc) => {
             actual_elements.push(e);
             actual_accumulator_without_result.push(acc);
             return acc + e;

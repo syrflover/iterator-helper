@@ -23,5 +23,5 @@ async function* _enumerate_impl_fn<T>(iter: AsyncIterable<T>, current: number = 
 
 export function _enumerate<T>(iter: AsyncIterable<T>) {
     logger.trace('_enumerate()');
-    return (new AsyncIterator_(_enumerate_impl_fn(iter)) as unknown) as ToAsyncIterator<Pair<number, T>>;
+    return _enumerate_impl_fn(iter);
 }

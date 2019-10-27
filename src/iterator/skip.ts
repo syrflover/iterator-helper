@@ -28,5 +28,5 @@ async function* _skip_impl_fn<T>(iter: AsyncIterable<T>, count: number, current:
 
 export function _skip<T>(count: number, iter: AsyncIterable<T>) {
     logger.trace('_drop()');
-    return (new AsyncIterator_(_skip_impl_fn(iter, count)) as unknown) as ToAsyncIterator<T>;
+    return _skip_impl_fn(iter, count);
 }

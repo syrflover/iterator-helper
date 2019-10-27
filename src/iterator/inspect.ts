@@ -28,5 +28,5 @@ async function* _inspect_impl_fn<T>(iter: AsyncIterable<T>, fn: ForEachFn<T>): A
 
 export function _inspect<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_inspect()');
-    return (new AsyncIterator_(_inspect_impl_fn(iter, fn)) as unknown) as ToAsyncIterator<T>;
+    return _inspect_impl_fn(iter, fn);
 }

@@ -33,5 +33,5 @@ async function* _skip_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: Predic
 
 export function _skipWhile<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_dropWhile()');
-    return (new AsyncIterator_(_skip_while_impl_fn(iter, predicate)) as unknown) as ToAsyncIterator<T>;
+    return _skip_while_impl_fn(iter, predicate);
 }

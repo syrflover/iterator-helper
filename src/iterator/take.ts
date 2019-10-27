@@ -25,5 +25,5 @@ async function* _take_impl_fn<T>(iter: AsyncIterable<T>, limit: number, current:
 
 export function _take<T>(limit: number, iter: AsyncIterable<T>) {
     logger.trace('_take()');
-    return (new AsyncIterator_(_take_impl_fn(iter, limit)) as unknown) as ToAsyncIterator<T>;
+    return _take_impl_fn(iter, limit);
 }

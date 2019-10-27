@@ -1,14 +1,14 @@
 import { getLogger } from '../logger';
 
-import { FoldFn } from '../types/fn/fold';
+import { FoldlFn } from '../types/fn/fold';
 
 import { next_async } from '../lib/iterable/next';
 
 import { _foldl } from './foldl';
 
-const logger = getLogger('iterator/fold1');
+const logger = getLogger('iterator/foldl1');
 
-async function _foldl1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldFn<T, T>) {
+async function _foldl1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldlFn<T, T>) {
     logger.trace('_foldl1_impl_fn()');
     const { done, value: head } = await next_async(iter);
 
@@ -22,7 +22,7 @@ async function _foldl1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldFn<T, T>) {
     return _foldl(fn, head, iter);
 }
 
-export async function _foldl1<T>(fn: FoldFn<T, T>, iter: AsyncIterable<T>) {
+export async function _foldl1<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) {
     logger.trace('_foldl1()');
     return _foldl1_impl_fn(iter, fn);
 }

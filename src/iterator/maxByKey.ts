@@ -21,7 +21,7 @@ async function _max_by_key_impl_fn<T>(iter: AsyncIterable<T>, keyFn: ByKeyFn<T>,
     return _foldl(async (acc, e) => maxBy(await keyFn(acc), await keyFn(e), cmpFn), value, iter);
 }
 
-export function _maxByKey<T>(cmpFn: CompareFn<T> | undefined, keyFn: ByKeyFn<T>, iter: AsyncIterable<T>) {
+export function _maxByKey<T>(cmpFn: CompareFn<T>, keyFn: ByKeyFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_maxByKey()');
-    return _max_by_key_impl_fn(iter, keyFn, cmpFn ?? cmp);
+    return _max_by_key_impl_fn(iter, keyFn, cmpFn);
 }

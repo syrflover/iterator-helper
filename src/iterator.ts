@@ -1,18 +1,19 @@
 import { getLogger } from './logger';
 
 import { toIterable } from './lib/iterable';
+import { cmp } from './lib/cmp';
 
 import { isArrayLike } from './types/guard/isArrayLike';
 
 import { ForEachFn } from './types/fn/forEach';
-import { FoldFn } from './types/fn/fold';
+import { FoldlFn, FoldrFn } from './types/fn/fold';
 import { MapFn } from './types/fn/map';
 import { PredicateFn } from './types/fn/predicate';
 import { CompareFn } from './types/fn/cmp';
 import { ByKeyFn } from './types/fn/byKey';
 
 import { Flatten } from './types/flatten';
-import { Pair } from './types/pair';
+import { Pair, pair } from './types/pair';
 
 import { _all } from './iterator/all';
 import { _any } from './iterator/any';
@@ -45,6 +46,8 @@ import { _skipWhile } from './iterator/skipWhile';
 import { _sum } from './iterator/sum';
 import { _take } from './iterator/take';
 import { _takeWhile } from './iterator/takeWhile';
+import { _foldr } from './iterator/foldr';
+import { _foldr1 } from './iterator/foldr1';
 
 const logger = getLogger('iterator');
 
@@ -106,14 +109,24 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     flatten(): ToAsyncIterator<Flatten<T>>;
 
     /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:fold
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldl
      */
-    foldl<U>(init: U | Promise<U>, fn: FoldFn<T, U>): Promise<U>;
+    foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>): Promise<U>;
 
     /**
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldl1
      */
-    foldl1(fn: FoldFn<T, T>): Promise<T>;
+    foldl1(fn: FoldlFn<T, T>): Promise<T>;
+
+    /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldr
+     */
+    foldr<U>(init: U | Promise<U>, fn: FoldrFn<T, U>): Promise<U>;
+
+    /**
+     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldr1
+     */
+    foldr1(fn: FoldrFn<T, T>): Promise<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.for_each
@@ -181,12 +194,12 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     reverse(): ToAsyncIterator<T>;
 
     /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:drop
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.skip
      */
     skip(count: number): ToAsyncIterator<T>;
 
     /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:dropWhile
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.skip_while
      */
     skipWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
 
@@ -254,7 +267,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public chain(other: Iterable<T> | AsyncIterable<T>) {
         logger.trace('chain()');
-        return _chain<T>(other, this);
+        return (new AsyncIterator_<T>(_chain<T>(other, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public collect() {
@@ -269,17 +282,17 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public cycle() {
         logger.trace('cycle()');
-        return _cycle<T>(this);
+        return (new AsyncIterator_<T>(_cycle<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public enumerate() {
         logger.trace('enumerate()');
-        return _enumerate<T>(this);
+        return (new AsyncIterator_<Pair<number, T>>(_enumerate<T>(this)) as unknown) as ToAsyncIterator<Pair<number, T>>;
     }
 
     public filter(predicate: PredicateFn<T>) {
         logger.trace('filter()');
-        return _filter<T>(predicate, this);
+        return (new AsyncIterator_<T>(_filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public find(predicate: PredicateFn<T>) {
@@ -289,17 +302,27 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public flatten() {
         logger.trace('flatten()');
-        return _flatten<T>(this);
+        return (new AsyncIterator_<Flatten<T>>(_flatten<T>(this)) as unknown) as ToAsyncIterator<Flatten<T>>;
     }
 
-    public foldl<U>(init: U | Promise<U>, fn: FoldFn<T, U>) {
+    public foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>) {
         logger.trace('fold()');
         return _foldl<T, U>(fn, init, this);
     }
 
-    public foldl1(fn: FoldFn<T, T>) {
+    public foldl1(fn: FoldlFn<T, T>) {
         logger.trace('fold1()');
         return _foldl1<T>(fn, this);
+    }
+
+    public foldr<U>(init: U | Promise<U>, fn: FoldrFn<T, U>) {
+        logger.trace('foldr()');
+        return _foldr(fn, init, this);
+    }
+
+    public foldr1(fn: FoldrFn<T, T>) {
+        logger.trace('foldr()');
+        return _foldr1(fn, this);
     }
 
     public forEach(fn: ForEachFn<T>) {
@@ -309,12 +332,12 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public inspect(fn: ForEachFn<T>) {
         logger.trace('inspect()');
-        return _inspect<T>(fn, this);
+        return (new AsyncIterator_<T>(_inspect<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public map<R>(fn: MapFn<T, R>) {
         logger.trace('map()');
-        return _map<T, R>(fn, this);
+        return (new AsyncIterator_<R>(_map<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public max() {
@@ -329,7 +352,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public maxByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
         logger.trace('maxByKey()');
-        return _maxByKey<T>(cmpFn, keyFn, this);
+        return _maxByKey<T>(cmpFn ?? cmp, keyFn, this);
     }
 
     public min() {
@@ -344,17 +367,18 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public minByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
         logger.trace('minByKey()');
-        return _minByKey<T>(cmpFn, keyFn, this);
+        return _minByKey<T>(cmpFn ?? cmp, keyFn, this);
     }
 
-    public nth(index: number) {
+    public nth(n: number) {
         logger.trace('nth()');
-        return _nth<T>(index, this);
+        return _nth<T>(n, this);
     }
 
-    public partition(fn: PredicateFn<T>) {
+    public async partition(fn: PredicateFn<T>) {
         logger.trace('partition()');
-        return _partition(fn, this);
+        const [left, right] = await _partition(fn, this);
+        return (pair(new AsyncIterator_<T>(left), new AsyncIterator_<T>(right)) as unknown) as Pair<ToAsyncIterator<T>, ToAsyncIterator<T>>;
     }
 
     public position(fn: PredicateFn<T>) {
@@ -369,17 +393,17 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public reverse() {
         logger.trace('reverse()');
-        return _reverse<T>(this);
+        return (new AsyncIterator_(_reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skip(count: number) {
         logger.trace('drop()');
-        return _skip<T>(count, this);
+        return (new AsyncIterator_<T>(_skip<T>(count, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skipWhile(predicate: PredicateFn<T>) {
         logger.trace('dropWhile()');
-        return _skipWhile<T>(predicate, this);
+        return (new AsyncIterator_<T>(_skipWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public sum() {
@@ -389,12 +413,12 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public take(limit: number) {
         logger.trace('take()');
-        return _take<T>(limit, this);
+        return (new AsyncIterator_<T>(_take<T>(limit, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public takeWhile(predicate: PredicateFn<T>) {
         logger.trace('takeWhile()');
-        return _takeWhile<T>(predicate, this);
+        return (new AsyncIterator_<T>(_takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 }
 

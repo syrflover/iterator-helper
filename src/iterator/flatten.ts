@@ -33,5 +33,5 @@ async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatt
 
 export function _flatten<T>(iter: AsyncIterable<T>) {
     logger.trace('_flatten()');
-    return (new AsyncIterator_(_flatten_impl_fn(iter)) as unknown) as ToAsyncIterator<Flatten<T>>;
+    return _flatten_impl_fn(iter);
 }

@@ -33,8 +33,7 @@ async function _partition_impl_fn<T>(
     return _partition_impl_fn(iter, fn, left, append(value, right));
 }
 
-export async function _partition<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) {
+export function _partition<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('_partition()');
-    const [left, right] = await _partition_impl_fn(iter, fn);
-    return (pair(new AsyncIterator_(left), new AsyncIterator_(right)) as unknown) as Pair<ToAsyncIterator<T>, ToAsyncIterator<T>>;
+    return _partition_impl_fn(iter, fn);
 }
