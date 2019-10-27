@@ -44,6 +44,7 @@ import { _product } from './iterator/product';
 import { _reverse } from './iterator/reverse';
 import { _skip } from './iterator/skip';
 import { _skipWhile } from './iterator/skipWhile';
+import { _stepBy } from './iterator/stepBy';
 import { _sum } from './iterator/sum';
 import { _take } from './iterator/take';
 import { _takeWhile } from './iterator/takeWhile';
@@ -209,6 +210,11 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.skip_while
      */
     skipWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+
+    /**
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.step_by
+     */
+    stepBy(step: number): ToAsyncIterator<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.take
@@ -416,6 +422,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public skipWhile(predicate: PredicateFn<T>) {
         logger.trace('dropWhile()');
         return (new AsyncIterator_<T>(_skipWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
+    }
+
+    public stepBy(step: number) {
+        logger.trace('stepBy()');
+        return (new AsyncIterator_<T>(_stepBy<T>(step, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public sum() {
