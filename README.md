@@ -5,6 +5,8 @@
 
 Iterator Helper used `AsyncIterator`, not used `Iterator`
 
+methods are implement by recursively
+
 ## Installation
 
 ```bash
