@@ -1,8 +1,8 @@
-import { next_async } from './next';
-import { prepend } from './prepend';
-import { toAsyncIterable } from '../iterable';
-import { append } from './append';
 import { pair, Pair } from '../../types/pair';
+
+import { toAsyncIterable } from '../iterable';
+import { next_async } from './next';
+import { append } from './append';
 import { init } from './init';
 
 export async function initLast<T>(

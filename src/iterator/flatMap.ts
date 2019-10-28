@@ -5,9 +5,6 @@ import { MapFn } from '../types/fn/map';
 
 import { next_async } from '../lib/iterable/next';
 
-import { _flatten } from './flatten';
-import { _map } from './map';
-
 const logger = getLogger('iterator/flatMap');
 
 async function* _flat_map_impl_fn<T, R extends Iterable<any> | AsyncIterable<any>>(
