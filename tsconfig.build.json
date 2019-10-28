@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es2015",
         "module": "esnext",
-        "lib": ["es2015.generator", "es2015.iterable", "es2015.promise", "es2018.asynciterable", "es2018.promise", "esnext.bigint"],
+        "lib": ["es2018.asynciterable"],
         "outDir": "build",
         "sourceMap": true,
         "declaration": true,
