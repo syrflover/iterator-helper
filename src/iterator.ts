@@ -57,6 +57,7 @@ import { _foldr } from './iterator/foldr';
 import { _foldr1 } from './iterator/foldr1';
 import { _unzip } from './iterator/unzip';
 import { _zip } from './iterator/zip';
+import { _flatMap } from './iterator/flatMap';
 
 const logger = getLogger('iterator');
 
@@ -113,6 +114,11 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.find
      */
     find(predicate: PredicateFn<T>): Promise<T | undefined>;
+
+    /**
+     * @see https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.flat_map
+     */
+    flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>): ToAsyncIterator<Flatten<R>>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.flatten
@@ -352,6 +358,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public find(predicate: PredicateFn<T>) {
         logger.trace('find()');
         return _find<T>(predicate, this);
+    }
+
+    public flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>) {
+        logger.trace('flatMap()');
+        return (new AsyncIterator_<Flatten<R>>(_flatMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<Flatten<R>>;
     }
 
     public flatten() {

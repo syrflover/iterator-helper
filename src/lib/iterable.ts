@@ -1,9 +1,8 @@
 import { getLogger } from '../logger';
 
 import { isArrayLike } from '../types/guard/isArrayLike';
-import { isPromise } from '../types/guard/isPromise';
 
-import { next } from './iterable/next';
+import { next_async } from './iterable/next';
 
 const logger = getLogger('lib/iterable');
 
@@ -17,15 +16,13 @@ export function toAsyncIterable<T>(
 ): AsyncIterableIterator<T> {
     logger.trace('toAsyncIterable()');
 
-    if (isPromise(iter)) {
-        return (async function*() {
-            const iter_ = await iter;
-            const iter__ = isArrayLike(iter_) ? toIterable(iter_) : iter_;
-            yield* iter__;
-        })();
-    }
+    const iter_ = (async function*() {
+        const iter__ = await iter;
+        const iter___ = isArrayLike(iter__) ? toIterable(iter__) : iter__;
+        yield* iter___;
+    })();
 
-    const iter_ = isArrayLike(iter) ? toIterable(iter) : iter;
+    logger.debug('toAsyncIterable()', 'iter_  =', iter_);
 
     return {
         [Symbol.asyncIterator]() {
@@ -35,7 +32,7 @@ export function toAsyncIterable<T>(
         async next() {
             logger.trace('toAsyncIterable()', 'next()');
 
-            const { done, value } = await next(iter_);
+            const { done, value } = await next_async(iter_);
 
             logger.debug('toAsyncIterable()', 'done  =', done);
             logger.debug('toAsyncIterable()', 'value =', value);
