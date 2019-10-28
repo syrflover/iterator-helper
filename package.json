@@ -1,13 +1,13 @@
 {
     "name": "@syrflover/iterator",
-    "version": "0.0.20",
+    "version": "0.0.30",
     "description": "Iterator Helper for TypeScript",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "start": "ITER_HELPER_LOG_LEVEL=trace ts-node -P tsconfig.json src/playground.ts",
         "test": "tsc -p tsconfig.test.json && ts-mocha -p tsconfig.test.json --slow 0 test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts",
-        "build": "rm -rf ./build && tsc -p tsconfig.build.json",
+        "build": "rm -rf ./dist && node rollup.js",
         "lint": "eslint src/**/*.ts",
         "doc": "typedoc --options typedoc.json",
         "prepublishOnly": "npm run lint && npm run test && npm run build"
@@ -28,9 +28,6 @@
         "iterator",
         "iterator helper"
     ],
-    "dependencies": {
-        "log4js": "^5.2.2"
-    },
     "devDependencies": {
         "@types/chai": "^4.2.3",
         "@types/mocha": "^5.2.7",
@@ -41,7 +38,16 @@
         "eslint": "^6.5.1",
         "eslint-config-airbnb": "^18.0.1",
         "eslint-plugin-import": "^2.18.2",
+        "log4js": "^5.2.2",
         "mocha": "^6.2.2",
+        "rollup": "^1.26.0",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-ignore": "^1.0.5",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-re": "^1.0.7",
+        "rollup-plugin-strip": "^1.2.2",
+        "rollup-plugin-terser": "^5.1.2",
+        "rollup-plugin-typescript2": "^0.24.3",
         "ts-mocha": "^6.0.0",
         "ts-node": "^8.4.1",
         "tslint": "^5.20.0",

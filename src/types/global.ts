@@ -98,4 +98,4 @@ Float64Array.prototype.iter = function() {
     return iterator(this);
 };
 
-export = global;
+export default global;
