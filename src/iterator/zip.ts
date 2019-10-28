@@ -3,8 +3,8 @@ import { getLogger } from '../logger';
 import { Pair, pair } from '../types/pair';
 import { isArrayLike } from '../types/guard/isArrayLike';
 
-import { next_async, next } from '../lib/iterable/next';
 import { toIterable } from '../lib/iterable';
+import { next_async, next } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/zip');
 

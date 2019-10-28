@@ -1,17 +1,12 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_, ToAsyncIterator } from '../iterator';
-
 import { Flatten } from '../types/flatten';
 import { MapFn } from '../types/fn/map';
 
 import { next_async } from '../lib/iterable/next';
-import { toAsyncIterable } from '../lib/iterable';
 
 import { _flatten } from './flatten';
 import { _map } from './map';
-import { isIterable } from '../types/guard/isIterable';
-import { isAsyncIterable } from '../types/guard/isAsyncIterable';
 
 const logger = getLogger('iterator/flatMap');
 

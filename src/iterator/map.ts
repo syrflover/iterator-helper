@@ -1,7 +1,5 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_, ToAsyncIterator } from '../iterator';
-
 import { MapFn } from '../types/fn/map';
 
 import { next_async } from '../lib/iterable/next';

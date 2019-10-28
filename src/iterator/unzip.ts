@@ -2,9 +2,8 @@ import { getLogger } from '../logger';
 
 import { Pair } from '../types/pair';
 
-import { next_async } from '../lib/iterable/next';
-import { _partition } from './partition';
 import { toAsyncIterable } from '../lib/iterable';
+import { next_async } from '../lib/iterable/next';
 import { append } from '../lib/iterable/append';
 
 const logger = getLogger('iterator/unzip');

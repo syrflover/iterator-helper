@@ -4,9 +4,9 @@ import { FoldrFn } from '../types/fn/fold';
 
 import { next_async } from '../lib/iterable/next';
 import { initLast } from '../lib/iterable/initLast';
+import { append } from '../lib/iterable/append';
 
 import { _foldr } from './foldr';
-import { append } from '../lib/iterable/append';
 
 const logger = getLogger('iterator/foldr1');
 

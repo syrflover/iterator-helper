@@ -5,8 +5,6 @@ import { ScanrFn } from '../types/fn/scan';
 import { next_async } from '../lib/iterable/next';
 import { prepend } from '../lib/iterable/prepend';
 
-import { _reverse } from './reverse';
-
 const logger = getLogger('iterator/scanr');
 
 async function* _scanr_impl_fn<A, B>(iter: AsyncIterable<A>, state: B | Promise<B>, fn: ScanrFn<A, B>): AsyncIterable<B> {

@@ -2,7 +2,6 @@ import { getLogger } from '../logger';
 
 import { FoldrFn } from '../types/fn/fold';
 
-import { _reverse } from './reverse';
 import { next_async } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/foldr');

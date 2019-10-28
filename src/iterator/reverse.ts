@@ -1,13 +1,12 @@
 import { getLogger } from '../logger';
 
-import { AsyncIterator_, ToAsyncIterator } from '../iterator';
-
 import { _foldl } from './foldl';
 
 import { toAsyncIterable } from '../lib/iterable';
 
-import { flip } from '../lib/flip';
 import { prepend } from '../lib/iterable/prepend';
+
+import { flip } from '../lib/flip';
 
 const logger = getLogger('iterator/reverse');
 

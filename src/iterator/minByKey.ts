@@ -3,8 +3,9 @@ import { getLogger } from '../logger';
 import { ByKeyFn } from '../types/fn/byKey';
 import { CompareFn } from '../types/fn/cmp';
 
-import { cmp, minBy } from '../lib/cmp';
 import { next_async } from '../lib/iterable/next';
+
+import { minBy } from '../lib/cmp';
 
 import { _foldl } from './foldl';
 

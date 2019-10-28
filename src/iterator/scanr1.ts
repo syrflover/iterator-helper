@@ -7,7 +7,6 @@ import { initLast } from '../lib/iterable/initLast';
 import { prepend } from '../lib/iterable/prepend';
 
 import { _scanr } from './scanr';
-import { _reverse } from './reverse';
 
 const logger = getLogger('iterator/scanr1');
 
