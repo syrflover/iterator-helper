@@ -1,7 +1,6 @@
 /* eslint-disable */
 const { builtinModules } = require('module');
 const typescript = require('rollup-plugin-typescript2');
-const { terser } = require('rollup-plugin-terser');
 const ignore = require('rollup-plugin-ignore');
 const replace = require('rollup-plugin-re');
 
@@ -71,7 +70,7 @@ const config = (ent) => {
             typescript({
                 tsconfig: 'tsconfig.build.json',
             }), // so Rollup can convert TypeScript to JavaScript
-            terser(),
+            // terser(),
         ],
         // output: [{ entryFileNames: '[name].js', format: 'cjs' }],
     };
