@@ -126,6 +126,7 @@ public/
 # End of https://www.gitignore.io/api/node,macos
 
 test/
+doc/
 
 package-lock.json
 yarn.lock
@@ -138,3 +139,8 @@ yarn.lock
 .prettierrc
 
 tsconfig.test.json
+
+typedoc.json
+tsconfig.json
+tsconfig.build.json
+rollup.js
