@@ -2,7 +2,7 @@ import { assert } from 'chai';
 
 import { iterator } from '../../dist';
 
-describe('test find', () => {
+describe('test nth', () => {
     it('[1,2,3,4,5].nth(0) == 1', async () => {
         const a = iterator([1, 2, 3, 4, 5]);
 

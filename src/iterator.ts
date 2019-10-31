@@ -3,8 +3,7 @@ import { getLogger } from './logger';
 import { toIterable } from './lib/iterable';
 import { cmp } from './lib/cmp';
 
-import { isArrayLike } from './types/guard/isArrayLike';
-import { isString } from './types/guard/isString';
+import { isArrayLikeOrString } from './types/guard/isArrayLikeOrString';
 
 import { ForEachFn } from './types/fn/forEach';
 import { FoldlFn, FoldrFn } from './types/fn/fold';
@@ -289,7 +288,7 @@ export interface IAsyncIterator_zip<T, U> extends IAsyncIterator_<Pair<T, U>> {
 export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
-        const it = isArrayLike(iter) || isString(iter) ? toIterable(iter) : iter;
+        const it = isArrayLikeOrString(iter) ? toIterable(iter) : iter;
 
         this._iter = {
             async *[Symbol.asyncIterator]() {

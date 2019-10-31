@@ -2,7 +2,7 @@ import { assert } from 'chai';
 
 import { isIterable } from '../../../src/types/guard/isIterable';
 
-describe('test isiterable', () => {
+describe('test isIterable', () => {
     function* iterable() {
         yield 1;
         yield 2;

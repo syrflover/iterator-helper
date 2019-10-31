@@ -34,6 +34,21 @@ describe('test zip', () => {
         assert.deepStrictEqual(actual, expected);
     });
 
+    it('string', async () => {
+        const a = iterator([1, 2, 3, 4]);
+
+        const actual: Pair<number, string>[] = [];
+        const expected: Pair<number, string>[] = [[1, 'h'], [2, 'e'], [3, 'l'], [4, 'l']];
+
+        const it = a.zip('hello world');
+
+        for await (const _ of it) {
+            actual.push(_);
+        }
+
+        assert.deepStrictEqual(actual, expected);
+    });
+
     it('empty iter', async () => {
         const a = iterator<number>([]);
 

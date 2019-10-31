@@ -17,8 +17,8 @@ describe('test isArrayLike', () => {
         assert.strictEqual(actual, expected);
     });
 
-    it('false', () => {
-        const actual = isArrayLike(1);
+    it('undefined', () => {
+        const actual = isArrayLike(undefined);
         const expected = false;
 
         assert.strictEqual(actual, expected);

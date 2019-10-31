@@ -10,8 +10,8 @@ describe('test isPromise', () => {
         assert.strictEqual(actual, expected);
     });
 
-    it('false', () => {
-        const actual = isPromise(1);
+    it('undefined', () => {
+        const actual = isPromise(undefined);
         const expected = false;
 
         assert.strictEqual(actual, expected);

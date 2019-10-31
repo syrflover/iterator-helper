@@ -2,7 +2,7 @@ import { assert } from 'chai';
 
 import { iterator } from '../../dist';
 
-describe('test foldr1', () => {
+describe('test last', () => {
     it('sum', async () => {
         const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 

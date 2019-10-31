@@ -1,7 +1,6 @@
 import { getLogger } from '../logger';
 
-import { isArrayLike } from '../types/guard/isArrayLike';
-import { isString } from '../types/guard/isString';
+import { isArrayLikeOrString } from '../types/guard/isArrayLikeOrString';
 
 import { next_async } from './iterable/next';
 
@@ -19,7 +18,7 @@ export function toAsyncIterable<T>(
 
     const iter_ = (async function*() {
         const iter__ = await iter;
-        const iter___ = isArrayLike(iter__) || isString(iter__) ? toIterable(iter__) : iter__;
+        const iter___ = isArrayLikeOrString(iter__) ? toIterable(iter__) : iter__;
         yield* iter___;
     })();
 
