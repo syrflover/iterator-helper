@@ -16,5 +16,5 @@
         "moduleResolution": "node"
     },
     "include": ["src/**/*.ts"],
-    "exclude": ["src/playground.ts"]
+    "exclude": ["src/playground.ts", "src/logger.ts"]
 }
