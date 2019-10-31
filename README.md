@@ -1,7 +1,7 @@
 # Iterator Helper
 
 ![](https://github.com/syrflover/iterator-helper/workflows/test/badge.svg)
-[![npm version](https://badge.fury.io/js/%40syrflover%2Fiterator.svg)](https://badge.fury.io/js/%40syrflover%2Fiterator)
+[![npm version](https://img.shields.io/npm/v/@syrflover/iterator?label=npm%20version)](https://www.npmjs.com/package/@syrflover/iterator)
 
 Iterator Helper used `AsyncIterator`, not used `Iterator`
 
