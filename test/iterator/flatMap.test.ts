@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
 describe('test flatMap', () => {
     it(`[\`it's Sunny in\`, '', 'California'] split(' ')`, async () => {

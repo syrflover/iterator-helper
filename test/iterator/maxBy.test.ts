@@ -1,9 +1,9 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
-import { cmp } from '../../src/lib/cmp';
-import { Ord } from '../../src/types/ordering';
+import { cmp } from '../../dist/lib/cmp';
+import { Ord } from '../../dist/types/ordering';
 
 describe('test maxBy', () => {
     function _cmp<T>(a: T, b: T): Ord {

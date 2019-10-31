@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { flip } from '../../src/lib/flip';
+import { flip } from '../../dist/lib/flip';
 
 describe('test flip', () => {
     it('div', () => {

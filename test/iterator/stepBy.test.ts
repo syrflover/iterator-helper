@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
 describe('test stepBy', () => {
     it('stepBy(2)', async () => {

@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
-import { Ord } from '../../src/types/ordering';
+import { Ord } from '../../dist/types/ordering';
 
 describe('test maxByKey', () => {
     function _cmp<T>(a: T, b: T): Ord {

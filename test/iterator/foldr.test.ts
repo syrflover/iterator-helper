@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
 describe('test foldr', () => {
     it('sum', async () => {

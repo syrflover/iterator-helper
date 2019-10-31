@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
 describe('test takeWhile', () => {
     it('takeWhile(x < 3, [1,2,3,4,1,2,3,4]) == [1,2]', async () => {

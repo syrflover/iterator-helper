@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
 describe('test flatten', () => {
     it('[1,2,3,Promise<4>,5,[Promise<6>,7],AsyncIterator_<8,9>,10]', async () => {

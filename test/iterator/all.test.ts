@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 
-import { iterator } from '../../src';
+import { iterator } from '../../dist';
 
-import { Pair } from '../../src/types/pair';
+import { Pair } from '../../dist/types/pair';
 
 describe('test all', () => {
     it('x > 0', async () => {

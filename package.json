@@ -6,7 +6,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "start": "ITER_HELPER_LOG_LEVEL=trace ts-node -P tsconfig.json src/playground.ts",
-        "test": "tsc -p tsconfig.test.json && ts-mocha -p tsconfig.test.json --slow 0 test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts",
+        "test": "npm run build && tsc -p tsconfig.test.json && ts-mocha -p tsconfig.test.json --slow 0 test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts",
         "build": "rm -rf ./dist && node rollup.js",
         "lint": "eslint src/**/*.ts",
         "doc": "typedoc --options typedoc.json",
