@@ -3,7 +3,7 @@
         "target": "es2015",
         "module": "esnext",
         "lib": ["es2018.asynciterable"],
-        "outDir": "build",
+        "outDir": "dist",
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,

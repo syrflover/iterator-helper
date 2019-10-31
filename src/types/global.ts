@@ -7,6 +7,10 @@ import { EP } from './promise';
 const logger = getLogger('global');
 
 declare global {
+    interface String {
+        iter(): ToAsyncIterator<string>;
+    }
+
     interface Array<T> {
         iter(): ToAsyncIterator<EP<T>>;
     }
@@ -47,6 +51,11 @@ declare global {
         iter(): ToAsyncIterator<number>;
     }
 }
+
+String.prototype.iter = function() {
+    logger.trace('String', 'iter()');
+    return iterator(this);
+};
 
 Array.prototype.iter = function() {
     logger.trace('Array', 'iter()');

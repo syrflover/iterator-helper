@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es2015",
         "module": "commonjs",
-        "lib": ["es2015.generator", "es2015.iterable", "es2015.promise", "es2018.asynciterable", "es2018.promise", "esnext.bigint"],
+        "lib": ["es2018.asynciterable"],
         "noEmit": true,
         "sourceMap": true,
         "declaration": true,
@@ -15,6 +15,5 @@
         "alwaysStrict": true,
         "moduleResolution": "node"
     },
-    "include": ["./**/*.ts"],
-    "exclude": ["./build"]
+    "include": [".src/**/*.ts", "./test/**/*.ts"]
 }

@@ -99,4 +99,18 @@ describe('test toAsyncIterable', () => {
         assert.deepStrictEqual(actual, expected);
         assert.ok(Symbol.asyncIterator in iter);
     });
+
+    it('from String', async () => {
+        const actual: string[] = [];
+        const expected = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'];
+
+        const iter = toAsyncIterable('hello world');
+
+        for await (const _ of iter) {
+            actual.push(_);
+        }
+
+        assert.deepStrictEqual(actual, expected);
+        assert.ok(Symbol.asyncIterator in iter);
+    });
 });
