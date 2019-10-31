@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { append } from '../../../src/lib/iterable/append';
+import { append } from '../../../dist/lib/iterable/append';
 
 describe('test append', () => {
     it('append(1, [0])', async () => {

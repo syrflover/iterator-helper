@@ -24,6 +24,7 @@ import { _count } from './iterator/count';
 import { _cycle } from './iterator/cycle';
 import { _enumerate } from './iterator/enumerate';
 import { _filter } from './iterator/filter';
+import { _filterMap } from './iterator/filterMap';
 import { _find } from './iterator/find';
 import { _flatten } from './iterator/flatten';
 import { _foldl } from './iterator/foldl';
@@ -109,6 +110,17 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.filter
      */
     filter(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+
+    /**
+     * @example
+     * ['a', 'b', '1', 'c', '2', '3']
+     *   .iter()
+     *   .filterMap(e => parseInt(e, 10))
+     *   .collect(); // [1, 2, 3]
+     *
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.filter_map
+     */
+    filterMap<R>(fn: MapFn<T, R | null | undefined>): ToAsyncIterator<R>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.find
@@ -353,6 +365,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public filter(predicate: PredicateFn<T>) {
         logger.trace('filter()');
         return (new AsyncIterator_<T>(_filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
+    }
+
+    public filterMap<R>(fn: MapFn<T, R | null | undefined>) {
+        logger.trace('filterMap()');
+        return (new AsyncIterator_<R>(_filterMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public find(predicate: PredicateFn<T>) {

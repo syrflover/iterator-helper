@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { isAsyncIterable } from '../../../src/types/guard/isAsyncIterable';
+import { isAsyncIterable } from '../../../dist/types/guard/isAsyncIterable';
 
 describe('test isAsyncIterable', () => {
     function* iterable() {
