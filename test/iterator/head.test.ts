@@ -7,7 +7,7 @@ describe('test head', () => {
         const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
         const actual = await a.head();
-        const expected = 5;
+        const expected = 1;
 
         assert.strictEqual(actual, expected);
     });
