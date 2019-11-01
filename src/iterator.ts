@@ -15,6 +15,7 @@ import { ScanlFn, ScanrFn } from './types/fn/scan';
 
 import { Flatten } from './types/flatten';
 import { Pair, pair } from './types/pair';
+import { Nullable } from './types/nullable';
 
 import { _all } from './iterator/all';
 import { _any } from './iterator/any';
@@ -26,6 +27,8 @@ import { _enumerate } from './iterator/enumerate';
 import { _filter } from './iterator/filter';
 import { _filterMap } from './iterator/filterMap';
 import { _find } from './iterator/find';
+import { _findMap } from './iterator/findMap';
+import { _flatMap } from './iterator/flatMap';
 import { _flatten } from './iterator/flatten';
 import { _foldl } from './iterator/foldl';
 import { _foldl1 } from './iterator/foldl1';
@@ -58,7 +61,6 @@ import { _foldr } from './iterator/foldr';
 import { _foldr1 } from './iterator/foldr1';
 import { _unzip } from './iterator/unzip';
 import { _zip } from './iterator/zip';
-import { _flatMap } from './iterator/flatMap';
 
 const logger = getLogger('iterator');
 
@@ -112,6 +114,11 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     filter(predicate: PredicateFn<T>): ToAsyncIterator<T>;
 
     /**
+     * @description
+     * do not catch error
+     *
+     * filter only `null | undefined | NaN`
+     *
      * @example
      * ['a', 'b', '1', 'c', '2', '3']
      *   .iter()
@@ -120,12 +127,27 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.filter_map
      */
-    filterMap<R>(fn: MapFn<T, R | null | undefined>): ToAsyncIterator<R>;
+    filterMap<R>(fn: MapFn<T, Nullable<R>>): ToAsyncIterator<R>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.find
      */
     find(predicate: PredicateFn<T>): Promise<T | undefined>;
+
+    /**
+     * @description
+     * do not catch error
+     *
+     * filter only `null | undefined | NaN`
+     *
+     * @example
+     * ['a', 'b', '1', 'c', '2']
+     *   .iter()
+     *   .findMap(e => parseInt(e, 10)); // 1
+     *
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.find_map
+     */
+    findMap<R>(fn: MapFn<T, Nullable<R>>): Promise<R | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.flat_map
@@ -367,7 +389,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return (new AsyncIterator_<T>(_filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
-    public filterMap<R>(fn: MapFn<T, R | null | undefined>) {
+    public filterMap<R>(fn: MapFn<T, Nullable<R>>) {
         logger.trace('filterMap()');
         return (new AsyncIterator_<R>(_filterMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
@@ -375,6 +397,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public find(predicate: PredicateFn<T>) {
         logger.trace('find()');
         return _find<T>(predicate, this);
+    }
+
+    public findMap<R>(fn: MapFn<T, Nullable<R>>) {
+        logger.trace('findMap()');
+        return _findMap<T, R>(fn, this);
     }
 
     public flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>) {
