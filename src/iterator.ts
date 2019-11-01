@@ -19,6 +19,7 @@ import { Nullable } from './types/nullable';
 
 import { _all } from './iterator/all';
 import { _any } from './iterator/any';
+import { _average } from './iterator/average';
 import { _chain } from './iterator/chain';
 import { _collect } from './iterator/collect';
 import { _count } from './iterator/count';
@@ -319,6 +320,18 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
 
 export interface IAsyncIterator_number extends IAsyncIterator_<number> {
     /**
+     * @example
+     * [1, 2, 3, 4, 5]
+     *   .iter()
+     *   .average(); // 3
+     *
+     * ([] as number[])
+     *   .iter()
+     *   .average(); // 0
+     */
+    average(): Promise<number>;
+
+    /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.product
      */
     product(): Promise<number>;
@@ -374,6 +387,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public any(fn: PredicateFn<T>) {
         logger.trace('any()');
         return _any<T>(fn, this);
+    }
+
+    public average() {
+        logger.trace('average()');
+        return _average(this as any);
     }
 
     public chain(other: Iterable<T> | AsyncIterable<T>) {
