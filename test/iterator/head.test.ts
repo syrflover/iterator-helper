@@ -2,11 +2,11 @@ import { assert } from 'chai';
 
 import { iterator } from '../../dist';
 
-describe('test last', () => {
+describe('test head', () => {
     it('[1,2,3,4,5]', async () => {
         const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-        const actual = await a.last();
+        const actual = await a.head();
         const expected = 5;
 
         assert.strictEqual(actual, expected);
@@ -15,7 +15,7 @@ describe('test last', () => {
     it(`empty iter`, async () => {
         const a = iterator<number>([]);
 
-        const actual = await a.last();
+        const actual = await a.head();
 
         const expected = undefined;
 

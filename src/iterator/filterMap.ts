@@ -10,7 +10,7 @@ import { next_async } from '../lib/iterable/next';
 
 const logger = getLogger('iterator/filterMap');
 
-export async function* filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
+export async function* _filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
     logger.trace('filter_map_impl_fn()');
     const { done, value } = await next_async(iter);
 
@@ -24,10 +24,10 @@ export async function* filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapF
         yield mapped;
     }
 
-    yield* filter_map_impl_fn(iter, fn);
+    yield* _filter_map_impl_fn(iter, fn);
 }
 
 export function _filterMap<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) {
     logger.trace('filterMap()');
-    return filter_map_impl_fn(iter, fn);
+    return _filter_map_impl_fn(iter, fn);
 }

@@ -33,6 +33,7 @@ import { _flatten } from './iterator/flatten';
 import { _foldl } from './iterator/foldl';
 import { _foldl1 } from './iterator/foldl1';
 import { _forEach } from './iterator/forEach';
+import { _head } from './iterator/head';
 import { _inspect } from './iterator/inspect';
 import { _last } from './iterator/last';
 import { _map } from './iterator/map';
@@ -87,6 +88,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     chain(other: Iterable<T> | AsyncIterable<T>): ToAsyncIterator<T>;
 
     /**
+     * @description
      * Convert AsyncIterator_ to Array
      *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.collect
@@ -165,6 +167,8 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>): Promise<U>;
 
     /**
+     * @throws empty iterator
+     *
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldl1
      */
     foldl1(fn: FoldlFn<T, T>): Promise<T>;
@@ -175,6 +179,8 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     foldr<U>(init: U | Promise<U>, fn: FoldrFn<T, U>): Promise<U>;
 
     /**
+     * @throws empty iterator
+     *
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldr1
      */
     foldr1(fn: FoldrFn<T, T>): Promise<T>;
@@ -185,11 +191,22 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     forEach(fn: ForEachFn<T>): Promise<void>;
 
     /**
+     * @description
+     * if empty iterator, return undefined
+     *
+     * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#tymethod.next
+     */
+    head(): Promise<T | undefined>;
+
+    /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.inspect
      */
     inspect(fn: ForEachFn<T>): ToAsyncIterator<T>;
 
     /**
+     * @description
+     * if empty iterator, return undefined
+     *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.last
      */
     last(): Promise<T | undefined>;
@@ -232,7 +249,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.nth
      */
-    nth(index: number): Promise<T | undefined>;
+    nth(n: number): Promise<T | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.partition
@@ -437,6 +454,11 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public forEach(fn: ForEachFn<T>) {
         logger.trace('forEach()');
         return _forEach<T>(fn, this);
+    }
+
+    public head() {
+        logger.trace('head()');
+        return _head<T>(this);
     }
 
     public inspect(fn: ForEachFn<T>) {
