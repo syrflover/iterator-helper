@@ -1,9 +1,8 @@
 import { getLogger } from './logger';
 
-import { toIterable } from './lib/iterable';
+import { toAsyncIterable } from './lib/iterable';
+import { next_async } from './lib/iterable/next';
 import { cmp } from './lib/cmp';
-
-import { isArrayLikeOrString } from './types/guard/isArrayLikeOrString';
 
 import { ForEachFn } from './types/fn/forEach';
 import { FoldlFn, FoldrFn } from './types/fn/fold';
@@ -76,6 +75,11 @@ export type ToAsyncIterator<T> =
     IAsyncIterator_<T>;
 
 export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
+    /**
+     * @see https://tc39.es/proposal-iterator-helpers/#sec-asynciteratorprototype-@@tostringtag
+     */
+    [Symbol.toStringTag]: 'Async Iterator';
+
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.all
      */
@@ -363,16 +367,30 @@ export interface IAsyncIterator_zip<T, U> extends IAsyncIterator_<Pair<T, U>> {
 }
 
 export class AsyncIterator_<T> implements IAsyncIterator_<T> {
-    constructor(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
+    constructor(iter: AsyncIterable<T | Promise<T>>) {
         logger.trace('constructor()');
-        const it = isArrayLikeOrString(iter) ? toIterable(iter) : iter;
-
         this._iter = {
             async *[Symbol.asyncIterator]() {
-                yield* it;
+                yield* iter;
             },
         };
+
+        Object.defineProperty(this, '_iter', {
+            configurable: false,
+            enumerable: false,
+            writable: false,
+        });
+
+        Object.defineProperty(this, Symbol.toStringTag, {
+            configurable: true,
+            enumerable: false,
+            writable: false,
+        });
     }
+
+    private readonly _iter: AsyncIterable<T>;
+
+    public readonly [Symbol.toStringTag]: 'Async Iterator' = 'Async Iterator';
 
     public [Symbol.asyncIterator]() {
         logger.trace('[Symbol.asyncIterator]()');
@@ -381,16 +399,13 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public async next() {
         logger.trace('next()');
-        const it = this._iter[Symbol.asyncIterator]();
-        const { done, value } = await it.next();
+        const { done, value } = await next_async(this._iter);
 
         return {
             done,
             value,
         };
     }
-
-    private readonly _iter: AsyncIterable<T>;
 
     public all(fn: PredicateFn<T>) {
         logger.trace('all()');
@@ -637,5 +652,6 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
     logger.trace('iterator()');
-    return (new AsyncIterator_<T>(iter) as unknown) as ToAsyncIterator<T>;
+    const it = toAsyncIterable(iter);
+    return (new AsyncIterator_<T>(it) as unknown) as ToAsyncIterator<T>;
 }
