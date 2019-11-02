@@ -12,6 +12,7 @@ import { PredicateFn } from './types/fn/predicate';
 import { CompareFn } from './types/fn/cmp';
 import { ByKeyFn } from './types/fn/byKey';
 import { ScanlFn, ScanrFn } from './types/fn/scan';
+import { EqualFn } from './types/fn/equal';
 
 import { Flatten } from './types/flatten';
 import { Pair, pair } from './types/pair';
@@ -45,6 +46,8 @@ import { _min } from './iterator/min';
 import { _minBy } from './iterator/minBy';
 import { _minByKey } from './iterator/minByKey';
 import { _nth } from './iterator/nth';
+import { _nub } from './iterator/nub';
+import { _nubBy } from './iterator/nubBy';
 import { _partition } from './iterator/partition';
 import { _position } from './iterator/position';
 import { _product } from './iterator/product';
@@ -251,6 +254,16 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.nth
      */
     nth(n: number): Promise<T | undefined>;
+
+    /**
+     * @see https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:nub
+     */
+    nub(): ToAsyncIterator<T>;
+
+    /**
+     * @see https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:nubBy
+     */
+    nubBy(fn: EqualFn<T>): ToAsyncIterator<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.partition
@@ -527,6 +540,16 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public nth(n: number) {
         logger.trace('nth()');
         return _nth<T>(n, this);
+    }
+
+    public nub() {
+        logger.trace('nub()');
+        return (new AsyncIterator_<T>(_nub<T>(this)) as unknown) as ToAsyncIterator<T>;
+    }
+
+    public nubBy(fn: EqualFn<T>) {
+        logger.trace('nubBy()');
+        return (new AsyncIterator_<T>(_nubBy<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async partition(fn: PredicateFn<T>) {
