@@ -349,11 +349,29 @@ export interface IAsyncIterator_number extends IAsyncIterator_<number> {
     average(): Promise<number>;
 
     /**
+     * @example
+     * [1, 2, 3, 4, 5]
+     *   .iter()
+     *   .product(); // 120
+     *
+     * ([] as number[])
+     *   .iter()
+     *   .product(); // 1
+     *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.product
      */
     product(): Promise<number>;
 
     /**
+     * @example
+     * [1, 2, 3, 4, 5]
+     *   .iter()
+     *   .sum(); // 15
+     *
+     * ([] as number[])
+     *   .iter()
+     *   .sum(); // 0
+     *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.sum
      */
     sum(): Promise<number>;
