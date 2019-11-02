@@ -3,7 +3,7 @@
     "ignoreCompilerErrors": true,
     "excludeExternals": true,
     "includes": "src/",
-    "exclude": ["src/iterator/*.ts", "src/logger.ts", "src/playground.ts", "src/lib/**/*.ts", "test/**/*.ts"],
+    "exclude": ["src/logger.ts", "src/playground.ts", "test/**/*.ts"],
     "tsconfig": "tsconfig.build.json",
     "out": "doc/"
 }
