@@ -20,6 +20,6 @@ const logger = getLogger('iterator/last');
 // [a] -> Maybe a
 export function _last<T>(iter: AsyncIterable<T>) {
     logger.trace('_last()');
-    return _foldl((acc, e) => e, undefined as T | undefined, iter);
+    return _foldl((_, e) => e, undefined as T | undefined, iter);
     // return _last_impl_fn(iter);
 }

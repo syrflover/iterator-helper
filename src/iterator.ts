@@ -160,11 +160,23 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     findMap<R>(fn: MapFn<T, Nullable<R>>): Promise<R | undefined>;
 
     /**
+     * @example
+     * [`it's Sunny in`, '', 'California']
+     *   .iter()
+     *   .flatMap(e => e.split(' '))
+     *   .collect(); // [`it's`, 'Sunny', 'in', '', 'California']
+     *
      * @see https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.flat_map
      */
     flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>): ToAsyncIterator<Flatten<R>>;
 
     /**
+     * @example
+     * [[1], [Promise.resolve(2), 3], 4, 5]
+     *   .iter()
+     *   .flatten()
+     *   .collect(); // [1, 2, 3, 4, 5]
+     *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.flatten
      */
     flatten(): ToAsyncIterator<Flatten<T>>;
@@ -328,6 +340,8 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.take_while
      */
     takeWhile(predicate: PredicateFn<T>): ToAsyncIterator<T>;
+
+    toString(): string;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.zip

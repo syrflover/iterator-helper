@@ -20,8 +20,9 @@ const logger = getLogger('iterator/count');
     return _count_impl_fn(iter, current + 1);
 } */
 
+// [a] -> Int
 export function _count<T>(iter: AsyncIterable<T>) {
     logger.trace('_count()');
-    return _foldl((acc) => acc + 1, 0, iter);
+    return _foldl((count) => count + 1, 0, iter);
     // return _count_impl_fn(iter);
 }
