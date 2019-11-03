@@ -93,7 +93,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.chain
      */
-    chain(other: Iterable<T> | AsyncIterable<T>): ToAsyncIterator<T>;
+    chain(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>): ToAsyncIterator<T>;
 
     /**
      * @description
@@ -332,7 +332,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.zip
      */
-    zip<U>(other: Iterable<U> | AsyncIterable<U>): ToAsyncIterator<Pair<T, U>>;
+    zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>): ToAsyncIterator<Pair<T, U>>;
 }
 
 export interface IAsyncIterator_number extends IAsyncIterator_<number> {
@@ -440,7 +440,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _average(this as any);
     }
 
-    public chain(other: Iterable<T> | AsyncIterable<T>) {
+    public chain(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         logger.trace('chain()');
         return (new AsyncIterator_<T>(_chain<T>(other, this)) as unknown) as ToAsyncIterator<T>;
     }
@@ -662,7 +662,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
     }
 
-    public zip<U>(other: Iterable<U> | AsyncIterable<U>) {
+    public zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>) {
         logger.trace('zip()');
         return (new AsyncIterator_<Pair<T, U>>(_zip<T, U>(other, this)) as unknown) as ToAsyncIterator<Pair<T, U>>;
     }

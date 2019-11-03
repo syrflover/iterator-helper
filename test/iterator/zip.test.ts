@@ -49,6 +49,21 @@ describe('test zip', () => {
         assert.deepStrictEqual(actual, expected);
     });
 
+    it('[1,2,3,4].zip([5,Promise(6),7,8])', async () => {
+        const a = iterator([1, 2, 3, 4]);
+
+        const actual: Pair<number, number>[] = [];
+        const expected: Pair<number, number>[] = [[1, 5], [2, 6], [3, 7], [4, 8]];
+
+        const it = a.zip([5, Promise.resolve(6), 7, 8]);
+
+        for await (const _ of it) {
+            actual.push(_);
+        }
+
+        assert.deepStrictEqual(actual, expected);
+    });
+
     it('empty iter', async () => {
         const a = iterator<number>([]);
 
