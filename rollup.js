@@ -4,6 +4,8 @@ const typescript = require('rollup-plugin-typescript2');
 const ignore = require('rollup-plugin-ignore');
 const replace = require('rollup-plugin-re');
 
+const pkg = require('./package.json');
+
 const { rollup } = require('rollup');
 
 const fs = require('fs');
@@ -37,6 +39,12 @@ async function main(dir) {
 main('src').then(async () => {
     const a = await rollup(config(entries));
     await a.write({ dir: 'dist', entryFileNames: '[name].js', format: 'cjs', sourcemap: true });
+    // await a.write({ dir: 'dist', entryFileNames: '[name].mjs', format: 'esm', sourcemap: true });
+
+    await fs.promises.writeFile(
+        './dist/package.json',
+        JSON.stringify({ ...pkg, main: 'index.js', types: 'index.d.ts', devDependencies: {}, scripts: {} }, null, 4),
+    );
 });
 
 const config = (ent) => {
