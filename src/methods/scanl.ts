@@ -4,7 +4,7 @@ import { ScanlFn } from '../types/fn/scan';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry, Curry2 } from '../lib/curry';
+import { _curry, Curry2 } from '../lib/curry';
 
 const logger = getLogger('iterator/scanl');
 
@@ -32,7 +32,7 @@ export interface Scanl {
     <A, B>(fn: ScanlFn<A, B>): Curry2<B | Promise<B>, AsyncIterable<A>, AsyncIterable<B>>;
 }
 
-export const _scanl: Scanl = curry(<A, B>(fn: ScanlFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
+export const _scanl: Scanl = _curry(<A, B>(fn: ScanlFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
     logger.trace('_scanl()');
     return _scanl_impl_fn(iter, init, fn);
 });

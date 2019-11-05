@@ -2,7 +2,7 @@ import { getLogger } from '../logger';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/skip');
 
@@ -31,7 +31,7 @@ export interface Skip {
     <T>(count: number): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _skip: Skip = curry(<T>(count: number, iter: AsyncIterable<T>) => {
+export const _skip: Skip = _curry(<T>(count: number, iter: AsyncIterable<T>) => {
     logger.trace('_skip()');
     return _skip_impl_fn(iter, count);
 });

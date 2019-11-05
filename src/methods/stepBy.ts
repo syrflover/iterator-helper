@@ -2,7 +2,7 @@ import { getLogger } from '../logger';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/stepBy');
 
@@ -31,7 +31,7 @@ export interface StepBy {
     <T>(step: number): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _stepBy: StepBy = curry(<T>(step: number, iter: AsyncIterable<T>) => {
+export const _stepBy: StepBy = _curry(<T>(step: number, iter: AsyncIterable<T>) => {
     logger.trace('_stepBy()');
     return _step_by_impl_fn(iter, step);
 });

@@ -4,7 +4,7 @@ import { FoldrFn } from '../types/fn/fold';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry, Curry2 } from '../lib/curry';
+import { _curry, Curry2 } from '../lib/curry';
 
 const logger = getLogger('iterator/foldr');
 
@@ -30,7 +30,7 @@ export interface Foldr {
     <A, B>(fn: FoldrFn<A, B>): Curry2<B | Promise<B>, AsyncIterable<A>, Promise<B>>;
 }
 
-export const _foldr: Foldr = curry(<A, B>(fn: FoldrFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
+export const _foldr: Foldr = _curry(<A, B>(fn: FoldrFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
     logger.trace('_foldr()');
     return _foldr_impl_fn(iter, init, fn);
 });

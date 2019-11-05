@@ -4,7 +4,7 @@ import { ForEachFn } from '../types/fn/forEach';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/forEach');
 
@@ -29,7 +29,7 @@ export interface ForEach {
     <T>(fn: ForEachFn<T>): (iter: AsyncIterable<T>) => Promise<void>;
 }
 
-export const _forEach: ForEach = curry(<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>) => {
+export const _forEach: ForEach = _curry(<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>) => {
     logger.trace('_forEach()');
     return _for_each_impl_fn(iter, fn);
 });

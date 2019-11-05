@@ -5,7 +5,7 @@ import { CompareFn } from '../types/fn/cmp';
 import { next_async } from '../lib/iterable/next';
 
 import { minBy } from '../lib/cmp';
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 import { _foldl } from './foldl';
 
@@ -27,7 +27,7 @@ export interface MinBy {
     <T>(fn: CompareFn<T>): (iter: AsyncIterable<T>) => Promise<T | undefined>;
 }
 
-export const _minBy: MinBy = curry(<T>(fn: CompareFn<T>, iter: AsyncIterable<T>) => {
+export const _minBy: MinBy = _curry(<T>(fn: CompareFn<T>, iter: AsyncIterable<T>) => {
     logger.trace('_minBy()');
     return _min_by_impl_fn(iter, fn);
 });

@@ -82,5 +82,7 @@ export * from './lib/iterable/next';
 export * from './lib/iterable/prepend';
 
 // utils
+export * from './lib/$';
 export * from './lib/cmp';
 export * from './lib/flip';
+export * from './lib/pipe';

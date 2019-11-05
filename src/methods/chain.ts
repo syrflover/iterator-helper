@@ -1,6 +1,6 @@
 import { getLogger } from '../logger';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/chain');
 
@@ -15,7 +15,7 @@ export interface Chain {
     <T>(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _chain: Chain = curry(<T>(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>, iter: AsyncIterable<T>) => {
+export const _chain: Chain = _curry(<T>(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>, iter: AsyncIterable<T>) => {
     logger.trace('_chain()');
     return _chain_impl_fn(iter, other);
 });

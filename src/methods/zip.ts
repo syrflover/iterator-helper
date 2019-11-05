@@ -4,7 +4,7 @@ import { Pair, pair } from '../types/pair';
 
 import { toAsyncIterable } from '../lib/iterable';
 import { next_async } from '../lib/iterable/next';
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/zip');
 
@@ -27,7 +27,7 @@ export interface Zip {
     <T, U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>): (iter: AsyncIterable<T>) => AsyncIterable<Pair<T, U>>;
 }
 
-export const _zip: Zip = curry(<T, U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>, iter: AsyncIterable<T>) => {
+export const _zip: Zip = _curry(<T, U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>, iter: AsyncIterable<T>) => {
     logger.trace('_zip()');
     const other_ = toAsyncIterable(other);
     return _zip_impl_fn(iter, other_);

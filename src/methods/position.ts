@@ -4,7 +4,7 @@ import { PredicateFn } from '../types/fn/predicate';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/position');
 
@@ -30,7 +30,7 @@ export interface Position {
     <T>(fn: PredicateFn<T>): (iter: AsyncIterable<T>) => Promise<number | undefined>;
 }
 
-export const _position: Position = curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
+export const _position: Position = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
     logger.trace('_position()');
     return _position_impl_fn(iter, fn);
 });

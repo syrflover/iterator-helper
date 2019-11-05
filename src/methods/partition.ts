@@ -7,7 +7,7 @@ import { next_async } from '../lib/iterable/next';
 import { toAsyncIterable } from '../lib/iterable';
 import { append } from '../lib/iterable/append';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/partition');
 
@@ -38,7 +38,7 @@ export interface Partition {
     <T>(fn: PredicateFn<T>): (iter: AsyncIterable<T>) => Promise<Pair<AsyncIterable<T>, AsyncIterable<T>>>;
 }
 
-export const _partition: Partition = curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
+export const _partition: Partition = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
     logger.trace('_partition()');
     return _partition_impl_fn(iter, fn);
 });

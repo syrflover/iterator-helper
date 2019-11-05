@@ -4,7 +4,7 @@ import { EqualFn } from '../types/fn/equal';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 import { _filter } from './filter';
 
@@ -28,7 +28,7 @@ export interface NubBy {
     <T>(fn: EqualFn<T>): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _nubBy: NubBy = curry(<T>(fn: EqualFn<T>, iter: AsyncIterable<T>) => {
+export const _nubBy: NubBy = _curry(<T>(fn: EqualFn<T>, iter: AsyncIterable<T>) => {
     logger.trace('_nubBy()');
     return _nub_by_impl_fn(iter, fn);
 });

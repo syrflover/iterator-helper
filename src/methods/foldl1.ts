@@ -4,7 +4,7 @@ import { FoldlFn } from '../types/fn/fold';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 import { _foldl } from './foldl';
 
@@ -29,7 +29,7 @@ export interface Foldl1 {
     <T>(fn: FoldlFn<T, T>): (iter: AsyncIterable<T>) => Promise<T>;
 }
 
-export const _foldl1: Foldl1 = curry(<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) => {
+export const _foldl1: Foldl1 = _curry(<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) => {
     logger.trace('_foldl1()');
     return _foldl1_impl_fn(iter, fn);
 });

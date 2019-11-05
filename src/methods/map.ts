@@ -4,7 +4,7 @@ import { MapFn } from '../types/fn/map';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/map');
 
@@ -33,7 +33,7 @@ export interface Map {
     <T, R>(fn: MapFn<T, R>): (iter: AsyncIterable<T>) => AsyncIterable<R>;
 }
 
-export const _map: Map = curry(<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) => {
+export const _map: Map = _curry(<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) => {
     logger.trace('_map()');
     return _map_impl_fn(iter, fn);
 });

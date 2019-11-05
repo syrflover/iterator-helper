@@ -6,7 +6,7 @@ import { next_async } from '../lib/iterable/next';
 import { initLast } from '../lib/iterable/initLast';
 import { prepend } from '../lib/iterable/prepend';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 import { _scanr } from './scanr';
 
@@ -30,7 +30,7 @@ export interface Scanr1 {
     <T>(fn: ScanrFn<T, T>): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _scanr1: Scanr1 = curry(<T>(fn: ScanrFn<T, T>, iter: AsyncIterable<T>) => {
+export const _scanr1: Scanr1 = _curry(<T>(fn: ScanrFn<T, T>, iter: AsyncIterable<T>) => {
     logger.trace('_scanr1()');
     return _scanr1_impl_fn(iter, fn);
 });

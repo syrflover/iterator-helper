@@ -6,7 +6,7 @@ import { next_async } from '../lib/iterable/next';
 import { initLast } from '../lib/iterable/initLast';
 import { append } from '../lib/iterable/append';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 import { _foldr } from './foldr';
 
@@ -30,7 +30,7 @@ export interface Foldr1 {
     <T>(fn: FoldrFn<T, T>): (iter: AsyncIterable<T>) => Promise<T>;
 }
 
-export const _foldr1: Foldr1 = curry(<T>(fn: FoldrFn<T, T>, iter: AsyncIterable<T>) => {
+export const _foldr1: Foldr1 = _curry(<T>(fn: FoldrFn<T, T>, iter: AsyncIterable<T>) => {
     logger.trace('_foldr1()');
     return _foldr1_impl_fn(iter, fn);
 });

@@ -2,7 +2,7 @@ import { getLogger } from '../logger';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/take');
 
@@ -28,7 +28,7 @@ export interface Take {
     <T>(limit: number): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _take: Take = curry(<T>(limit: number, iter: AsyncIterable<T>) => {
+export const _take: Take = _curry(<T>(limit: number, iter: AsyncIterable<T>) => {
     logger.trace('_take()');
     return _take_impl_fn(iter, limit);
 });

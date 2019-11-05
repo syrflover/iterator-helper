@@ -2,7 +2,7 @@ import { getLogger } from '../logger';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/nth');
 
@@ -26,7 +26,7 @@ export interface Nth {
     <T>(n: number): (iter: AsyncIterable<T>) => Promise<T | undefined>;
 }
 
-export const _nth: Nth = curry(<T>(n: number, iter: AsyncIterable<T>) => {
+export const _nth: Nth = _curry(<T>(n: number, iter: AsyncIterable<T>) => {
     logger.trace('_nth()');
     return _nth_impl_fn(iter, n);
 });

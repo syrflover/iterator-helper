@@ -8,7 +8,7 @@ import { isNull } from '../types/guard/isNull';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/filterMap');
 
@@ -34,7 +34,7 @@ export interface FilterMap {
     <T, R>(fn: MapFn<T, Nullable<R>>): (iter: AsyncIterable<T>) => AsyncIterable<R>;
 }
 
-export const _filterMap: FilterMap = curry(<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
+export const _filterMap: FilterMap = _curry(<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
     logger.trace('filterMap()');
     return _filter_map_impl_fn(iter, fn);
 });

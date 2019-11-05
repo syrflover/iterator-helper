@@ -8,7 +8,7 @@ import { isNull } from '../types/guard/isNull';
 
 import { next_async } from '../lib/iterable/next';
 
-import { curry } from '../lib/curry';
+import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/findMap');
 
@@ -39,7 +39,7 @@ export interface FindMap {
     <T, R>(fn: MapFn<T, Nullable<R>>): (iter: AsyncIterable<T>) => Promise<R | undefined>;
 }
 
-export const _findMap: FindMap = curry(<T, R>(predicate: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
+export const _findMap: FindMap = _curry(<T, R>(predicate: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
     logger.trace('_findMap()');
     return _find_map_impl_fn(iter, predicate);
 });
