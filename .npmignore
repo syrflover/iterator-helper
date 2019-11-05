@@ -141,6 +141,4 @@ yarn.lock
 tsconfig.test.json
 
 typedoc.json
-tsconfig.json
-tsconfig.build.json
 rollup.js
