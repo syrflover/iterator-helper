@@ -37,7 +37,7 @@ async function main(dir) {
 main('src').then(async () => {
     const a = await rollup(config(entries));
     await a.write({ dir: 'dist', entryFileNames: '[name].js', format: 'cjs', sourcemap: true });
-    await a.write({ dir: 'es', entryFileNames: '[name].js', format: 'es', sourcemap: true });
+    await a.write({ dir: 'es', entryFileNames: '[name].mjs', format: 'es', sourcemap: true });
 });
 
 const config = (ent) => {
