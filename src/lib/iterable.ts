@@ -41,3 +41,8 @@ export function toAsyncIterable<T>(
         },
     };
 }
+
+/**
+ * as toAsyncIterable
+ */
+export const sequence = toAsyncIterable;

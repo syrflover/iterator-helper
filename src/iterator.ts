@@ -17,54 +17,54 @@ import { Flatten } from './types/flatten';
 import { Pair, pair } from './types/pair';
 import { Nullable } from './types/nullable';
 
-import { _all } from './iterator/all';
-import { _any } from './iterator/any';
-import { _average } from './iterator/average';
-import { _chain } from './iterator/chain';
-import { _collect } from './iterator/collect';
-import { _count } from './iterator/count';
-import { _cycle } from './iterator/cycle';
-import { _enumerate } from './iterator/enumerate';
-import { _filter } from './iterator/filter';
-import { _filterMap } from './iterator/filterMap';
-import { _find } from './iterator/find';
-import { _findMap } from './iterator/findMap';
-import { _flatMap } from './iterator/flatMap';
-import { _flatten } from './iterator/flatten';
-import { _foldl } from './iterator/foldl';
-import { _foldl1 } from './iterator/foldl1';
-import { _forEach } from './iterator/forEach';
-import { _head } from './iterator/head';
-import { _inspect } from './iterator/inspect';
-import { _last } from './iterator/last';
-import { _map } from './iterator/map';
-import { _max } from './iterator/max';
-import { _maxBy } from './iterator/maxBy';
-import { _maxByKey } from './iterator/maxByKey';
-import { _min } from './iterator/min';
-import { _minBy } from './iterator/minBy';
-import { _minByKey } from './iterator/minByKey';
-import { _nth } from './iterator/nth';
-import { _nub } from './iterator/nub';
-import { _nubBy } from './iterator/nubBy';
-import { _partition } from './iterator/partition';
-import { _position } from './iterator/position';
-import { _product } from './iterator/product';
-import { _reverse } from './iterator/reverse';
-import { _scanl } from './iterator/scanl';
-import { _scanl1 } from './iterator/scanl1';
-import { _scanr } from './iterator/scanr';
-import { _scanr1 } from './iterator/scanr1';
-import { _skip } from './iterator/skip';
-import { _skipWhile } from './iterator/skipWhile';
-import { _stepBy } from './iterator/stepBy';
-import { _sum } from './iterator/sum';
-import { _take } from './iterator/take';
-import { _takeWhile } from './iterator/takeWhile';
-import { _foldr } from './iterator/foldr';
-import { _foldr1 } from './iterator/foldr1';
-import { _unzip } from './iterator/unzip';
-import { _zip } from './iterator/zip';
+import { _all } from './methods/all';
+import { _any } from './methods/any';
+import { _average } from './methods/average';
+import { _chain } from './methods/chain';
+import { _collect } from './methods/collect';
+import { _count } from './methods/count';
+import { _cycle } from './methods/cycle';
+import { _enumerate } from './methods/enumerate';
+import { _filter } from './methods/filter';
+import { _filterMap } from './methods/filterMap';
+import { _find } from './methods/find';
+import { _findMap } from './methods/findMap';
+import { _flatMap } from './methods/flatMap';
+import { _flatten } from './methods/flatten';
+import { _foldl } from './methods/foldl';
+import { _foldl1 } from './methods/foldl1';
+import { _forEach } from './methods/forEach';
+import { _head } from './methods/head';
+import { _inspect } from './methods/inspect';
+import { _last } from './methods/last';
+import { _map } from './methods/map';
+import { _max } from './methods/max';
+import { _maxBy } from './methods/maxBy';
+import { _maxByKey } from './methods/maxByKey';
+import { _min } from './methods/min';
+import { _minBy } from './methods/minBy';
+import { _minByKey } from './methods/minByKey';
+import { _nth } from './methods/nth';
+import { _nub } from './methods/nub';
+import { _nubBy } from './methods/nubBy';
+import { _partition } from './methods/partition';
+import { _position } from './methods/position';
+import { _product } from './methods/product';
+import { _reverse } from './methods/reverse';
+import { _scanl } from './methods/scanl';
+import { _scanl1 } from './methods/scanl1';
+import { _scanr } from './methods/scanr';
+import { _scanr1 } from './methods/scanr1';
+import { _skip } from './methods/skip';
+import { _skipWhile } from './methods/skipWhile';
+import { _stepBy } from './methods/stepBy';
+import { _sum } from './methods/sum';
+import { _take } from './methods/take';
+import { _takeWhile } from './methods/takeWhile';
+import { _foldr } from './methods/foldr';
+import { _foldr1 } from './methods/foldr1';
+import { _unzip } from './methods/unzip';
+import { _zip } from './methods/zip';
 
 const logger = getLogger('iterator');
 
@@ -422,7 +422,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     private readonly _iter: AsyncIterable<T>;
 
-    public readonly [Symbol.toStringTag]: 'Async Iterator' = 'Async Iterator';
+    public readonly [Symbol.toStringTag] = 'Async Iterator' as const;
 
     public [Symbol.asyncIterator]() {
         logger.trace('[Symbol.asyncIterator]()');
@@ -566,7 +566,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public maxByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
         logger.trace('maxByKey()');
-        return _maxByKey<T>(cmpFn || cmp, keyFn, this);
+        return _maxByKey<T>(keyFn, cmpFn || cmp, this);
     }
 
     public min() {
@@ -581,7 +581,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public minByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
         logger.trace('minByKey()');
-        return _minByKey<T>(cmpFn || cmp, keyFn, this);
+        return _minByKey<T>(keyFn, cmpFn || cmp, this);
     }
 
     public nth(n: number) {
