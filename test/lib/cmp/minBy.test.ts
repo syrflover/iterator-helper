@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { minBy, cmp } from '../../../dist/lib/cmp';
+import { minBy, cmp } from '../../../src/lib/cmp';
 
 describe('test minBy', () => {
     it('minBy(100, 1, cmp) == 1', async () => {

@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { isNull } from '../../../dist/types/guard/isNull';
+import { isNull } from '../../../src/types/guard/isNull';
 
 describe('test isNull', () => {
     it('null', () => {

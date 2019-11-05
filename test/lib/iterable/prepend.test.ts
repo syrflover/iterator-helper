@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { prepend } from '../../../dist/lib/iterable/prepend';
+import { prepend } from '../../../src/lib/iterable/prepend';
 
 describe('test prepend', () => {
     it('prepend(0, [1])', async () => {

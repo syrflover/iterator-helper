@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { isArrayLike } from '../../../dist/types/guard/isArrayLike';
+import { isArrayLike } from '../../../src/types/guard/isArrayLike';
 
 describe('test isArrayLike', () => {
     it('array', () => {

@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { iterator } from '../../dist';
+import { iterator } from '../../src';
 
 describe('test nub', () => {
     it('[1, 2, 3, 4, 5, 6]', async () => {

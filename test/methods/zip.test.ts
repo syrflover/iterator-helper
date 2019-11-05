@@ -1,7 +1,8 @@
+
 import { assert } from 'chai';
 
-import { iterator } from '../../dist';
-import { Pair } from '../../dist/types/pair';
+import { iterator } from '../../src';
+import { Pair } from '../../src/types/pair';
 
 describe('test zip', () => {
     it('[1,2,3,4].zip([5,6,7,8])', async () => {

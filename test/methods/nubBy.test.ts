@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { iterator } from '../../dist';
+import { iterator } from '../../src';
 
 describe('test nubBy', () => {
     it(`['a', 'bb', 'ccc']`, async () => {

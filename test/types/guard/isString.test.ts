@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { isString } from '../../../dist/types/guard/isString';
+import { isString } from '../../../src/types/guard/isString';
 
 describe('test isString', () => {
     it('string', () => {

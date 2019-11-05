@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { curry } from '../../dist/lib/curry';
+import { curry } from '../../src/lib/curry';
 
 describe('test curry', () => {
     it('add a b', () => {

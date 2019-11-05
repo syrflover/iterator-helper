@@ -1,5 +1,6 @@
+
 import { assert } from 'chai';
-import { toAsyncIterable } from '../../../dist/lib/iterable';
+import { toAsyncIterable } from '../../../src/lib/iterable';
 
 describe('test toAsyncIterable', () => {
     function* iterable(): Iterable<number> {

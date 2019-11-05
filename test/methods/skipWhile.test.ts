@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { iterator } from '../../dist';
+import { iterator } from '../../src';
 
 describe('test skipWhile', () => {
     it('skipWhile(x < 3, [1,2,3,4,5,1,2,3]) == [3,4,5,1,2,3]', async () => {

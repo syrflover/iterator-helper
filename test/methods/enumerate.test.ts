@@ -1,7 +1,8 @@
+
 import { assert } from 'chai';
 
-import { iterator } from '../../dist';
-import { pair, Pair } from '../../dist/types/pair';
+import { iterator } from '../../src';
+import { pair, Pair } from '../../src/types/pair';
 
 describe('test enumerate', () => {
     it(`enumerate(['a', 'b', 'c', 'd', 'e'])`, async () => {

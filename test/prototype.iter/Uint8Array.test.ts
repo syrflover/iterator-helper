@@ -1,4 +1,5 @@
-import '../../dist/types/global';
+import '../../src/types/global';
+
 
 import { assert } from 'chai';
 

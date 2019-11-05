@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { isPromise } from '../../../dist/types/guard/isPromise';
+import { isPromise } from '../../../src/types/guard/isPromise';
 
 describe('test isPromise', () => {
     it('true', () => {

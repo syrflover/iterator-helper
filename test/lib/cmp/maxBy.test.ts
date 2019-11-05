@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { maxBy, cmp } from '../../../dist/lib/cmp';
+import { maxBy, cmp } from '../../../src/lib/cmp';
 
 describe('test maxBy', () => {
     it('maxBy(100, 1, cmp) == 100', async () => {

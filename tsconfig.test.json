@@ -5,8 +5,8 @@
         "lib": ["es2018.asynciterable"],
         "noEmit": true,
         "sourceMap": true,
-        "declaration": true,
-        "declarationMap": true,
+        "declaration": false,
+        "declarationMap": false,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -15,5 +15,6 @@
         "alwaysStrict": true,
         "moduleResolution": "node"
     },
-    "include": ["test/**/*.ts"]
+    "include": ["test/**/*.ts"],
+    "exclude": ["test/__cjs/**", "test/__esm/**"]
 }

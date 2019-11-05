@@ -1,6 +1,7 @@
+
 import { assert } from 'chai';
 
-import { isIterable } from '../../../dist/types/guard/isIterable';
+import { isIterable } from '../../../src/types/guard/isIterable';
 
 describe('test isIterable', () => {
     function* iterable() {
