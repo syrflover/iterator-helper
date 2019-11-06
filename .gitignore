@@ -127,10 +127,8 @@ public/
 
 build/
 dist/
-es/
 
 test/__cjs
-test/__es
 
 doc/
 

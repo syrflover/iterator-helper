@@ -27,7 +27,7 @@ export function pipe<P extends any[], R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R
 export function pipe(...fns: any[]) {
     return async (...args: any[]) => {
         const fns_ = sequence(fns);
-        const { value: fn } = await next_async(fns_);
-        return _foldl((acc, e) => e(acc), fn(...args), fns_);
+        const { value: fn_ } = await next_async(fns_);
+        return _foldl((acc, fn) => fn(acc), fn_(...args), fns_);
     };
 }

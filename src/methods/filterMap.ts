@@ -12,7 +12,7 @@ import { _curry } from '../lib/curry';
 
 const logger = getLogger('iterator/filterMap');
 
-export async function* _filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
+async function* _filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
     logger.trace('filter_map_impl_fn()');
     const { done, value } = await next_async(iter);
 
