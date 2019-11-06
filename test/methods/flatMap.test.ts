@@ -2,7 +2,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../src/mod.ts';
+import { iterator } from '../../mod.ts';
 
 test(`flatMap() [\`it's Sunny in\`, '', 'California'] split(' ')`, async () => {
     const a = iterator([`it's Sunny in`, '', 'California']);
