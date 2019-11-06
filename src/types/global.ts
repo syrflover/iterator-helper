@@ -1,8 +1,8 @@
-import { getLogger } from '../../logger.ts';
+import { getLogger } from '../logger.ts';
 
-import { iterator, ToAsyncIterator } from '../../iterator.ts';
+import { iterator, ToAsyncIterator } from '../iterator.ts';
 
-import { EP } from '../promise.ts';
+import { EP } from './promise.ts';
 
 const logger = getLogger('global');
 
@@ -106,5 +106,3 @@ Float64Array.prototype.iter = function() {
     logger.trace('Float64Array', 'iter()');
     return iterator(this);
 };
-
-export default global;

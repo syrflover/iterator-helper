@@ -1,6 +1,6 @@
 {
     "name": "@syrflover/iterator",
-    "version": "0.0.56",
+    "version": "0.0.57",
     "description": "Iterator Helper for TypeScript",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
