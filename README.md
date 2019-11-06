@@ -1,5 +1,6 @@
 # Iterator Helper
 
+[![github actions](https://github.com/syrflover/iterator-helper/workflows/build/badge.svg)](https://github.com/syrflover/iterator-helper/actions?query=workflow%3Abuild+)
 [![github actions](https://github.com/syrflover/iterator-helper/workflows/test/badge.svg)](https://github.com/syrflover/iterator-helper/actions?query=workflow%3Atest+)
 [![npm version](https://img.shields.io/npm/v/@syrflover/iterator?label=npm%20version)](https://www.npmjs.com/package/@syrflover/iterator)
 
