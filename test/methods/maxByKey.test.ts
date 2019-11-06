@@ -1,4 +1,3 @@
-
 import { assert } from 'chai';
 
 import { iterator } from '../../src';
@@ -22,9 +21,22 @@ describe('test maxByKey', () => {
         const a = iterator([1, 2, -3, Promise.resolve(4), 5, -10]);
 
         const actual = await a.maxByKey(Math.abs);
-        const expected = 10;
+        const expected = -10;
 
         assert.strictEqual(actual, expected);
+    });
+
+    it('object', async () => {
+        const a = [{ a: 6, b: 11 }, { a: 4, b: 7 }, { a: 1, b: 5 }, { a: 3, b: 2 }, { a: 11, b: 1 }, { a: 5, b: 4 }, { a: 2, b: 3 }, { a: 7, b: 6 }];
+
+        const actual_a = await iterator(a).maxByKey((e) => e.a);
+        const expected_a = { a: 11, b: 1 };
+
+        const actual_b = await iterator(a).maxByKey((e) => e.b);
+        const expected_b = { a: 6, b: 11 };
+
+        assert.deepStrictEqual(actual_a, expected_a);
+        assert.deepStrictEqual(actual_b, expected_b);
     });
 
     it('custom cmp', async () => {

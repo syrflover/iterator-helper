@@ -1,5 +1,9 @@
 import { CompareFn } from '../types/fn/cmp';
+import { ByKeyFn } from '../types/fn/byKey';
+
 import { Ord } from '../types/ordering';
+
+import { id } from './id';
 
 export function cmp<T>(a: T, b: T): Ord {
     if (a < b) {
@@ -13,8 +17,10 @@ export function cmp<T>(a: T, b: T): Ord {
     return Ord.Equal;
 }
 
-export async function maxBy<T>(a: T, b: T, fn: CompareFn<T>): Promise<T> {
-    const ord = await fn(a, b);
+export async function maxBy<T, K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K>, a: T, b: T): Promise<T> {
+    const key_a = await keyFn(a);
+    const key_b = await keyFn(b);
+    const ord = await cmpFn(key_a, key_b);
 
     switch (ord) {
         case Ord.Less:
@@ -28,8 +34,10 @@ export async function maxBy<T>(a: T, b: T, fn: CompareFn<T>): Promise<T> {
     }
 }
 
-export async function minBy<T>(a: T, b: T, fn: CompareFn<T>): Promise<T> {
-    const ord = await fn(a, b);
+export async function minBy<T, K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K>, a: T, b: T): Promise<T> {
+    const key_a = await keyFn(a);
+    const key_b = await keyFn(b);
+    const ord = await cmpFn(key_a, key_b);
 
     switch (ord) {
         case Ord.Less:
@@ -44,9 +52,9 @@ export async function minBy<T>(a: T, b: T, fn: CompareFn<T>): Promise<T> {
 }
 
 export function max<T>(a: T, b: T): Promise<T> {
-    return maxBy(a, b, cmp);
+    return maxBy(id, cmp, a, b);
 }
 
 export function min<T>(a: T, b: T): Promise<T> {
-    return minBy(a, b, cmp);
+    return minBy(id, cmp, a, b);
 }

@@ -8,6 +8,7 @@ import { minBy } from '../lib/cmp';
 import { _curry } from '../lib/curry';
 
 import { _foldl } from './foldl';
+import { id } from '../lib/id';
 
 const logger = getLogger('iterator/minBy');
 
@@ -19,7 +20,7 @@ async function _min_by_impl_fn<T>(iter: AsyncIterable<T>, fn: CompareFn<T>): Pro
         return;
     }
 
-    return _foldl((acc, e) => minBy(acc, e, fn), value, iter);
+    return _foldl((acc, e) => minBy(id, fn, acc, e), value, iter);
 }
 
 export interface MinBy {

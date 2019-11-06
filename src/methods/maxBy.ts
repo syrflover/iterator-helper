@@ -6,6 +6,7 @@ import { next_async } from '../lib/iterable/next';
 
 import { maxBy } from '../lib/cmp';
 import { _curry } from '../lib/curry';
+import { id } from '../lib/id';
 
 import { _foldl } from './foldl';
 
@@ -19,7 +20,7 @@ async function _max_by_impl_fn<T>(iter: AsyncIterable<T>, fn: CompareFn<T>): Pro
         return;
     }
 
-    return _foldl((acc, e) => maxBy(acc, e, fn), value, iter);
+    return _foldl((acc, e) => maxBy(id, fn, acc, e), value, iter);
 }
 
 export interface MaxBy {

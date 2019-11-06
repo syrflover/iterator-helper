@@ -1,1 +1,1 @@
-export type ByKeyFn<T> = (elem: T) => any;
+export type ByKeyFn<T, K> = (elem: T) => K | Promise<K>;

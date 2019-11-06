@@ -12,7 +12,7 @@ import { _foldl } from './foldl';
 
 const logger = getLogger('iterator/minByKey');
 
-async function _min_by_key_impl_fn<T>(iter: AsyncIterable<T>, cmpFn: CompareFn<T>, keyFn: ByKeyFn<T>): Promise<T | undefined> {
+async function _min_by_key_impl_fn<T, K>(iter: AsyncIterable<T>, cmpFn: CompareFn<K>, keyFn: ByKeyFn<T, K>): Promise<T | undefined> {
     logger.trace('_min_by_key_impl_fn()');
     const { done, value } = await next_async(iter);
 
@@ -20,16 +20,16 @@ async function _min_by_key_impl_fn<T>(iter: AsyncIterable<T>, cmpFn: CompareFn<T
         return;
     }
 
-    return _foldl(async (acc, e) => minBy(await keyFn(acc), await keyFn(e), cmpFn), value, iter);
+    return _foldl(async (acc, e) => minBy(keyFn, cmpFn, acc, e), value, iter);
 }
 
 export interface MinByKey {
-    <T>(keyFn: ByKeyFn<T>, cmpFn: CompareFn<T>, iter: AsyncIterable<T>): Promise<T | undefined>;
-    <T>(keyFn: ByKeyFn<T>, cmpFn: CompareFn<T>): (iter: AsyncIterable<T>) => Promise<T | undefined>;
-    <T>(keyFn: ByKeyFn<T>): Curry2<CompareFn<T>, AsyncIterable<T>, Promise<T | undefined>>;
+    <T, K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K>, iter: AsyncIterable<T>): Promise<T | undefined>;
+    <T, K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K>): (iter: AsyncIterable<T>) => Promise<T | undefined>;
+    <T, K>(keyFn: ByKeyFn<T, K>): Curry2<CompareFn<K>, AsyncIterable<T>, Promise<T | undefined>>;
 }
 
-export const _minByKey: MinByKey = _curry(<T>(keyFn: ByKeyFn<T>, cmpFn: CompareFn<T>, iter: AsyncIterable<T>) => {
+export const _minByKey: MinByKey = _curry(<T, K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K>, iter: AsyncIterable<T>) => {
     logger.trace('_minByKey()');
     return _min_by_key_impl_fn(iter, cmpFn, keyFn);
 });

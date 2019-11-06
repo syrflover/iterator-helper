@@ -249,7 +249,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.max_by_key
      */
-    maxByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>): Promise<T | undefined>;
+    maxByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>): Promise<T | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.min
@@ -264,7 +264,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.min_by_key
      */
-    minByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>): Promise<T | undefined>;
+    minByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>): Promise<T | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.nth
@@ -564,9 +564,9 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _maxBy<T>(fn, this);
     }
 
-    public maxByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
+    public maxByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>) {
         logger.trace('maxByKey()');
-        return _maxByKey<T>(keyFn, cmpFn || cmp, this);
+        return _maxByKey<T, K>(keyFn, cmpFn || cmp, this);
     }
 
     public min() {
@@ -579,9 +579,9 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _minBy<T>(fn, this);
     }
 
-    public minByKey(keyFn: ByKeyFn<T>, cmpFn?: CompareFn<T>) {
+    public minByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>) {
         logger.trace('minByKey()');
-        return _minByKey<T>(keyFn, cmpFn || cmp, this);
+        return _minByKey<T, K>(keyFn, cmpFn || cmp, this);
     }
 
     public nth(n: number) {
