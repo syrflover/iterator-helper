@@ -8,13 +8,14 @@ jobs:
 
     strategy:
       matrix:
-        deno: ["0.23.0"]
+        deno: [v0.23.0]
 
     name:
     steps:
       - uses: actions/checkout@master
-      - name: Test on Deno v${{ matrix.deno }}
+      - name: Setup Deno v${{ matrix.deno }}
         uses: denolib/setup-deno@v1
         with:
           deno-version: ${{ matrix.deno }}
-      - run: deno test --config tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts --allow-net
+      - name: Test
+        run: deno test --config tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts --allow-net
