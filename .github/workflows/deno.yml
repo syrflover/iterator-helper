@@ -11,6 +11,9 @@ jobs:
       - name: test
         run: |
           curl -fsSL https://deno.land/x/install/install.sh | sh
+          echo 'export DENO_INSTALL="/home/runner/.deno"' > $HOME/.bash_profile
+          echo 'export PATH="$DENO_INSTALL/bin:$PATH"' > $HOME/.bash_profile
+          source $HOME/.bash_profile
           npm install
           npm run build
           npm run test
