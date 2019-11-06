@@ -1,15 +1,15 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/fn/predicate';
+import { PredicateFn } from '../types/fn/predicate.ts';
 
-import { next_async } from '../lib/iterable/next';
+import { next_async } from '../lib/iterable/next.ts';
 
-import { _curry } from '../lib/curry';
+import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/filter');
 
 async function* _filter_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
-    logger.trace('_filter_impl_fn()');
+    logger.info('_filter_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
@@ -36,6 +36,6 @@ export interface Filter {
 }
 
 export const _filter: Filter = _curry(<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_filter()');
+    logger.info('_filter()');
     return _filter_impl_fn(iter, predicate);
 });

@@ -1,19 +1,29 @@
 {
     "compilerOptions": {
-        "target": "es2015",
-        "module": "commonjs",
-        "lib": ["es2018.asynciterable"],
+        "target": "esnext",
+        "module": "esnext",
+        "lib": [],
+        "baseUrl": ".",
         "noEmit": true,
-        "sourceMap": true,
-        "declaration": true,
-        "declarationMap": true,
+        "sourceMap": false,
+        "declaration": false,
+        "declarationMap": false,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "alwaysStrict": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "plugins": [
+            {
+                "name": "typescript-deno-plugin"
+            }
+        ],
+        "paths": {
+            "http://*": ["~/Library/Caches/deno/deps/http/*"],
+            "https://*": ["~/Library/Caches/deno/deps/https/*"]
+        }
     },
     "include": ["./src/**/*.ts", "./test/**/*.ts"],
     "exclude": ["./dist/**/*.js", "./dist/**/*.ts"]

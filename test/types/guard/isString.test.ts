@@ -1,27 +1,25 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { isString } from '../../../src/types/guard/isString.ts';
 
-import { isString } from '../../../src/types/guard/isString';
+test('isString() string', () => {
+    const actual = isString('hello');
+    const expected = true;
 
-describe('test isString', () => {
-    it('string', () => {
-        const actual = isString('hello');
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isString() array', () => {
+    const actual = isString(['hello', 'world']);
+    const expected = false;
 
-    it('array', () => {
-        const actual = isString(['hello', 'world']);
-        const expected = false;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isString() undefined', () => {
+    const actual = isString(undefined);
+    const expected = false;
 
-    it('undefined', () => {
-        const actual = isString(undefined);
-        const expected = false;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

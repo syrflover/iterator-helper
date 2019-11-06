@@ -1,14 +1,14 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { toAsyncIterable } from '../lib/iterable';
+import { toAsyncIterable } from '../lib/iterable.ts';
 
-import { next_async } from '../lib/iterable/next';
-import { append } from '../lib/iterable/append';
+import { next_async } from '../lib/iterable/next.ts';
+import { append } from '../lib/iterable/append.ts';
 
 const logger = getLogger('iterator/cycle');
 
 async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>, r: AsyncIterable<T> = toAsyncIterable([])): AsyncIterable<T> {
-    logger.trace('_cycle_impl_fn()');
+    logger.info('_cycle_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
@@ -24,6 +24,6 @@ async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>, r: AsyncIterable<T> = 
 }
 
 export function _cycle<T>(iter: AsyncIterable<T>) {
-    logger.trace('_cycle()');
+    logger.info('_cycle()');
     return _cycle_impl_fn(iter);
 }

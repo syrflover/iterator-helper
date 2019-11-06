@@ -1,15 +1,15 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { Pair, pair } from '../types/pair';
+import { Pair, pair } from '../types/pair.ts';
 
-import { toAsyncIterable } from '../lib/iterable';
-import { next_async } from '../lib/iterable/next';
-import { _curry } from '../lib/curry';
+import { toAsyncIterable } from '../lib/iterable.ts';
+import { next_async } from '../lib/iterable/next.ts';
+import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/zip');
 
 async function* _zip_impl_fn<T, U>(iter: AsyncIterable<T>, other: AsyncIterable<U | Promise<U>>): AsyncIterable<Pair<T, U>> {
-    logger.trace('_zip_impl_fn()');
+    logger.info('_zip_impl_fn()');
     const { done: iter_done, value: iter_value } = await next_async(iter);
     const { done: other_done, value: other_value } = await next_async(other);
 
@@ -28,7 +28,7 @@ export interface Zip {
 }
 
 export const _zip: Zip = _curry(<T, U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>, iter: AsyncIterable<T>) => {
-    logger.trace('_zip()');
+    logger.info('_zip()');
     const other_ = toAsyncIterable(other);
     return _zip_impl_fn(iter, other_);
 });

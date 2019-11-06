@@ -1,19 +1,19 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { KeyFn } from '../types/fn/key';
-import { CompareFn } from '../types/fn/cmp';
+import { KeyFn } from '../types/fn/key.ts';
+import { CompareFn } from '../types/fn/cmp.ts';
 
-import { next_async } from '../lib/iterable/next';
+import { next_async } from '../lib/iterable/next.ts';
 
-import { minBy } from '../lib/cmp';
-import { _curry, Curry2 } from '../lib/curry';
+import { minBy } from '../lib/cmp.ts';
+import { _curry, Curry2 } from '../lib/curry.ts';
 
-import { _foldl } from './foldl';
+import { _foldl } from './foldl.ts';
 
 const logger = getLogger('iterator/minByKey');
 
 async function _min_by_key_impl_fn<T, K>(iter: AsyncIterable<T>, cmpFn: CompareFn<K>, keyFn: KeyFn<T, K>): Promise<T | undefined> {
-    logger.trace('_min_by_key_impl_fn()');
+    logger.info('_min_by_key_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -30,6 +30,6 @@ export interface MinByKey {
 }
 
 export const _minByKey: MinByKey = _curry(<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>, iter: AsyncIterable<T>) => {
-    logger.trace('_minByKey()');
+    logger.info('_minByKey()');
     return _min_by_key_impl_fn(iter, cmpFn, keyFn);
 });

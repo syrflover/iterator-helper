@@ -1,19 +1,19 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { CompareFn } from '../types/fn/cmp';
+import { CompareFn } from '../types/fn/cmp.ts';
 
-import { next_async } from '../lib/iterable/next';
+import { next_async } from '../lib/iterable/next.ts';
 
-import { minBy } from '../lib/cmp';
-import { _curry } from '../lib/curry';
+import { minBy } from '../lib/cmp.ts';
+import { _curry } from '../lib/curry.ts';
 
-import { _foldl } from './foldl';
-import { id } from '../lib/id';
+import { _foldl } from './foldl.ts';
+import { id } from '../lib/id.ts';
 
 const logger = getLogger('iterator/minBy');
 
 async function _min_by_impl_fn<T>(iter: AsyncIterable<T>, fn: CompareFn<T>): Promise<T | undefined> {
-    logger.trace('_min_by_impl_fn()');
+    logger.info('_min_by_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -29,6 +29,6 @@ export interface MinBy {
 }
 
 export const _minBy: MinBy = _curry(<T>(fn: CompareFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_minBy()');
+    logger.info('_minBy()');
     return _min_by_impl_fn(iter, fn);
 });

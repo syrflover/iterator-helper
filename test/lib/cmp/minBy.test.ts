@@ -1,20 +1,19 @@
-import { assert } from 'chai';
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { minBy, cmp } from '../../../src/lib/cmp';
-import { id } from '../../../src/lib/id';
+import { minBy, cmp } from '../../../src/lib/cmp.ts';
+import { id } from '../../../src/lib/id.ts';
 
-describe('test minBy', () => {
-    it('minBy(100, 1, cmp) == 1', async () => {
-        const actual = await minBy(id, cmp, 100, 1);
-        const expected = 1;
+test('minBy(100, 1, cmp) == 1', async () => {
+    const actual = await minBy(id, cmp, 100, 1);
+    const expected = 1;
 
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
+});
 
-    it('minBy(1, 100, cmp) == 1', async () => {
-        const actual = await minBy(id, cmp, 100, 1);
-        const expected = 1;
+test('minBy(1, 100, cmp) == 1', async () => {
+    const actual = await minBy(id, cmp, 100, 1);
+    const expected = 1;
 
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

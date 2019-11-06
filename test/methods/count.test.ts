@@ -1,15 +1,13 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('count() [1,2,3,4,5].length === count()', async () => {
+    const a = [1, 2, 3, 4, 5];
 
-describe('test count', () => {
-    it('[1,2,3,4,5].length === count()', async () => {
-        const a = [1, 2, 3, 4, 5];
+    const actual = await iterator([1, 2, 3, 4, 5]).count();
+    const expected = a.length;
 
-        const actual = await iterator([1, 2, 3, 4, 5]).count();
-        const expected = a.length;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

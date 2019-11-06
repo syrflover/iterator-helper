@@ -1,9 +1,9 @@
-import { pair, Pair } from '../../types/pair';
+import { pair, Pair } from '../../types/pair.ts';
 
-import { toAsyncIterable } from '../iterable';
-import { next_async } from './next';
-import { append } from './append';
-import { init } from './init';
+import { toAsyncIterable } from '../iterable.ts';
+import { next_async } from './next.ts';
+import { append } from './append.ts';
+import { init } from './init.ts';
 
 export async function initLast<T>(
     iter: AsyncIterable<T>,

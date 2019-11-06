@@ -1,24 +1,22 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('max() [1,2,3,4,5]', async () => {
+    const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-describe('test max', () => {
-    it('[1,2,3,4,5]', async () => {
-        const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
+    const actual = await a.max();
+    const expected = 5;
 
-        const actual = await a.max();
-        const expected = 5;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('max() empty iter', async () => {
+    const a = iterator<number>([]);
 
-    it('empty iter', async () => {
-        const a = iterator<number>([]);
+    const actual = await a.max();
+    const expected = undefined;
 
-        const actual = await a.max();
-        const expected = undefined;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

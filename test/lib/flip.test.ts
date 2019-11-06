@@ -1,12 +1,11 @@
-import { assert } from 'chai';
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { flip } from '../../src/lib/flip';
+import { flip } from '../../src/lib/flip.ts';
 
-describe('test flip', () => {
-    it('div', () => {
-        const actual = flip((a, b) => a / b, 1, 2);
-        const expected = 2 / 1;
+test('flip() div', () => {
+    const actual = flip((a, b) => a / b, 1, 2);
+    const expected = 2 / 1;
 
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

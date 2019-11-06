@@ -1,55 +1,53 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { isNull } from '../../../src/types/guard/isNull.ts';
 
-import { isNull } from '../../../src/types/guard/isNull';
+test('isNull() null', () => {
+    const actual = isNull(null);
+    const expected = true;
 
-describe('test isNull', () => {
-    it('null', () => {
-        const actual = isNull(null);
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isNull() undefined', () => {
+    const actual = isNull(undefined);
+    const expected = true;
 
-    it('undefined', () => {
-        const actual = isNull(undefined);
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isNull() NaN', () => {
+    const actual = isNull(NaN);
+    const expected = true;
 
-    it('NaN', () => {
-        const actual = isNull(NaN);
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isNull() string', () => {
+    const actual = isNull('');
+    const expected = false;
 
-    it('string', () => {
-        const actual = isNull('');
-        const expected = false;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isNull() number', () => {
+    const actual = isNull(0);
+    const expected = false;
 
-    it('number', () => {
-        const actual = isNull(0);
-        const expected = false;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isNull() array', () => {
+    const actual = isNull(['hello', 'world']);
+    const expected = false;
 
-    it('array', () => {
-        const actual = isNull(['hello', 'world']);
-        const expected = false;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isNull() object', () => {
+    const actual = isNull({ a: 1 });
+    const expected = false;
 
-    it('object', () => {
-        const actual = isNull({ a: 1 });
-        const expected = false;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

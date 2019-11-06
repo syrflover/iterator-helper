@@ -1,20 +1,20 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { isArrayLikeOrString } from '../types/guard/isArrayLikeOrString';
+import { isArrayLikeOrString } from '../types/guard/isArrayLikeOrString.ts';
 
-import { next_async } from './iterable/next';
+import { next_async } from './iterable/next.ts';
 
 const logger = getLogger('lib/iterable');
 
 export function* toIterable<T>(iter: Iterable<T>): Iterable<T> {
-    logger.trace('toIterable()');
+    logger.info('toIterable()');
     yield* iter;
 }
 
 export function toAsyncIterable<T>(
     iter: Iterable<T> | AsyncIterable<T> | Promise<Iterable<T>> | Promise<AsyncIterable<T>>,
 ): AsyncIterableIterator<T> {
-    logger.trace('toAsyncIterable()');
+    logger.info('toAsyncIterable()');
 
     const iter_ = (async function*() {
         const iter__ = await iter;
@@ -26,11 +26,11 @@ export function toAsyncIterable<T>(
 
     return {
         [Symbol.asyncIterator]() {
-            logger.trace('toAsyncIterable()', '[Symbol.asyncIterator]()');
+            logger.info('toAsyncIterable()', '[Symbol.asyncIterator]()');
             return this;
         },
         async next() {
-            logger.trace('toAsyncIterable()', 'next()');
+            logger.info('toAsyncIterable()', 'next()');
 
             const { done, value } = await next_async(iter_);
 

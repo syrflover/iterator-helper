@@ -1,37 +1,36 @@
-import { assert } from 'chai';
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Ord } from '../../../src/types/ordering';
+import { Ord } from '../../../src/types/ordering.ts';
 
-import { cmp } from '../../../src/lib/cmp';
+import { cmp } from '../../../src/lib/cmp.ts';
 
-describe('test cmp', () => {
-    it('cmp(100, 1) == Greater', () => {
-        const actual = cmp(100, 1);
-        const expected = Ord.Greater;
+test('cmp(100, 1) == Greater', () => {
+    const actual = cmp(100, 1);
+    const expected = Ord.Greater;
 
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
+});
 
-    it('cmp(1, 1) == Equal', () => {
-        const actual = cmp(1, 1);
-        const expected = Ord.Equal;
+test('cmp(1, 1) == Equal', () => {
+    const actual = cmp(1, 1);
+    const expected = Ord.Equal;
 
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
+});
 
-    it('cmp(1, 100) == Less', () => {
-        const actual = cmp(1, 100);
-        const expected = Ord.Less;
+test('cmp(1, 100) == Less', () => {
+    const actual = cmp(1, 100);
+    const expected = Ord.Less;
 
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
+});
 
-    it('Array.sort(cmp)', () => {
-        const a = [1, 4, 5, 2, 3];
+test('cmp() Array.sort(cmp)', () => {
+    const a = [1, 4, 11, 5, 2, 3];
 
-        const actual = a.sort(cmp);
-        const expected = [1, 2, 3, 4, 5];
+    const actual = a.sort(cmp);
+    const expected = [1, 2, 3, 4, 5, 11];
 
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

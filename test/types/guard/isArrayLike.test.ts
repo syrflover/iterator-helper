@@ -1,27 +1,25 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { isArrayLike } from '../../../src/types/guard/isArrayLike.ts';
 
-import { isArrayLike } from '../../../src/types/guard/isArrayLike';
+test('isArrayLike() array', () => {
+    const actual = isArrayLike([1, 2, 3]);
+    const expected = true;
 
-describe('test isArrayLike', () => {
-    it('array', () => {
-        const actual = isArrayLike([1, 2, 3]);
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isArrayLike() typed array', () => {
+    const actual = isArrayLike(new Int8Array(0));
+    const expected = true;
 
-    it('typed array', () => {
-        const actual = isArrayLike(new Int8Array(0));
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isArrayLike() undefined', () => {
+    const actual = isArrayLike(undefined);
+    const expected = false;
 
-    it('undefined', () => {
-        const actual = isArrayLike(undefined);
-        const expected = false;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

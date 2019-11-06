@@ -1,117 +1,116 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals, assert } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
-import { toAsyncIterable } from '../../../src/lib/iterable';
+import { toAsyncIterable } from '../../../src/lib/iterable.ts';
 
-describe('test toAsyncIterable', () => {
-    function* iterable(): Iterable<number> {
-        yield 1;
-        yield 2;
-        yield 3;
-        yield 4;
+function* iterable(): Iterable<number> {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
+
+async function* asyncIterable(): AsyncIterable<number> {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
+
+test('toAsyncIterable() from Array', async () => {
+    const actual: number[] = [];
+    const expected = [1, 2, 3, 4];
+
+    const iter = toAsyncIterable([1, 2, 3, 4]);
+
+    for await (const _ of iter) {
+        actual.push(_);
     }
 
-    async function* asyncIterable(): AsyncIterable<number> {
-        yield 1;
-        yield 2;
-        yield 3;
-        yield 4;
+    assertEquals(actual, expected);
+    assert(Symbol.asyncIterator in iter);
+});
+
+test('toAsyncIterable() from Iterable', async () => {
+    const actual: number[] = [];
+    const expected = [1, 2, 3, 4];
+
+    const iter = toAsyncIterable(iterable());
+
+    for await (const _ of iter) {
+        actual.push(_);
     }
 
-    it('from Array', async () => {
-        const actual: number[] = [];
-        const expected = [1, 2, 3, 4];
+    assertEquals(actual, expected);
+    assert(Symbol.asyncIterator in iter);
+});
 
-        const iter = toAsyncIterable([1, 2, 3, 4]);
+test('toAsyncIterable() from AsyncIterable', async () => {
+    const actual: number[] = [];
+    const expected = [1, 2, 3, 4];
 
-        for await (const _ of iter) {
-            actual.push(_);
-        }
+    const iter = toAsyncIterable(asyncIterable());
 
-        assert.deepStrictEqual(actual, expected);
-        assert.ok(Symbol.asyncIterator in iter);
-    });
+    for await (const _ of iter) {
+        actual.push(_);
+    }
 
-    it('from Iterable', async () => {
-        const actual: number[] = [];
-        const expected = [1, 2, 3, 4];
+    assertEquals(actual, expected);
+    assert(Symbol.asyncIterator in iter);
+});
 
-        const iter = toAsyncIterable(iterable());
+test('toAsyncIterable() from Promise Array', async () => {
+    const actual: number[] = [];
+    const expected = [1, 2, 3, 4];
 
-        for await (const _ of iter) {
-            actual.push(_);
-        }
+    const iter = toAsyncIterable(Promise.resolve([1, 2, 3, 4]));
 
-        assert.deepStrictEqual(actual, expected);
-        assert.ok(Symbol.asyncIterator in iter);
-    });
+    for await (const _ of iter) {
+        actual.push(_);
+    }
 
-    it('from AsyncIterable', async () => {
-        const actual: number[] = [];
-        const expected = [1, 2, 3, 4];
+    assertEquals(actual, expected);
+    assert(Symbol.asyncIterator in iter);
+});
 
-        const iter = toAsyncIterable(asyncIterable());
+test('toAsyncIterable() from Promise Iterable', async () => {
+    const actual: number[] = [];
+    const expected = [1, 2, 3, 4];
 
-        for await (const _ of iter) {
-            actual.push(_);
-        }
+    const iter = toAsyncIterable(Promise.resolve(iterable()));
 
-        assert.deepStrictEqual(actual, expected);
-        assert.ok(Symbol.asyncIterator in iter);
-    });
+    for await (const _ of iter) {
+        actual.push(_);
+    }
 
-    it('from Promise Array', async () => {
-        const actual: number[] = [];
-        const expected = [1, 2, 3, 4];
+    assertEquals(actual, expected);
+    assert(Symbol.asyncIterator in iter);
+});
 
-        const iter = toAsyncIterable(Promise.resolve([1, 2, 3, 4]));
+test('toAsyncIterable() from Promise AsyncIterable', async () => {
+    const actual: number[] = [];
+    const expected = [1, 2, 3, 4];
 
-        for await (const _ of iter) {
-            actual.push(_);
-        }
+    const iter = toAsyncIterable(Promise.resolve(asyncIterable()));
 
-        assert.deepStrictEqual(actual, expected);
-        assert.ok(Symbol.asyncIterator in iter);
-    });
+    for await (const _ of iter) {
+        actual.push(_);
+    }
 
-    it('from Promise Iterable', async () => {
-        const actual: number[] = [];
-        const expected = [1, 2, 3, 4];
+    assertEquals(actual, expected);
+    assert(Symbol.asyncIterator in iter);
+});
 
-        const iter = toAsyncIterable(Promise.resolve(iterable()));
+test('toAsyncIterable() from String', async () => {
+    const actual: string[] = [];
+    const expected = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'];
 
-        for await (const _ of iter) {
-            actual.push(_);
-        }
+    const iter = toAsyncIterable('hello world');
 
-        assert.deepStrictEqual(actual, expected);
-        assert.ok(Symbol.asyncIterator in iter);
-    });
+    for await (const _ of iter) {
+        actual.push(_);
+    }
 
-    it('from Promise AsyncIterable', async () => {
-        const actual: number[] = [];
-        const expected = [1, 2, 3, 4];
-
-        const iter = toAsyncIterable(Promise.resolve(asyncIterable()));
-
-        for await (const _ of iter) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-        assert.ok(Symbol.asyncIterator in iter);
-    });
-
-    it('from String', async () => {
-        const actual: string[] = [];
-        const expected = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'];
-
-        const iter = toAsyncIterable('hello world');
-
-        for await (const _ of iter) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-        assert.ok(Symbol.asyncIterator in iter);
-    });
+    assertEquals(actual, expected);
+    assert(Symbol.asyncIterator in iter);
 });

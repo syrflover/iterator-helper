@@ -1,51 +1,49 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('skipWhile(x < 3, [1,2,3,4,5,1,2,3]) == [3,4,5,1,2,3]', async () => {
+    const a = iterator([1, 2, 3, 4, 5, 1, 2, 3]);
 
-describe('test skipWhile', () => {
-    it('skipWhile(x < 3, [1,2,3,4,5,1,2,3]) == [3,4,5,1,2,3]', async () => {
-        const a = iterator([1, 2, 3, 4, 5, 1, 2, 3]);
+    const actual: number[] = [];
+    const expected = [3, 4, 5, 1, 2, 3];
 
-        const actual: number[] = [];
-        const expected = [3, 4, 5, 1, 2, 3];
+    const it = a.skipWhile((e) => e < 3);
 
-        const it = a.skipWhile((e) => e < 3);
+    for await (const _ of it) {
+        actual.push(_);
+    }
 
-        for await (const _ of it) {
-            actual.push(_);
-        }
+    assertEquals(actual, expected);
+});
 
-        assert.deepStrictEqual(actual, expected);
-    });
+test('skipWhile(x < 9, [1,2,3]) == []', async () => {
+    const a = iterator([1, 2, 3]);
 
-    it('skipWhile(x < 9, [1,2,3]) == []', async () => {
-        const a = iterator([1, 2, 3]);
+    const actual: number[] = [];
+    const expected: number[] = [];
 
-        const actual: number[] = [];
-        const expected: number[] = [];
+    const it = a.skipWhile((e) => e < 9);
 
-        const it = a.skipWhile((e) => e < 9);
+    for await (const _ of it) {
+        actual.push(_);
+    }
 
-        for await (const _ of it) {
-            actual.push(_);
-        }
+    assertEquals(actual, expected);
+});
 
-        assert.deepStrictEqual(actual, expected);
-    });
+test('skipWhile(x < 0, [1,2,3]) == [1,2,3]', async () => {
+    const a = iterator([1, 2, 3]);
 
-    it('skipWhile(x < 0, [1,2,3]) == [1,2,3]', async () => {
-        const a = iterator([1, 2, 3]);
+    const actual: number[] = [];
+    const expected: number[] = [1, 2, 3];
 
-        const actual: number[] = [];
-        const expected: number[] = [1, 2, 3];
+    const it = a.skipWhile((e) => e < 0);
 
-        const it = a.skipWhile((e) => e < 0);
+    for await (const _ of it) {
+        actual.push(_);
+    }
 
-        for await (const _ of it) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

@@ -1,19 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es2015",
-        "module": "commonjs",
-        "lib": ["es2018.asynciterable"],
-        "noEmit": true,
+        "target": "esnext",
+        "module": "esnext",
         "sourceMap": true,
-        "declaration": false,
-        "declarationMap": false,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noImplicitThis": true,
-        "alwaysStrict": true,
-        "moduleResolution": "node"
+        "alwaysStrict": true
     },
     "include": ["test/**/*.ts"],
     "exclude": ["test/__cjs/**", "test/__esm/**"]

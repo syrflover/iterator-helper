@@ -1,15 +1,15 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/fn/predicate';
+import { PredicateFn } from '../types/fn/predicate.ts';
 
-import { next_async } from '../lib/iterable/next';
+import { next_async } from '../lib/iterable/next.ts';
 
-import { _curry } from '../lib/curry';
+import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/all');
 
 async function _all_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>): Promise<boolean> {
-    logger.trace('_all_impl_fn()');
+    logger.info('_all_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
@@ -36,6 +36,6 @@ export interface All {
 }
 
 export const _all: All = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_all()');
+    logger.info('_all()');
     return _all_impl_fn(iter, fn);
 });

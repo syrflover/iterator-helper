@@ -1,19 +1,19 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { MapFn } from '../types/fn/map';
+import { MapFn } from '../types/fn/map.ts';
 
-import { Nullable } from '../types/nullable';
+import { Nullable } from '../types/nullable.ts';
 
-import { isNull } from '../types/guard/isNull';
+import { isNull } from '../types/guard/isNull.ts';
 
-import { next_async } from '../lib/iterable/next';
+import { next_async } from '../lib/iterable/next.ts';
 
-import { _curry } from '../lib/curry';
+import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/filterMap');
 
 async function* _filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
-    logger.trace('filter_map_impl_fn()');
+    logger.info('filter_map_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -35,6 +35,6 @@ export interface FilterMap {
 }
 
 export const _filterMap: FilterMap = _curry(<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
-    logger.trace('filterMap()');
+    logger.info('filterMap()');
     return _filter_map_impl_fn(iter, fn);
 });

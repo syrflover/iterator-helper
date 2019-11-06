@@ -1,19 +1,19 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { CompareFn } from '../types/fn/cmp';
+import { CompareFn } from '../types/fn/cmp.ts';
 
-import { next_async } from '../lib/iterable/next';
+import { next_async } from '../lib/iterable/next.ts';
 
-import { maxBy } from '../lib/cmp';
-import { _curry } from '../lib/curry';
-import { id } from '../lib/id';
+import { maxBy } from '../lib/cmp.ts';
+import { _curry } from '../lib/curry.ts';
+import { id } from '../lib/id.ts';
 
-import { _foldl } from './foldl';
+import { _foldl } from './foldl.ts';
 
 const logger = getLogger('iterator/maxBy');
 
 async function _max_by_impl_fn<T>(iter: AsyncIterable<T>, fn: CompareFn<T>): Promise<T | undefined> {
-    logger.trace('_max_by_impl_fn()');
+    logger.info('_max_by_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -29,6 +29,6 @@ export interface MaxBy {
 }
 
 export const _maxBy: MaxBy = _curry(<T>(fn: CompareFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_maxBy()');
+    logger.info('_maxBy()');
     return _max_by_impl_fn(iter, fn);
 });

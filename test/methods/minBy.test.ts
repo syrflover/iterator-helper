@@ -1,48 +1,46 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+import { cmp } from '../../src/lib/cmp.ts';
+import { Ord } from '../../src/types/ordering.ts';
 
-import { cmp } from '../../src/lib/cmp';
-import { Ord } from '../../src/types/ordering';
-
-describe('test minBy', () => {
-    function _cmp<T>(a: T, b: T): Ord {
-        if (a > b) {
-            return Ord.Less;
-        }
-
-        if (a < b) {
-            return Ord.Greater;
-        }
-
-        return Ord.Equal;
+function _cmp<T>(a: T, b: T): Ord {
+    if (a > b) {
+        return Ord.Less;
     }
 
-    it('[1,2,3,4,5]', async () => {
-        const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
+    if (a < b) {
+        return Ord.Greater;
+    }
 
-        const actual = await a.minBy(cmp);
-        const expected = 1;
+    return Ord.Equal;
+}
 
-        assert.strictEqual(actual, expected);
-    });
+test('minBy() [1,2,3,4,5]', async () => {
+    const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-    it('custom cmp', async () => {
-        const i = iterator([1, 2, 3, Promise.resolve(4), 5]);
+    const actual = await a.minBy(cmp);
+    const expected = 1;
 
-        const actual = await i.minBy(_cmp);
-        const expected = 5;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('minBy() custom cmp', async () => {
+    const i = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-    it('empty iter', async () => {
-        const a = iterator<number>([]);
+    const actual = await i.minBy(_cmp);
+    const expected = 5;
 
-        const actual = await a.minBy(cmp);
-        const expected = undefined;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('minBy() empty iter', async () => {
+    const a = iterator<number>([]);
+
+    const actual = await a.minBy(cmp);
+    const expected = undefined;
+
+    assertEquals(actual, expected);
 });

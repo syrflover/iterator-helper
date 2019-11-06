@@ -1,24 +1,22 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('findMap() parseInt Succeeded', async () => {
+    const a = iterator(['a', 'b', '1', 'c', '2', '3']);
 
-describe('test findMap', () => {
-    it('findMap parseInt Succeeded', async () => {
-        const a = iterator(['a', 'b', '1', 'c', '2', '3']);
+    const actual = await a.findMap((e) => parseInt(e, 10));
+    const expected = 1;
 
-        const actual = await a.findMap((e) => parseInt(e, 10));
-        const expected = 1;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('findMap() parseInt Failed', async () => {
+    const a = iterator(['a', 'b', 'c', 'd', 'e']);
 
-    it('findMap parseInt Failed', async () => {
-        const a = iterator(['a', 'b', 'c', 'd', 'e']);
+    const actual = await a.findMap((e) => parseInt(e, 10));
+    const expected = undefined;
 
-        const actual = await a.findMap((e) => parseInt(e, 10));
-        const expected = undefined;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

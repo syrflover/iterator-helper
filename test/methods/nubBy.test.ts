@@ -1,21 +1,19 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test(`nubBy() ['a', 'bb', 'ccc']`, async () => {
+    const a = iterator(['a', 'bb', 'b', 'ccc', 'aa', 'cc', 'aaa']);
 
-describe('test nubBy', () => {
-    it(`['a', 'bb', 'ccc']`, async () => {
-        const a = iterator(['a', 'bb', 'b', 'ccc', 'aa', 'cc', 'aaa']);
+    const actual: string[] = [];
+    const expected = ['a', 'bb', 'ccc'];
 
-        const actual: string[] = [];
-        const expected = ['a', 'bb', 'ccc'];
+    const it = a.nubBy((e1, e2) => e1.length === e2.length);
 
-        const it = a.nubBy((e1, e2) => e1.length === e2.length);
+    for await (const _ of it) {
+        actual.push(_);
+    }
 
-        for await (const _ of it) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

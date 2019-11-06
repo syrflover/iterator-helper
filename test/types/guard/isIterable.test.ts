@@ -1,48 +1,46 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { isIterable } from '../../../src/types/guard/isIterable.ts';
 
-import { isIterable } from '../../../src/types/guard/isIterable';
+function* iterable() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
 
-describe('test isIterable', () => {
-    function* iterable() {
-        yield 1;
-        yield 2;
-        yield 3;
-        yield 4;
-    }
+async function* asyncIterable() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
 
-    async function* asyncIterable() {
-        yield 1;
-        yield 2;
-        yield 3;
-        yield 4;
-    }
+test('isIterable() Array == true', () => {
+    const actual = isIterable([1, 2, 3, 4]);
+    const expected = true;
 
-    it('Array == true', () => {
-        const actual = isIterable([1, 2, 3, 4]);
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isIterable() Iterable == true', () => {
+    const actual = isIterable(iterable());
+    const expected = true;
 
-    it('Iterable == true', () => {
-        const actual = isIterable(iterable());
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isIterable() AsyncIterable == false', () => {
+    const actual = isIterable(asyncIterable());
+    const expected = false;
 
-    it('AsyncIterable == false', () => {
-        const actual = isIterable(asyncIterable());
-        const expected = false;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isIterable() undefined == false', () => {
+    const actual = isIterable(undefined);
+    const expected = false;
 
-    it('undefined == false', () => {
-        const actual = isIterable(undefined);
-        const expected = false;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

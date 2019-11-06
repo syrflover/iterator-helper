@@ -1,76 +1,74 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
+import { Pair } from '../../src/types/pair.ts';
 
-import { iterator } from '../../src';
-import { Pair } from '../../src/types/pair';
+test('unzip() [[1, 5], [2, 6], [3, 7], [4, 8]]', async () => {
+    const a = iterator<Pair<number, number>>([[1, 5], [2, 6], [3, 7], [4, 8]]);
 
-describe('test unzip', () => {
-    it('[[1, 5], [2, 6], [3, 7], [4, 8]].unzip()', async () => {
-        const a = iterator<Pair<number, number>>([[1, 5], [2, 6], [3, 7], [4, 8]]);
+    const actual_left: number[] = [];
+    const expected_left = [1, 2, 3, 4];
 
-        const actual_left: number[] = [];
-        const expected_left = [1, 2, 3, 4];
+    const actual_right: number[] = [];
+    const expected_right = [5, 6, 7, 8];
 
-        const actual_right: number[] = [];
-        const expected_right = [5, 6, 7, 8];
+    const [left, right] = await a.unzip();
 
-        const [left, right] = await a.unzip();
+    for await (const _ of left) {
+        actual_left.push(_);
+    }
 
-        for await (const _ of left) {
-            actual_left.push(_);
-        }
+    for await (const _ of right) {
+        actual_right.push(_);
+    }
 
-        for await (const _ of right) {
-            actual_right.push(_);
-        }
+    assertEquals(actual_left, expected_left);
+    assertEquals(actual_right, expected_right);
+});
 
-        assert.deepStrictEqual(actual_left, expected_left);
-        assert.deepStrictEqual(actual_right, expected_right);
-    });
+test(`unzip() [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]`, async () => {
+    const a = iterator<Pair<number, string>>([[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]);
 
-    it(`[[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']].unzip()`, async () => {
-        const a = iterator<Pair<number, string>>([[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]);
+    const actual_left: number[] = [];
+    const expected_left = [1, 2, 3, 4];
 
-        const actual_left: number[] = [];
-        const expected_left = [1, 2, 3, 4];
+    const actual_right: string[] = [];
+    const expected_right = ['a', 'b', 'c', 'd'];
 
-        const actual_right: string[] = [];
-        const expected_right = ['a', 'b', 'c', 'd'];
+    const [left, right] = await a.unzip();
 
-        const [left, right] = await a.unzip();
+    for await (const _ of left) {
+        actual_left.push(_);
+    }
 
-        for await (const _ of left) {
-            actual_left.push(_);
-        }
+    for await (const _ of right) {
+        actual_right.push(_);
+    }
 
-        for await (const _ of right) {
-            actual_right.push(_);
-        }
+    assertEquals(actual_left, expected_left);
+    assertEquals(actual_right, expected_right);
+});
 
-        assert.deepStrictEqual(actual_left, expected_left);
-        assert.deepStrictEqual(actual_right, expected_right);
-    });
+test(`unzip() [1,2,3,4].zip(['a','b','c','d'])`, async () => {
+    const a = iterator([1, 2, 3, 4]);
 
-    it(`[1,2,3,4].zip(['a','b','c','d']).unzip()`, async () => {
-        const a = iterator([1, 2, 3, 4]);
+    const actual_left: number[] = [];
+    const expected_left = [1, 2, 3, 4];
 
-        const actual_left: number[] = [];
-        const expected_left = [1, 2, 3, 4];
+    const actual_right: string[] = [];
+    const expected_right = ['a', 'b', 'c', 'd'];
 
-        const actual_right: string[] = [];
-        const expected_right = ['a', 'b', 'c', 'd'];
+    const [left, right] = await a.zip(['a', 'b', 'c', 'd']).unzip();
 
-        const [left, right] = await a.zip(['a', 'b', 'c', 'd']).unzip();
+    for await (const _ of left) {
+        actual_left.push(_);
+    }
 
-        for await (const _ of left) {
-            actual_left.push(_);
-        }
+    for await (const _ of right) {
+        actual_right.push(_);
+    }
 
-        for await (const _ of right) {
-            actual_right.push(_);
-        }
-
-        assert.deepStrictEqual(actual_left, expected_left);
-        assert.deepStrictEqual(actual_right, expected_right);
-    });
+    assertEquals(actual_left, expected_left);
+    assertEquals(actual_right, expected_right);
 });

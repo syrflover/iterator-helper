@@ -1,8 +1,8 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { iterator, ToAsyncIterator } from '../iterator';
+import { iterator, ToAsyncIterator } from '../iterator.ts';
 
-import { EP } from './promise';
+import { EP } from './promise.ts';
 
 const logger = getLogger('global');
 
@@ -53,57 +53,57 @@ declare global {
 }
 
 String.prototype.iter = function() {
-    logger.trace('String', 'iter()');
+    logger.info('String', 'iter()');
     return iterator(this);
 };
 
 Array.prototype.iter = function() {
-    logger.trace('Array', 'iter()');
+    logger.info('Array', 'iter()');
     return iterator(this);
 };
 
 Int8Array.prototype.iter = function() {
-    logger.trace('Int8Array', 'iter()');
+    logger.info('Int8Array', 'iter()');
     return iterator(this);
 };
 
 Int16Array.prototype.iter = function() {
-    logger.trace('Int16Array', 'iter()');
+    logger.info('Int16Array', 'iter()');
     return iterator(this);
 };
 
 Int32Array.prototype.iter = function() {
-    logger.trace('Int32Array', 'iter()');
+    logger.info('Int32Array', 'iter()');
     return iterator(this);
 };
 
 Uint8Array.prototype.iter = function() {
-    logger.trace('Uint8Array', 'iter()');
+    logger.info('Uint8Array', 'iter()');
     return iterator(this);
 };
 
 Uint8ClampedArray.prototype.iter = function() {
-    logger.trace('Uint8ClampedArray', 'iter()');
+    logger.info('Uint8ClampedArray', 'iter()');
     return iterator(this);
 };
 
 Uint16Array.prototype.iter = function() {
-    logger.trace('Uint16Array', 'iter()');
+    logger.info('Uint16Array', 'iter()');
     return iterator(this);
 };
 
 Uint32Array.prototype.iter = function() {
-    logger.trace('Uint32Array', 'iter()');
+    logger.info('Uint32Array', 'iter()');
     return iterator(this);
 };
 
 Float32Array.prototype.iter = function() {
-    logger.trace('Float32Array', 'iter()');
+    logger.info('Float32Array', 'iter()');
     return iterator(this);
 };
 
 Float64Array.prototype.iter = function() {
-    logger.trace('Float64Array', 'iter()');
+    logger.info('Float64Array', 'iter()');
     return iterator(this);
 };
 

@@ -1,70 +1,70 @@
-import { getLogger } from './logger';
+import { getLogger } from './logger.ts';
 
-import { sequence } from './lib/iterable';
-import { next_async } from './lib/iterable/next';
-import { cmp } from './lib/cmp';
+import { sequence } from './lib/iterable.ts';
+import { next_async } from './lib/iterable/next.ts';
+import { cmp } from './lib/cmp.ts';
 
-import { ForEachFn } from './types/fn/forEach';
-import { FoldlFn, FoldrFn } from './types/fn/fold';
-import { MapFn } from './types/fn/map';
-import { PredicateFn } from './types/fn/predicate';
-import { CompareFn } from './types/fn/cmp';
-import { KeyFn } from './types/fn/key';
-import { ScanlFn, ScanrFn } from './types/fn/scan';
-import { EqualFn } from './types/fn/equal';
+import { ForEachFn } from './types/fn/forEach.ts';
+import { FoldlFn, FoldrFn } from './types/fn/fold.ts';
+import { MapFn } from './types/fn/map.ts';
+import { PredicateFn } from './types/fn/predicate.ts';
+import { CompareFn } from './types/fn/cmp.ts';
+import { KeyFn } from './types/fn/key.ts';
+import { ScanlFn, ScanrFn } from './types/fn/scan.ts';
+import { EqualFn } from './types/fn/equal.ts';
 
-import { Flatten } from './types/flatten';
-import { Pair, pair } from './types/pair';
-import { Nullable } from './types/nullable';
+import { Flatten } from './types/flatten.ts';
+import { Pair, pair } from './types/pair.ts';
+import { Nullable } from './types/nullable.ts';
 
-import { _all } from './methods/all';
-import { _any } from './methods/any';
-import { _average } from './methods/average';
-import { _chain } from './methods/chain';
-import { _collect } from './methods/collect';
-import { _count } from './methods/count';
-import { _cycle } from './methods/cycle';
-import { _enumerate } from './methods/enumerate';
-import { _filter } from './methods/filter';
-import { _filterMap } from './methods/filterMap';
-import { _find } from './methods/find';
-import { _findMap } from './methods/findMap';
-import { _flatMap } from './methods/flatMap';
-import { _flatten } from './methods/flatten';
-import { _foldl } from './methods/foldl';
-import { _foldl1 } from './methods/foldl1';
-import { _foldr } from './methods/foldr';
-import { _foldr1 } from './methods/foldr1';
-import { _forEach } from './methods/forEach';
-import { _head } from './methods/head';
-import { _inspect } from './methods/inspect';
-import { _last } from './methods/last';
-import { _map } from './methods/map';
-import { _max } from './methods/max';
-import { _maxBy } from './methods/maxBy';
-import { _maxByKey } from './methods/maxByKey';
-import { _min } from './methods/min';
-import { _minBy } from './methods/minBy';
-import { _minByKey } from './methods/minByKey';
-import { _nth } from './methods/nth';
-import { _nub } from './methods/nub';
-import { _nubBy } from './methods/nubBy';
-import { _partition } from './methods/partition';
-import { _position } from './methods/position';
-import { _product } from './methods/product';
-import { _reverse } from './methods/reverse';
-import { _scanl } from './methods/scanl';
-import { _scanl1 } from './methods/scanl1';
-import { _scanr } from './methods/scanr';
-import { _scanr1 } from './methods/scanr1';
-import { _skip } from './methods/skip';
-import { _skipWhile } from './methods/skipWhile';
-import { _stepBy } from './methods/stepBy';
-import { _sum } from './methods/sum';
-import { _take } from './methods/take';
-import { _takeWhile } from './methods/takeWhile';
-import { _unzip } from './methods/unzip';
-import { _zip } from './methods/zip';
+import { _all } from './methods/all.ts';
+import { _any } from './methods/any.ts';
+import { _average } from './methods/average.ts';
+import { _chain } from './methods/chain.ts';
+import { _collect } from './methods/collect.ts';
+import { _count } from './methods/count.ts';
+import { _cycle } from './methods/cycle.ts';
+import { _enumerate } from './methods/enumerate.ts';
+import { _filter } from './methods/filter.ts';
+import { _filterMap } from './methods/filterMap.ts';
+import { _find } from './methods/find.ts';
+import { _findMap } from './methods/findMap.ts';
+import { _flatMap } from './methods/flatMap.ts';
+import { _flatten } from './methods/flatten.ts';
+import { _foldl } from './methods/foldl.ts';
+import { _foldl1 } from './methods/foldl1.ts';
+import { _foldr } from './methods/foldr.ts';
+import { _foldr1 } from './methods/foldr1.ts';
+import { _forEach } from './methods/forEach.ts';
+import { _head } from './methods/head.ts';
+import { _inspect } from './methods/inspect.ts';
+import { _last } from './methods/last.ts';
+import { _map } from './methods/map.ts';
+import { _max } from './methods/max.ts';
+import { _maxBy } from './methods/maxBy.ts';
+import { _maxByKey } from './methods/maxByKey.ts';
+import { _min } from './methods/min.ts';
+import { _minBy } from './methods/minBy.ts';
+import { _minByKey } from './methods/minByKey.ts';
+import { _nth } from './methods/nth.ts';
+import { _nub } from './methods/nub.ts';
+import { _nubBy } from './methods/nubBy.ts';
+import { _partition } from './methods/partition.ts';
+import { _position } from './methods/position.ts';
+import { _product } from './methods/product.ts';
+import { _reverse } from './methods/reverse.ts';
+import { _scanl } from './methods/scanl.ts';
+import { _scanl1 } from './methods/scanl1.ts';
+import { _scanr } from './methods/scanr.ts';
+import { _scanr1 } from './methods/scanr1.ts';
+import { _skip } from './methods/skip.ts';
+import { _skipWhile } from './methods/skipWhile.ts';
+import { _stepBy } from './methods/stepBy.ts';
+import { _sum } from './methods/sum.ts';
+import { _take } from './methods/take.ts';
+import { _takeWhile } from './methods/takeWhile.ts';
+import { _unzip } from './methods/unzip.ts';
+import { _zip } from './methods/zip.ts';
 
 const logger = getLogger('iterator');
 
@@ -400,7 +400,7 @@ export interface IAsyncIterator_zip<T, U> extends IAsyncIterator_<Pair<T, U>> {
 
 export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     constructor(iter: AsyncIterable<T | Promise<T>>) {
-        logger.trace('constructor()');
+        logger.info('constructor()');
         this._iter = {
             async *[Symbol.asyncIterator]() {
                 yield* iter;
@@ -425,12 +425,12 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public readonly [Symbol.toStringTag] = 'Async Iterator' as const;
 
     public [Symbol.asyncIterator]() {
-        logger.trace('[Symbol.asyncIterator]()');
+        logger.info('[Symbol.asyncIterator]()');
         return this;
     }
 
     public async next() {
-        logger.trace('next()');
+        logger.info('next()');
         const { done, value } = await next_async(this._iter);
 
         return {
@@ -440,250 +440,250 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     }
 
     public all(fn: PredicateFn<T>) {
-        logger.trace('all()');
+        logger.info('all()');
         return _all<T>(fn, this);
     }
 
     public any(fn: PredicateFn<T>) {
-        logger.trace('any()');
+        logger.info('any()');
         return _any<T>(fn, this);
     }
 
     public average() {
-        logger.trace('average()');
+        logger.info('average()');
         return _average(this as any);
     }
 
     public chain(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
-        logger.trace('chain()');
+        logger.info('chain()');
         return (new AsyncIterator_<T>(_chain<T>(other, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public collect() {
-        logger.trace('collect()');
+        logger.info('collect()');
         return _collect<T>(this);
     }
 
     public count() {
-        logger.trace('count()');
+        logger.info('count()');
         return _count<T>(this);
     }
 
     public cycle() {
-        logger.trace('cycle()');
+        logger.info('cycle()');
         return (new AsyncIterator_<T>(_cycle<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public enumerate() {
-        logger.trace('enumerate()');
+        logger.info('enumerate()');
         return (new AsyncIterator_<Pair<number, T>>(_enumerate<T>(this)) as unknown) as ToAsyncIterator<Pair<number, T>>;
     }
 
     public filter(predicate: PredicateFn<T>) {
-        logger.trace('filter()');
+        logger.info('filter()');
         return (new AsyncIterator_<T>(_filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public filterMap<R>(fn: MapFn<T, Nullable<R>>) {
-        logger.trace('filterMap()');
+        logger.info('filterMap()');
         return (new AsyncIterator_<R>(_filterMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public find(predicate: PredicateFn<T>) {
-        logger.trace('find()');
+        logger.info('find()');
         return _find<T>(predicate, this);
     }
 
     public findMap<R>(fn: MapFn<T, Nullable<R>>) {
-        logger.trace('findMap()');
+        logger.info('findMap()');
         return _findMap<T, R>(fn, this);
     }
 
     public flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>) {
-        logger.trace('flatMap()');
+        logger.info('flatMap()');
         return (new AsyncIterator_<Flatten<R>>(_flatMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<Flatten<R>>;
     }
 
     public flatten() {
-        logger.trace('flatten()');
+        logger.info('flatten()');
         return (new AsyncIterator_<Flatten<T>>(_flatten<T>(this)) as unknown) as ToAsyncIterator<Flatten<T>>;
     }
 
     public foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>) {
-        logger.trace('fold()');
+        logger.info('fold()');
         return _foldl<T, U>(fn, init, this);
     }
 
     public foldl1(fn: FoldlFn<T, T>) {
-        logger.trace('fold1()');
+        logger.info('fold1()');
         return _foldl1<T>(fn, this);
     }
 
     public foldr<U>(init: U | Promise<U>, fn: FoldrFn<T, U>) {
-        logger.trace('foldr()');
+        logger.info('foldr()');
         return _foldr(fn, init, this);
     }
 
     public foldr1(fn: FoldrFn<T, T>) {
-        logger.trace('foldr()');
+        logger.info('foldr()');
         return _foldr1(fn, this);
     }
 
     public forEach(fn: ForEachFn<T>) {
-        logger.trace('forEach()');
+        logger.info('forEach()');
         return _forEach<T>(fn, this);
     }
 
     public head() {
-        logger.trace('head()');
+        logger.info('head()');
         return _head<T>(this);
     }
 
     public inspect(fn: ForEachFn<T>) {
-        logger.trace('inspect()');
+        logger.info('inspect()');
         return (new AsyncIterator_<T>(_inspect<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public last() {
-        logger.trace('last()');
+        logger.info('last()');
         return _last<T>(this);
     }
 
     public map<R>(fn: MapFn<T, R>) {
-        logger.trace('map()');
+        logger.info('map()');
         return (new AsyncIterator_<R>(_map<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public max() {
-        logger.trace('max()');
+        logger.info('max()');
         return _max<T>(this);
     }
 
     public maxBy(fn: CompareFn<T>) {
-        logger.trace('maxBy()');
+        logger.info('maxBy()');
         return _maxBy<T>(fn, this);
     }
 
     public maxByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
-        logger.trace('maxByKey()');
+        logger.info('maxByKey()');
         return _maxByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public min() {
-        logger.trace('min()');
+        logger.info('min()');
         return _min<T>(this);
     }
 
     public minBy(fn: CompareFn<T>) {
-        logger.trace('minBy()');
+        logger.info('minBy()');
         return _minBy<T>(fn, this);
     }
 
     public minByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
-        logger.trace('minByKey()');
+        logger.info('minByKey()');
         return _minByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public nth(n: number) {
-        logger.trace('nth()');
+        logger.info('nth()');
         return _nth<T>(n, this);
     }
 
     public nub() {
-        logger.trace('nub()');
+        logger.info('nub()');
         return (new AsyncIterator_<T>(_nub<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public nubBy(fn: EqualFn<T>) {
-        logger.trace('nubBy()');
+        logger.info('nubBy()');
         return (new AsyncIterator_<T>(_nubBy<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async partition(fn: PredicateFn<T>) {
-        logger.trace('partition()');
+        logger.info('partition()');
         const [left, right] = await _partition(fn, this);
         return (pair(new AsyncIterator_<T>(left), new AsyncIterator_<T>(right)) as unknown) as Pair<ToAsyncIterator<T>, ToAsyncIterator<T>>;
     }
 
     public position(fn: PredicateFn<T>) {
-        logger.trace('position()');
+        logger.info('position()');
         return _position<T>(fn, this);
     }
 
     public product() {
-        logger.trace('product()');
+        logger.info('product()');
         return _product(this as any);
     }
 
     public reverse() {
-        logger.trace('reverse()');
+        logger.info('reverse()');
         return (new AsyncIterator_<T>(_reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public scanl<U>(init: U | Promise<U>, fn: ScanlFn<T, U>) {
-        logger.trace('scanl()');
+        logger.info('scanl()');
         return (new AsyncIterator_<U>(_scanl<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
     }
 
     public scanl1(fn: ScanlFn<T, T>) {
-        logger.trace('scanl1()');
+        logger.info('scanl1()');
         return (new AsyncIterator_<T>(_scanl1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public scanr<U>(init: U | Promise<U>, fn: ScanrFn<T, U>) {
-        logger.trace('scanr()');
+        logger.info('scanr()');
         return (new AsyncIterator_<U>(_scanr<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
     }
 
     public scanr1(fn: ScanrFn<T, T>) {
-        logger.trace('scanr1()');
+        logger.info('scanr1()');
         return (new AsyncIterator_<T>(_scanr1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skip(count: number) {
-        logger.trace('drop()');
+        logger.info('drop()');
         return (new AsyncIterator_<T>(_skip<T>(count, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skipWhile(predicate: PredicateFn<T>) {
-        logger.trace('dropWhile()');
+        logger.info('dropWhile()');
         return (new AsyncIterator_<T>(_skipWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public stepBy(step: number) {
-        logger.trace('stepBy()');
+        logger.info('stepBy()');
         return (new AsyncIterator_<T>(_stepBy<T>(step, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public sum() {
-        logger.trace('sum()');
+        logger.info('sum()');
         return _sum(this as any);
     }
 
     public take(limit: number) {
-        logger.trace('take()');
+        logger.info('take()');
         return (new AsyncIterator_<T>(_take<T>(limit, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public takeWhile(predicate: PredicateFn<T>) {
-        logger.trace('takeWhile()');
+        logger.info('takeWhile()');
         return (new AsyncIterator_<T>(_takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async unzip() {
-        logger.trace('unzip()');
+        logger.info('unzip()');
         const [left, right] = await _unzip<any, any>(this as any);
         return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
     }
 
     public zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>) {
-        logger.trace('zip()');
+        logger.info('zip()');
         return (new AsyncIterator_<Pair<T, U>>(_zip<T, U>(other, this)) as unknown) as ToAsyncIterator<Pair<T, U>>;
     }
 }
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
-    logger.trace('iterator()');
+    logger.info('iterator()');
     const it = sequence(iter);
     return (new AsyncIterator_<T>(it) as unknown) as ToAsyncIterator<T>;
 }

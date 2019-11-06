@@ -1,10 +1,10 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { Pair } from '../types/pair';
+import { Pair } from '../types/pair.ts';
 
-import { toAsyncIterable } from '../lib/iterable';
-import { next_async } from '../lib/iterable/next';
-import { append } from '../lib/iterable/append';
+import { toAsyncIterable } from '../lib/iterable.ts';
+import { next_async } from '../lib/iterable/next.ts';
+import { append } from '../lib/iterable/append.ts';
 
 const logger = getLogger('iterator/unzip');
 
@@ -13,7 +13,7 @@ async function _unzip_impl_fn<T, U>(
     left_iter: AsyncIterable<T> = toAsyncIterable<T>([]),
     right_iter: AsyncIterable<U> = toAsyncIterable<U>([]),
 ): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
-    logger.trace('_unzip_impl_fn()');
+    logger.info('_unzip_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -26,6 +26,6 @@ async function _unzip_impl_fn<T, U>(
 }
 
 export function _unzip<T, U>(iter: AsyncIterable<Pair<T, U>>) {
-    logger.trace('_unzip()');
+    logger.info('_unzip()');
     return _unzip_impl_fn(iter);
 }

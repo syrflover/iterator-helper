@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "target": "es2015",
+        "target": "esnext",
         "module": "esnext",
-        "lib": ["es2018.asynciterable"],
+        "lib": [],
+        "baseUrl": ".",
         "outDir": "dist",
         "sourceMap": true,
         "declaration": true,
@@ -13,7 +14,16 @@
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "alwaysStrict": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "plugins": [
+            {
+                "name": "typescript-deno-plugin"
+            }
+        ],
+        "paths": {
+            "http://*": ["~/Library/Caches/deno/deps/http/*"],
+            "https://*": ["~/Library/Caches/deno/deps/https/*"]
+        }
     },
     "include": ["src/**/*.ts"],
     "exclude": ["src/playground.ts", "src/logger.ts"]

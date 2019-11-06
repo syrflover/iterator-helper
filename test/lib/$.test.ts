@@ -1,12 +1,11 @@
-import { assert } from 'chai';
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { $ } from '../../src/lib/$';
+import { $ } from '../../src/lib/$.ts';
 
-describe('test $', () => {
-    it('$', async () => {
-        const actual = await $(1, (a) => a + 1, (a) => a * 3, async (a) => a / 2);
-        const expected = 3;
+test('$()', async () => {
+    const actual = await $(1, (a) => a + 1, (a) => a * 3, async (a) => a / 2);
+    const expected = 3;
 
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

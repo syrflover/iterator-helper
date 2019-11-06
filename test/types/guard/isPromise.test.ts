@@ -1,20 +1,18 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { isPromise } from '../../../src/types/guard/isPromise.ts';
 
-import { isPromise } from '../../../src/types/guard/isPromise';
+test('isPromise() true', () => {
+    const actual = isPromise(Promise.resolve());
+    const expected = true;
 
-describe('test isPromise', () => {
-    it('true', () => {
-        const actual = isPromise(Promise.resolve());
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isPromise() undefined', () => {
+    const actual = isPromise(undefined);
+    const expected = false;
 
-    it('undefined', () => {
-        const actual = isPromise(undefined);
-        const expected = false;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

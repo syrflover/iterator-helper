@@ -1,19 +1,19 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { FoldrFn } from '../types/fn/fold';
+import { FoldrFn } from '../types/fn/fold.ts';
 
-import { next_async } from '../lib/iterable/next';
-import { initLast } from '../lib/iterable/initLast';
-import { append } from '../lib/iterable/append';
+import { next_async } from '../lib/iterable/next.ts';
+import { initLast } from '../lib/iterable/initLast.ts';
+import { append } from '../lib/iterable/append.ts';
 
-import { _curry } from '../lib/curry';
+import { _curry } from '../lib/curry.ts';
 
-import { _foldr } from './foldr';
+import { _foldr } from './foldr.ts';
 
 const logger = getLogger('iterator/foldr1');
 
 async function _foldr1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldrFn<T, T>) {
-    logger.trace('_foldr1_impl_fn()');
+    logger.info('_foldr1_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -31,6 +31,6 @@ export interface Foldr1 {
 }
 
 export const _foldr1: Foldr1 = _curry(<T>(fn: FoldrFn<T, T>, iter: AsyncIterable<T>) => {
-    logger.trace('_foldr1()');
+    logger.info('_foldr1()');
     return _foldr1_impl_fn(iter, fn);
 });

@@ -1,48 +1,46 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { isAsyncIterable } from '../../../src/types/guard/isAsyncIterable.ts';
 
-import { isAsyncIterable } from '../../../src/types/guard/isAsyncIterable';
+function* iterable() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
 
-describe('test isAsyncIterable', () => {
-    function* iterable() {
-        yield 1;
-        yield 2;
-        yield 3;
-        yield 4;
-    }
+async function* asyncIterable() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
 
-    async function* asyncIterable() {
-        yield 1;
-        yield 2;
-        yield 3;
-        yield 4;
-    }
+test('isAsyncIterable() Array == false', () => {
+    const actual = isAsyncIterable([1, 2, 3, 4]);
+    const expected = false;
 
-    it('Array == false', () => {
-        const actual = isAsyncIterable([1, 2, 3, 4]);
-        const expected = false;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isAsyncIterable() Iterable == false', () => {
+    const actual = isAsyncIterable(iterable());
+    const expected = false;
 
-    it('Iterable == false', () => {
-        const actual = isAsyncIterable(iterable());
-        const expected = false;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isAsyncIterable() AsyncIterable == true', () => {
+    const actual = isAsyncIterable(asyncIterable());
+    const expected = true;
 
-    it('AsyncIterable == true', () => {
-        const actual = isAsyncIterable(asyncIterable());
-        const expected = true;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('isAsyncIterable() undefined == false', () => {
+    const actual = isAsyncIterable(undefined);
+    const expected = false;
 
-    it('undefined == false', () => {
-        const actual = isAsyncIterable(undefined);
-        const expected = false;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

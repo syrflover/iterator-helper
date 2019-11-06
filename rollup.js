@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable */
 const { builtinModules } = require('module');
 const typescript = require('rollup-plugin-typescript2');
@@ -59,17 +60,22 @@ const config = (ent) => {
                         replace: '',
                     },
                     {
+                        test: /import { getLogger } from '.+logger\.ts';/,
+                        replace: '',
+                    },
+                    {
                         test: /logger\..+\(.+\);/g,
                         replace: '',
                     },
                     {
-                        test: /import { getLogger } from '.+logger';/,
+                        test: /\.ts/g,
                         replace: '',
-                    },
+                    }
                 ],
             }),
             typescript({
                 tsconfig: 'tsconfig.build.json',
+                abortOnError: true,
             }), // so Rollup can convert TypeScript to JavaScript
             // terser(),
         ],

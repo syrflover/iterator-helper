@@ -1,16 +1,16 @@
-import { getLogger } from '../logger';
+import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/fn/predicate';
+import { PredicateFn } from '../types/fn/predicate.ts';
 
-import { prepend } from '../lib/iterable/prepend';
-import { next_async } from '../lib/iterable/next';
+import { prepend } from '../lib/iterable/prepend.ts';
+import { next_async } from '../lib/iterable/next.ts';
 
-import { _curry } from '../lib/curry';
+import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/dropWhile');
 
 async function* _skip_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
-    logger.trace('_drop_while_impl_fn()');
+    logger.info('_drop_while_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
@@ -37,6 +37,6 @@ export interface SkipWhile {
 }
 
 export const _skipWhile: SkipWhile = _curry(<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_dropWhile()');
+    logger.info('_dropWhile()');
     return _skip_while_impl_fn(iter, predicate);
 });

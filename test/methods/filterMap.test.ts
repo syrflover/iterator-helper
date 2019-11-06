@@ -1,19 +1,17 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('filterMap() parseInt', async () => {
+    const a = iterator(['a', 'b', '1', '2', '3', 'c', '4', 'd']);
 
-describe('test filterMap', () => {
-    it('parseInt', async () => {
-        const a = iterator(['a', 'b', '1', '2', '3', 'c', '4', 'd']);
+    const actual: number[] = [];
+    const expected = [1, 2, 3, 4];
 
-        const actual: number[] = [];
-        const expected = [1, 2, 3, 4];
+    for await (const _ of a.filterMap((e) => parseInt(e, 10))) {
+        actual.push(_);
+    }
 
-        for await (const _ of a.filterMap((e) => parseInt(e, 10))) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

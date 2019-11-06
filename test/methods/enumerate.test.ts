@@ -1,20 +1,18 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
+import { pair, Pair } from '../../src/types/pair.ts';
 
-import { iterator } from '../../src';
-import { pair, Pair } from '../../src/types/pair';
+test(`enumerate(['a', 'b', 'c', 'd', 'e'])`, async () => {
+    const a = iterator(['a', 'b', 'c', 'd', 'e']);
 
-describe('test enumerate', () => {
-    it(`enumerate(['a', 'b', 'c', 'd', 'e'])`, async () => {
-        const a = iterator(['a', 'b', 'c', 'd', 'e']);
+    const actual: Pair<number, string>[] = [];
+    const expected = [pair(0, 'a'), pair(1, 'b'), pair(2, 'c'), pair(3, 'd'), pair(4, 'e')];
 
-        const actual: Pair<number, string>[] = [];
-        const expected = [pair(0, 'a'), pair(1, 'b'), pair(2, 'c'), pair(3, 'd'), pair(4, 'e')];
+    for await (const _ of a.enumerate()) {
+        actual.push(_);
+    }
 
-        for await (const _ of a.enumerate()) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

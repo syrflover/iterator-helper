@@ -1,46 +1,44 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('scanl() state + elem', async () => {
+    const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-describe('test scanl', () => {
-    it('state + elem', async () => {
-        const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
+    const actual_elements: number[] = [];
+    const expected_elements = [1, 2, 3, 4, 5];
 
-        const actual_elements: number[] = [];
-        const expected_elements = [1, 2, 3, 4, 5];
+    const actual_result: number[] = [];
+    const expected_result = [1, 2, 4, 7, 11, 16];
 
-        const actual_result: number[] = [];
-        const expected_result = [1, 2, 4, 7, 11, 16];
+    for await (const _ of a.scanl(Promise.resolve(1), (st, e) => {
+        actual_elements.push(e);
+        return st + e;
+    })) {
+        actual_result.push(_);
+    }
 
-        for await (const _ of a.scanl(Promise.resolve(1), (st, e) => {
-            actual_elements.push(e);
-            return st + e;
-        })) {
-            actual_result.push(_);
-        }
+    assertEquals(actual_elements, expected_elements);
+    assertEquals(actual_result, expected_result);
+});
 
-        assert.deepStrictEqual(actual_elements, expected_elements);
-        assert.deepStrictEqual(actual_result, expected_result);
-    });
+test('scanl() `${state}${elem}`', async () => {
+    const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-    it('`${state}${elem}`', async () => {
-        const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
+    const actual_elements: number[] = [];
+    const expected_elements = [1, 2, 3, 4, 5];
 
-        const actual_elements: number[] = [];
-        const expected_elements = [1, 2, 3, 4, 5];
+    const actual_result: string[] = [];
+    const expected_result = ['1', '11', '112', '1123', '11234', '112345'];
 
-        const actual_result: string[] = [];
-        const expected_result = ['1', '11', '112', '1123', '11234', '112345'];
+    for await (const _ of a.scanl('1', (st, e) => {
+        actual_elements.push(e);
+        return `${st}${e}`;
+    })) {
+        actual_result.push(_);
+    }
 
-        for await (const _ of a.scanl('1', (st, e) => {
-            actual_elements.push(e);
-            return `${st}${e}`;
-        })) {
-            actual_result.push(_);
-        }
-
-        assert.deepStrictEqual(actual_elements, expected_elements);
-        assert.deepStrictEqual(actual_result, expected_result);
-    });
+    assertEquals(actual_elements, expected_elements);
+    assertEquals(actual_result, expected_result);
 });

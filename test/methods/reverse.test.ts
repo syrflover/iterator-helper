@@ -1,19 +1,17 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('reverse()', async () => {
+    const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-describe('test reverse', () => {
-    it('reverse', async () => {
-        const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
+    const actual: number[] = [];
+    const expected = [5, 4, 3, 2, 1];
 
-        const actual: number[] = [];
-        const expected = [5, 4, 3, 2, 1];
+    for await (const _ of a.reverse()) {
+        actual.push(_);
+    }
 
-        for await (const _ of a.reverse()) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

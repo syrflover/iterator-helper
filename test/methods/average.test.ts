@@ -1,24 +1,22 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('average()', async () => {
+    const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
-describe('test average', () => {
-    it('average', async () => {
-        const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
+    const actual = await a.average();
+    const expected = 3;
 
-        const actual = await a.average();
-        const expected = 3;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('average() empty iter', async () => {
+    const a = iterator<number>([]);
 
-    it('empty iter', async () => {
-        const a = iterator<number>([]);
+    const actual = await a.average();
+    const expected = 0;
 
-        const actual = await a.average();
-        const expected = 0;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

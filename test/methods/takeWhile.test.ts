@@ -1,51 +1,49 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('takeWhile(x < 3, [1,2,3,4,1,2,3,4]) == [1,2]', async () => {
+    const a = iterator([1, 2, 3, 4, 1, 2, 3, 4]);
 
-describe('test takeWhile', () => {
-    it('takeWhile(x < 3, [1,2,3,4,1,2,3,4]) == [1,2]', async () => {
-        const a = iterator([1, 2, 3, 4, 1, 2, 3, 4]);
+    const actual: number[] = [];
+    const expected = [1, 2];
 
-        const actual: number[] = [];
-        const expected = [1, 2];
+    const it = a.takeWhile((e) => e < 3);
 
-        const it = a.takeWhile((e) => e < 3);
+    for await (const _ of it) {
+        actual.push(_);
+    }
 
-        for await (const _ of it) {
-            actual.push(_);
-        }
+    assertEquals(actual, expected);
+});
 
-        assert.deepStrictEqual(actual, expected);
-    });
+test('takeWhile(e < 9, [1,2,3]) == [1,2,3]', async () => {
+    const a = iterator([1, 2, 3]);
 
-    it('takeWhile(e < 9, [1,2,3]) == [1,2,3]', async () => {
-        const a = iterator([1, 2, 3]);
+    const actual: number[] = [];
+    const expected = [1, 2, 3];
 
-        const actual: number[] = [];
-        const expected = [1, 2, 3];
+    const it = a.takeWhile((e) => e < 9);
 
-        const it = a.takeWhile((e) => e < 9);
+    for await (const _ of it) {
+        actual.push(_);
+    }
 
-        for await (const _ of it) {
-            actual.push(_);
-        }
+    assertEquals(actual, expected);
+});
 
-        assert.deepStrictEqual(actual, expected);
-    });
+test('takeWhile(e < 9, [1,2,3]) == []', async () => {
+    const a = iterator([1, 2, 3]);
 
-    it('takeWhile(e < 9, [1,2,3]) == []', async () => {
-        const a = iterator([1, 2, 3]);
+    const actual: number[] = [];
+    const expected: number[] = [];
 
-        const actual: number[] = [];
-        const expected: number[] = [];
+    const it = a.takeWhile((e) => e < 0);
 
-        const it = a.takeWhile((e) => e < 0);
+    for await (const _ of it) {
+        actual.push(_);
+    }
 
-        for await (const _ of it) {
-            actual.push(_);
-        }
-
-        assert.deepStrictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

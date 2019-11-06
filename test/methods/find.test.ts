@@ -1,24 +1,22 @@
+import { test } from 'https://deno.land/std/testing/mod.ts';
+import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { assert } from 'chai';
+import { iterator } from '../../src/index.ts';
 
-import { iterator } from '../../src';
+test('find(3) === 3', async () => {
+    const a = iterator([1, 2, 3, 4, 5]);
 
-describe('test find', () => {
-    it('find(3) === 3', async () => {
-        const a = iterator([1, 2, 3, 4, 5]);
+    const actual = await a.find((e) => e === 3);
+    const expected = 3;
 
-        const actual = await a.find((e) => e === 3);
-        const expected = 3;
+    assertEquals(actual, expected);
+});
 
-        assert.strictEqual(actual, expected);
-    });
+test('find(6) === undefined', async () => {
+    const a = iterator([1, 2, 3, 4, 5]);
 
-    it('find(6) === undefined', async () => {
-        const a = iterator([1, 2, 3, 4, 5]);
+    const actual = await a.find((e) => e === 6);
+    const expected = undefined;
 
-        const actual = await a.find((e) => e === 6);
-        const expected = undefined;
-
-        assert.strictEqual(actual, expected);
-    });
+    assertEquals(actual, expected);
 });

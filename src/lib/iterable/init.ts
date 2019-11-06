@@ -1,5 +1,5 @@
-import { next_async } from './next';
-import { prepend } from './prepend';
+import { next_async } from './next.ts';
+import { prepend } from './prepend.ts';
 
 async function* _init<T>(a: T, iter: AsyncIterable<T>): AsyncIterable<T> {
     const { done, value } = await next_async(iter);
