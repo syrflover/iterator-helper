@@ -18,10 +18,10 @@ npm install @syrflover/iterator
 
 ```typescript
 // in browser or node
-import '@syrflover/iterator/dist/types/global/node';
+import '@syrflover/iterator/dist/types/global';
 
 // in deno
-import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/src/types/global/deno.ts';
+import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/src/types/global.ts';
 
 [1, 2, 3, 4, 5, 6]
     .iter()
