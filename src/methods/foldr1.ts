@@ -13,7 +13,7 @@ import { _foldr } from './foldr.ts';
 const logger = getLogger('iterator/foldr1');
 
 async function _foldr1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldrFn<T, T>) {
-    logger.info('_foldr1_impl_fn()');
+    logger.trace('_foldr1_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -31,6 +31,6 @@ export interface Foldr1 {
 }
 
 export const _foldr1: Foldr1 = _curry(<T>(fn: FoldrFn<T, T>, iter: AsyncIterable<T>) => {
-    logger.info('_foldr1()');
+    logger.trace('_foldr1()');
     return _foldr1_impl_fn(iter, fn);
 });

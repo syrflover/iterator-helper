@@ -9,7 +9,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/filter');
 
 async function* _filter_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
-    logger.info('_filter_impl_fn()');
+    logger.trace('_filter_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
@@ -36,6 +36,6 @@ export interface Filter {
 }
 
 export const _filter: Filter = _curry(<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_filter()');
+    logger.trace('_filter()');
     return _filter_impl_fn(iter, predicate);
 });

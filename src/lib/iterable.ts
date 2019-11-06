@@ -7,14 +7,14 @@ import { next_async } from './iterable/next.ts';
 const logger = getLogger('lib/iterable');
 
 export function* toIterable<T>(iter: Iterable<T>): Iterable<T> {
-    logger.info('toIterable()');
+    logger.trace('toIterable()');
     yield* iter;
 }
 
 export function toAsyncIterable<T>(
     iter: Iterable<T> | AsyncIterable<T> | Promise<Iterable<T>> | Promise<AsyncIterable<T>>,
 ): AsyncIterableIterator<T> {
-    logger.info('toAsyncIterable()');
+    logger.trace('toAsyncIterable()');
 
     const iter_ = (async function*() {
         const iter__ = await iter;
@@ -26,11 +26,11 @@ export function toAsyncIterable<T>(
 
     return {
         [Symbol.asyncIterator]() {
-            logger.info('toAsyncIterable()', '[Symbol.asyncIterator]()');
+            logger.trace('toAsyncIterable()', '[Symbol.asyncIterator]()');
             return this;
         },
         async next() {
-            logger.info('toAsyncIterable()', 'next()');
+            logger.trace('toAsyncIterable()', 'next()');
 
             const { done, value } = await next_async(iter_);
 

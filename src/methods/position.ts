@@ -9,7 +9,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/position');
 
 async function _position_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>, current: number = 0): Promise<number | undefined> {
-    logger.info('_position_impl_fn()');
+    logger.trace('_position_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -31,6 +31,6 @@ export interface Position {
 }
 
 export const _position: Position = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_position()');
+    logger.trace('_position()');
     return _position_impl_fn(iter, fn);
 });

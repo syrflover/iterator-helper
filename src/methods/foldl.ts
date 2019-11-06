@@ -9,7 +9,7 @@ import { _curry, Curry2 } from '../lib/curry.ts';
 const logger = getLogger('iterator/foldl');
 
 async function _foldl_impl_fn<A, B>(iter: AsyncIterable<A>, accumulator: B | Promise<B>, fn: FoldlFn<A, B>): Promise<B> {
-    logger.info('_foldl_impl_fn()');
+    logger.trace('_foldl_impl_fn()');
     const acc = await accumulator;
     const { done, value: elem } = await next_async(iter);
 
@@ -32,6 +32,6 @@ export interface Foldl {
 
 // (b -> a -> b) -> b -> t a -> b
 export const _foldl: Foldl = _curry(<A, B>(fn: FoldlFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
-    logger.info('_foldl()');
+    logger.trace('_foldl()');
     return _foldl_impl_fn(iter, init, fn);
 });

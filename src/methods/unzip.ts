@@ -13,7 +13,7 @@ async function _unzip_impl_fn<T, U>(
     left_iter: AsyncIterable<T> = toAsyncIterable<T>([]),
     right_iter: AsyncIterable<U> = toAsyncIterable<U>([]),
 ): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
-    logger.info('_unzip_impl_fn()');
+    logger.trace('_unzip_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -26,6 +26,6 @@ async function _unzip_impl_fn<T, U>(
 }
 
 export function _unzip<T, U>(iter: AsyncIterable<Pair<T, U>>) {
-    logger.info('_unzip()');
+    logger.trace('_unzip()');
     return _unzip_impl_fn(iter);
 }

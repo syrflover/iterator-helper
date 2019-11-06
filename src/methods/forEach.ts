@@ -9,7 +9,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/forEach');
 
 async function _for_each_impl_fn<T>(iter: AsyncIterable<T>, fn: ForEachFn<T>): Promise<void> {
-    logger.info('_for_each_impl_fn()');
+    logger.trace('_for_each_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
@@ -30,6 +30,6 @@ export interface ForEach {
 }
 
 export const _forEach: ForEach = _curry(<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_forEach()');
+    logger.trace('_forEach()');
     return _for_each_impl_fn(iter, fn);
 });

@@ -7,7 +7,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/stepBy');
 
 async function* _step_by_impl_fn<T>(iter: AsyncIterable<T>, step: number, current_step: number = 0): AsyncIterable<T> {
-    logger.info('_step_by_impl_fn()');
+    logger.trace('_step_by_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('step         =', step);
@@ -32,6 +32,6 @@ export interface StepBy {
 }
 
 export const _stepBy: StepBy = _curry(<T>(step: number, iter: AsyncIterable<T>) => {
-    logger.info('_stepBy()');
+    logger.trace('_stepBy()');
     return _step_by_impl_fn(iter, step);
 });

@@ -5,6 +5,6 @@ import { _foldl } from './foldl.ts';
 const logger = getLogger('iterator/product');
 
 export function _product(iter: AsyncIterable<number>) {
-    logger.info('_product()');
+    logger.trace('_product()');
     return _foldl((acc, e) => acc * e, 1, iter);
 }

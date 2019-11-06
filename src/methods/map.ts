@@ -9,7 +9,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/map');
 
 async function* _map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, R>): AsyncIterable<R> {
-    logger.info('_map_impl_fn()');
+    logger.trace('_map_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done   =', done);
@@ -34,6 +34,6 @@ export interface Map {
 }
 
 export const _map: Map = _curry(<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) => {
-    logger.info('_map()');
+    logger.trace('_map()');
     return _map_impl_fn(iter, fn);
 });

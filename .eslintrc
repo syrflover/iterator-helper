@@ -42,8 +42,10 @@
         "require-yield": "off",
         "max-len": "off",
         "default-case": "off",
+        "dot-notation": "off",
         "no-nested-ternary": "off",
         "no-template-curly-in-string": "off",
+        "object-curly-newline": "off",
 
         "func-names": "off",
 

@@ -13,7 +13,7 @@ import { _scanr } from './scanr.ts';
 const logger = getLogger('iterator/scanr1');
 
 async function* _scanr1_impl_fn<T>(iter: AsyncIterable<T>, fn: ScanrFn<T, T>): AsyncIterable<T> {
-    logger.info('_scanr1_impl_fn()');
+    logger.trace('_scanr1_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -31,6 +31,6 @@ export interface Scanr1 {
 }
 
 export const _scanr1: Scanr1 = _curry(<T>(fn: ScanrFn<T, T>, iter: AsyncIterable<T>) => {
-    logger.info('_scanr1()');
+    logger.trace('_scanr1()');
     return _scanr1_impl_fn(iter, fn);
 });

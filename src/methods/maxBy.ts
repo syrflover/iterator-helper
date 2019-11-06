@@ -13,7 +13,7 @@ import { _foldl } from './foldl.ts';
 const logger = getLogger('iterator/maxBy');
 
 async function _max_by_impl_fn<T>(iter: AsyncIterable<T>, fn: CompareFn<T>): Promise<T | undefined> {
-    logger.info('_max_by_impl_fn()');
+    logger.trace('_max_by_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -29,6 +29,6 @@ export interface MaxBy {
 }
 
 export const _maxBy: MaxBy = _curry(<T>(fn: CompareFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_maxBy()');
+    logger.trace('_maxBy()');
     return _max_by_impl_fn(iter, fn);
 });

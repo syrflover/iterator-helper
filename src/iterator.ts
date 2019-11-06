@@ -400,7 +400,7 @@ export interface IAsyncIterator_zip<T, U> extends IAsyncIterator_<Pair<T, U>> {
 
 export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     constructor(iter: AsyncIterable<T | Promise<T>>) {
-        logger.info('constructor()');
+        logger.trace('constructor()');
         this._iter = {
             async *[Symbol.asyncIterator]() {
                 yield* iter;
@@ -425,12 +425,12 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public readonly [Symbol.toStringTag] = 'Async Iterator' as const;
 
     public [Symbol.asyncIterator]() {
-        logger.info('[Symbol.asyncIterator]()');
+        logger.trace('[Symbol.asyncIterator]()');
         return this;
     }
 
     public async next() {
-        logger.info('next()');
+        logger.trace('next()');
         const { done, value } = await next_async(this._iter);
 
         return {
@@ -440,250 +440,250 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     }
 
     public all(fn: PredicateFn<T>) {
-        logger.info('all()');
+        logger.trace('all()');
         return _all<T>(fn, this);
     }
 
     public any(fn: PredicateFn<T>) {
-        logger.info('any()');
+        logger.trace('any()');
         return _any<T>(fn, this);
     }
 
     public average() {
-        logger.info('average()');
+        logger.trace('average()');
         return _average(this as any);
     }
 
     public chain(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
-        logger.info('chain()');
+        logger.trace('chain()');
         return (new AsyncIterator_<T>(_chain<T>(other, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public collect() {
-        logger.info('collect()');
+        logger.trace('collect()');
         return _collect<T>(this);
     }
 
     public count() {
-        logger.info('count()');
+        logger.trace('count()');
         return _count<T>(this);
     }
 
     public cycle() {
-        logger.info('cycle()');
+        logger.trace('cycle()');
         return (new AsyncIterator_<T>(_cycle<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public enumerate() {
-        logger.info('enumerate()');
+        logger.trace('enumerate()');
         return (new AsyncIterator_<Pair<number, T>>(_enumerate<T>(this)) as unknown) as ToAsyncIterator<Pair<number, T>>;
     }
 
     public filter(predicate: PredicateFn<T>) {
-        logger.info('filter()');
+        logger.trace('filter()');
         return (new AsyncIterator_<T>(_filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public filterMap<R>(fn: MapFn<T, Nullable<R>>) {
-        logger.info('filterMap()');
+        logger.trace('filterMap()');
         return (new AsyncIterator_<R>(_filterMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public find(predicate: PredicateFn<T>) {
-        logger.info('find()');
+        logger.trace('find()');
         return _find<T>(predicate, this);
     }
 
     public findMap<R>(fn: MapFn<T, Nullable<R>>) {
-        logger.info('findMap()');
+        logger.trace('findMap()');
         return _findMap<T, R>(fn, this);
     }
 
     public flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>) {
-        logger.info('flatMap()');
+        logger.trace('flatMap()');
         return (new AsyncIterator_<Flatten<R>>(_flatMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<Flatten<R>>;
     }
 
     public flatten() {
-        logger.info('flatten()');
+        logger.trace('flatten()');
         return (new AsyncIterator_<Flatten<T>>(_flatten<T>(this)) as unknown) as ToAsyncIterator<Flatten<T>>;
     }
 
     public foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>) {
-        logger.info('fold()');
+        logger.trace('fold()');
         return _foldl<T, U>(fn, init, this);
     }
 
     public foldl1(fn: FoldlFn<T, T>) {
-        logger.info('fold1()');
+        logger.trace('fold1()');
         return _foldl1<T>(fn, this);
     }
 
     public foldr<U>(init: U | Promise<U>, fn: FoldrFn<T, U>) {
-        logger.info('foldr()');
+        logger.trace('foldr()');
         return _foldr(fn, init, this);
     }
 
     public foldr1(fn: FoldrFn<T, T>) {
-        logger.info('foldr()');
+        logger.trace('foldr()');
         return _foldr1(fn, this);
     }
 
     public forEach(fn: ForEachFn<T>) {
-        logger.info('forEach()');
+        logger.trace('forEach()');
         return _forEach<T>(fn, this);
     }
 
     public head() {
-        logger.info('head()');
+        logger.trace('head()');
         return _head<T>(this);
     }
 
     public inspect(fn: ForEachFn<T>) {
-        logger.info('inspect()');
+        logger.trace('inspect()');
         return (new AsyncIterator_<T>(_inspect<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public last() {
-        logger.info('last()');
+        logger.trace('last()');
         return _last<T>(this);
     }
 
     public map<R>(fn: MapFn<T, R>) {
-        logger.info('map()');
+        logger.trace('map()');
         return (new AsyncIterator_<R>(_map<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public max() {
-        logger.info('max()');
+        logger.trace('max()');
         return _max<T>(this);
     }
 
     public maxBy(fn: CompareFn<T>) {
-        logger.info('maxBy()');
+        logger.trace('maxBy()');
         return _maxBy<T>(fn, this);
     }
 
     public maxByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
-        logger.info('maxByKey()');
+        logger.trace('maxByKey()');
         return _maxByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public min() {
-        logger.info('min()');
+        logger.trace('min()');
         return _min<T>(this);
     }
 
     public minBy(fn: CompareFn<T>) {
-        logger.info('minBy()');
+        logger.trace('minBy()');
         return _minBy<T>(fn, this);
     }
 
     public minByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
-        logger.info('minByKey()');
+        logger.trace('minByKey()');
         return _minByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public nth(n: number) {
-        logger.info('nth()');
+        logger.trace('nth()');
         return _nth<T>(n, this);
     }
 
     public nub() {
-        logger.info('nub()');
+        logger.trace('nub()');
         return (new AsyncIterator_<T>(_nub<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public nubBy(fn: EqualFn<T>) {
-        logger.info('nubBy()');
+        logger.trace('nubBy()');
         return (new AsyncIterator_<T>(_nubBy<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async partition(fn: PredicateFn<T>) {
-        logger.info('partition()');
+        logger.trace('partition()');
         const [left, right] = await _partition(fn, this);
         return (pair(new AsyncIterator_<T>(left), new AsyncIterator_<T>(right)) as unknown) as Pair<ToAsyncIterator<T>, ToAsyncIterator<T>>;
     }
 
     public position(fn: PredicateFn<T>) {
-        logger.info('position()');
+        logger.trace('position()');
         return _position<T>(fn, this);
     }
 
     public product() {
-        logger.info('product()');
+        logger.trace('product()');
         return _product(this as any);
     }
 
     public reverse() {
-        logger.info('reverse()');
+        logger.trace('reverse()');
         return (new AsyncIterator_<T>(_reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public scanl<U>(init: U | Promise<U>, fn: ScanlFn<T, U>) {
-        logger.info('scanl()');
+        logger.trace('scanl()');
         return (new AsyncIterator_<U>(_scanl<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
     }
 
     public scanl1(fn: ScanlFn<T, T>) {
-        logger.info('scanl1()');
+        logger.trace('scanl1()');
         return (new AsyncIterator_<T>(_scanl1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public scanr<U>(init: U | Promise<U>, fn: ScanrFn<T, U>) {
-        logger.info('scanr()');
+        logger.trace('scanr()');
         return (new AsyncIterator_<U>(_scanr<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
     }
 
     public scanr1(fn: ScanrFn<T, T>) {
-        logger.info('scanr1()');
+        logger.trace('scanr1()');
         return (new AsyncIterator_<T>(_scanr1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skip(count: number) {
-        logger.info('drop()');
+        logger.trace('drop()');
         return (new AsyncIterator_<T>(_skip<T>(count, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skipWhile(predicate: PredicateFn<T>) {
-        logger.info('dropWhile()');
+        logger.trace('dropWhile()');
         return (new AsyncIterator_<T>(_skipWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public stepBy(step: number) {
-        logger.info('stepBy()');
+        logger.trace('stepBy()');
         return (new AsyncIterator_<T>(_stepBy<T>(step, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public sum() {
-        logger.info('sum()');
+        logger.trace('sum()');
         return _sum(this as any);
     }
 
     public take(limit: number) {
-        logger.info('take()');
+        logger.trace('take()');
         return (new AsyncIterator_<T>(_take<T>(limit, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public takeWhile(predicate: PredicateFn<T>) {
-        logger.info('takeWhile()');
+        logger.trace('takeWhile()');
         return (new AsyncIterator_<T>(_takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async unzip() {
-        logger.info('unzip()');
+        logger.trace('unzip()');
         const [left, right] = await _unzip<any, any>(this as any);
         return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
     }
 
     public zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>) {
-        logger.info('zip()');
+        logger.trace('zip()');
         return (new AsyncIterator_<Pair<T, U>>(_zip<T, U>(other, this)) as unknown) as ToAsyncIterator<Pair<T, U>>;
     }
 }
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
-    logger.info('iterator()');
+    logger.trace('iterator()');
     const it = sequence(iter);
     return (new AsyncIterator_<T>(it) as unknown) as ToAsyncIterator<T>;
 }

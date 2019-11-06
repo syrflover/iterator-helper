@@ -13,7 +13,7 @@ async function* _flat_map_impl_fn<T, R extends Iterable<any> | AsyncIterable<any
     iter: AsyncIterable<T>,
     fn: MapFn<T, R>,
 ): AsyncIterable<Flatten<R>> {
-    logger.info('_flat_map_impl_fn()');
+    logger.trace('_flat_map_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
@@ -36,6 +36,6 @@ export interface FlatMap {
 }
 
 export const _flatMap: FlatMap = _curry(<T, R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>, iter: AsyncIterable<T>) => {
-    logger.info('_flatMap()');
+    logger.trace('_flatMap()');
     return _flat_map_impl_fn(iter, fn);
 });

@@ -7,6 +7,6 @@ import { _maxBy } from './maxBy.ts';
 const logger = getLogger('iterator/max');
 
 export function _max<T>(iter: AsyncIterable<T>) {
-    logger.info('_max()');
+    logger.trace('_max()');
     return _maxBy(cmp, iter);
 }

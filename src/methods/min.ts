@@ -7,6 +7,6 @@ import { _minBy } from './minBy.ts';
 const logger = getLogger('iterator/min');
 
 export function _min<T>(iter: AsyncIterable<T>) {
-    logger.info('_min()');
+    logger.trace('_min()');
     return _minBy(cmp, iter);
 }

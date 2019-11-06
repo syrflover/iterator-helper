@@ -9,7 +9,7 @@ import { _curry, Curry2 } from '../lib/curry.ts';
 const logger = getLogger('iterator/foldr');
 
 async function _foldr_impl_fn<A, B>(iter: AsyncIterable<A>, accumulator: B | Promise<B>, fn: FoldrFn<A, B>): Promise<B> {
-    logger.info('_foldr_impl_fn()');
+    logger.trace('_foldr_impl_fn()');
     const acc = await accumulator;
     const { done, value } = await next_async(iter);
 
@@ -31,6 +31,6 @@ export interface Foldr {
 }
 
 export const _foldr: Foldr = _curry(<A, B>(fn: FoldrFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
-    logger.info('_foldr()');
+    logger.trace('_foldr()');
     return _foldr_impl_fn(iter, init, fn);
 });

@@ -17,7 +17,7 @@ async function _partition_impl_fn<T>(
     left: AsyncIterable<T> = toAsyncIterable<T>([]),
     right: AsyncIterable<T> = toAsyncIterable<T>([]),
 ): Promise<Pair<AsyncIterable<T>, AsyncIterable<T>>> {
-    logger.info('_partition_impl_fn()');
+    logger.trace('_partition_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -39,6 +39,6 @@ export interface Partition {
 }
 
 export const _partition: Partition = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_partition()');
+    logger.trace('_partition()');
     return _partition_impl_fn(iter, fn);
 });

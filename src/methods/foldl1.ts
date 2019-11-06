@@ -11,7 +11,7 @@ import { _foldl } from './foldl.ts';
 const logger = getLogger('iterator/foldl1');
 
 async function _foldl1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldlFn<T, T>) {
-    logger.info('_foldl1_impl_fn()');
+    logger.trace('_foldl1_impl_fn()');
     const { done, value: head } = await next_async(iter);
 
     logger.debug('done  =', done);
@@ -30,6 +30,6 @@ export interface Foldl1 {
 }
 
 export const _foldl1: Foldl1 = _curry(<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) => {
-    logger.info('_foldl1()');
+    logger.trace('_foldl1()');
     return _foldl1_impl_fn(iter, fn);
 });

@@ -16,7 +16,11 @@ npm install @syrflover/iterator
 ## Usage
 
 ```typescript
-import '@syrflover/iterator/dist/types/global';
+// in browser or node
+import '@syrflover/iterator/dist/types/global/node';
+
+// in deno
+import '@syrflover/iterator/dist/types/global/deno.ts';
 
 [1, 2, 3, 4, 5, 6]
     .iter()
@@ -29,7 +33,11 @@ import '@syrflover/iterator/dist/types/global';
 or
 
 ```typescript
+// in browser or node
 import { iterator } from '@syrflover/iterator';
+
+// in deno
+import { iterator } from 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts';
 
 iterator([1, 2, 3, 4, 5, 6])
     .filter((e) => e % 2 === 0)

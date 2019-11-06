@@ -9,7 +9,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/any');
 
 async function _any_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>): Promise<boolean> {
-    logger.info('_any_impl_fn()');
+    logger.trace('_any_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
@@ -31,7 +31,7 @@ async function _any_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>): Prom
 }
 
 /* export function _any<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) {
-    logger.info('_any()');
+    logger.trace('_any()');
     return _any_impl_fn(iter, fn);
 } */
 
@@ -41,6 +41,6 @@ export interface Any {
 }
 
 export const _any: Any = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_any()');
+    logger.trace('_any()');
     return _any_impl_fn(iter, fn);
 });

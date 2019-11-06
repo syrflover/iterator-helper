@@ -13,7 +13,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/filterMap');
 
 async function* _filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
-    logger.info('filter_map_impl_fn()');
+    logger.trace('filter_map_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {
@@ -35,6 +35,6 @@ export interface FilterMap {
 }
 
 export const _filterMap: FilterMap = _curry(<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
-    logger.info('filterMap()');
+    logger.trace('filterMap()');
     return _filter_map_impl_fn(iter, fn);
 });

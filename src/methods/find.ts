@@ -9,7 +9,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/find');
 
 async function _find_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): Promise<T | undefined> {
-    logger.info('_find_impl_fn()');
+    logger.trace('_find_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
@@ -36,6 +36,6 @@ export interface Find {
 }
 
 export const _find: Find = _curry(<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_find()');
+    logger.trace('_find()');
     return _find_impl_fn(iter, predicate);
 });

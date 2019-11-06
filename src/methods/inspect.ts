@@ -9,7 +9,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/inspect');
 
 async function* _inspect_impl_fn<T>(iter: AsyncIterable<T>, fn: ForEachFn<T>): AsyncIterable<T> {
-    logger.info('_inspect_impl_fn()');
+    logger.trace('_inspect_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
@@ -32,6 +32,6 @@ export interface Inspect {
 }
 
 export const _inspect: Inspect = _curry(<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>) => {
-    logger.info('_inspect()');
+    logger.trace('_inspect()');
     return _inspect_impl_fn(iter, fn);
 });

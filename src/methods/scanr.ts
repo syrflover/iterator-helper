@@ -10,7 +10,7 @@ import { _curry, Curry2 } from '../lib/curry.ts';
 const logger = getLogger('iterator/scanr');
 
 async function* _scanr_impl_fn<A, B>(iter: AsyncIterable<A>, state: B | Promise<B>, fn: ScanrFn<A, B>): AsyncIterable<B> {
-    logger.info('_scanr_impl_fn()');
+    logger.trace('_scanr_impl_fn()');
     const st = await state;
     const { done, value } = await next_async(iter);
 
@@ -36,6 +36,6 @@ export interface Scanr {
 }
 
 export const _scanr: Scanr = _curry(<A, B>(fn: ScanrFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
-    logger.info('_scanr()');
+    logger.trace('_scanr()');
     return _scanr_impl_fn(iter, init, fn);
 });

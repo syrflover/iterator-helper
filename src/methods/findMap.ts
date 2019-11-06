@@ -13,7 +13,7 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/findMap');
 
 async function _find_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): Promise<R | undefined> {
-    logger.info('_find_map_impl_fn()');
+    logger.trace('_find_map_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done      =', done);
@@ -40,6 +40,6 @@ export interface FindMap {
 }
 
 export const _findMap: FindMap = _curry(<T, R>(predicate: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
-    logger.info('_findMap()');
+    logger.trace('_findMap()');
     return _find_map_impl_fn(iter, predicate);
 });

@@ -10,7 +10,7 @@ import { next_async } from '../lib/iterable/next.ts';
 const logger = getLogger('iterator/flatten');
 
 async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatten<T>> {
-    logger.info('_flatten_impl_fn()');
+    logger.trace('_flatten_impl_fn()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
@@ -30,6 +30,6 @@ async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatt
 }
 
 export function _flatten<T>(iter: AsyncIterable<T>) {
-    logger.info('_flatten()');
+    logger.trace('_flatten()');
     return _flatten_impl_fn(iter);
 }

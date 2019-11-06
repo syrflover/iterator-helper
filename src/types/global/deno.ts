@@ -53,56 +53,56 @@ declare global {
 }
 
 String.prototype.iter = function() {
-    logger.info('String', 'iter()');
+    logger.trace('String', 'iter()');
     return iterator(this);
 };
 
 Array.prototype.iter = function() {
-    logger.info('Array', 'iter()');
+    logger.trace('Array', 'iter()');
     return iterator(this);
 };
 
 Int8Array.prototype.iter = function() {
-    logger.info('Int8Array', 'iter()');
+    logger.trace('Int8Array', 'iter()');
     return iterator(this);
 };
 
 Int16Array.prototype.iter = function() {
-    logger.info('Int16Array', 'iter()');
+    logger.trace('Int16Array', 'iter()');
     return iterator(this);
 };
 
 Int32Array.prototype.iter = function() {
-    logger.info('Int32Array', 'iter()');
+    logger.trace('Int32Array', 'iter()');
     return iterator(this);
 };
 
 Uint8Array.prototype.iter = function() {
-    logger.info('Uint8Array', 'iter()');
+    logger.trace('Uint8Array', 'iter()');
     return iterator(this);
 };
 
 Uint8ClampedArray.prototype.iter = function() {
-    logger.info('Uint8ClampedArray', 'iter()');
+    logger.trace('Uint8ClampedArray', 'iter()');
     return iterator(this);
 };
 
 Uint16Array.prototype.iter = function() {
-    logger.info('Uint16Array', 'iter()');
+    logger.trace('Uint16Array', 'iter()');
     return iterator(this);
 };
 
 Uint32Array.prototype.iter = function() {
-    logger.info('Uint32Array', 'iter()');
+    logger.trace('Uint32Array', 'iter()');
     return iterator(this);
 };
 
 Float32Array.prototype.iter = function() {
-    logger.info('Float32Array', 'iter()');
+    logger.trace('Float32Array', 'iter()');
     return iterator(this);
 };
 
 Float64Array.prototype.iter = function() {
-    logger.info('Float64Array', 'iter()');
+    logger.trace('Float64Array', 'iter()');
     return iterator(this);
 };
