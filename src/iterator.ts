@@ -564,9 +564,9 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _maxBy<T>(fn, this);
     }
 
-    public maxByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>) {
+    public maxByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
         logger.trace('maxByKey()');
-        return _maxByKey<T, K>(keyFn, cmpFn || cmp, this);
+        return _maxByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public min() {
@@ -579,9 +579,9 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _minBy<T>(fn, this);
     }
 
-    public minByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>) {
+    public minByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
         logger.trace('minByKey()');
-        return _minByKey<T, K>(keyFn, cmpFn || cmp, this);
+        return _minByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public nth(n: number) {
