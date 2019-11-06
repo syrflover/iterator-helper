@@ -6,9 +6,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        deno: ["0.23.0"]
+
+    name:
     steps:
-      - uses: actions/checkout@v1
-      - name: GitHub Action for Deno
-        uses: denolib/deno-action@0.19.0
+      - uses: actions/checkout@master
+      - name: Test on Deno v${{ matrix.deno }}
+        uses: denolib/setup-deno@v1
         with:
-          args: test --config tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts --allow-net
+          deno-version: ${{ matrix.deno }}
+      - run: deno test --config tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts --allow-net
