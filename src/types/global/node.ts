@@ -1,8 +1,8 @@
-import { getLogger } from '../logger.ts';
+import { getLogger } from '../../logger.ts';
 
-import { iterator, ToAsyncIterator } from '../iterator.ts';
+import { iterator, ToAsyncIterator } from '../../iterator.ts';
 
-import { EP } from './promise.ts';
+import { EP } from '../promise.ts';
 
 const logger = getLogger('global');
 
