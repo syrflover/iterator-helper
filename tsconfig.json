@@ -2,12 +2,7 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
-        "lib": [],
         "baseUrl": ".",
-        "noEmit": true,
-        "sourceMap": false,
-        "declaration": false,
-        "declarationMap": false,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
