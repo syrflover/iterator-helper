@@ -1,6 +1,6 @@
 import { getLogger } from './logger';
 
-import { toAsyncIterable } from './lib/iterable';
+import { sequence } from './lib/iterable';
 import { next_async } from './lib/iterable/next';
 import { cmp } from './lib/cmp';
 
@@ -33,6 +33,8 @@ import { _flatMap } from './methods/flatMap';
 import { _flatten } from './methods/flatten';
 import { _foldl } from './methods/foldl';
 import { _foldl1 } from './methods/foldl1';
+import { _foldr } from './methods/foldr';
+import { _foldr1 } from './methods/foldr1';
 import { _forEach } from './methods/forEach';
 import { _head } from './methods/head';
 import { _inspect } from './methods/inspect';
@@ -61,8 +63,6 @@ import { _stepBy } from './methods/stepBy';
 import { _sum } from './methods/sum';
 import { _take } from './methods/take';
 import { _takeWhile } from './methods/takeWhile';
-import { _foldr } from './methods/foldr';
-import { _foldr1 } from './methods/foldr1';
 import { _unzip } from './methods/unzip';
 import { _zip } from './methods/zip';
 
@@ -684,6 +684,6 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
     logger.trace('iterator()');
-    const it = toAsyncIterable(iter);
+    const it = sequence(iter);
     return (new AsyncIterator_<T>(it) as unknown) as ToAsyncIterator<T>;
 }
