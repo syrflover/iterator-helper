@@ -5,7 +5,6 @@ import { FoldlFn } from '../types/fn/fold.ts';
 import { next_async } from '../lib/iterable/next.ts';
 
 import { _curry, Curry2 } from '../lib/curry.ts';
-import { sequence } from '../lib/iterable.ts';
 
 const logger = getLogger('iterator/foldl');
 
