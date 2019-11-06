@@ -9,7 +9,7 @@ import { FoldlFn, FoldrFn } from './types/fn/fold';
 import { MapFn } from './types/fn/map';
 import { PredicateFn } from './types/fn/predicate';
 import { CompareFn } from './types/fn/cmp';
-import { ByKeyFn } from './types/fn/byKey';
+import { KeyFn } from './types/fn/key';
 import { ScanlFn, ScanrFn } from './types/fn/scan';
 import { EqualFn } from './types/fn/equal';
 
@@ -249,7 +249,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.max_by_key
      */
-    maxByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>): Promise<T | undefined>;
+    maxByKey<K>(keyFn: KeyFn<T, K>, cmpFn?: CompareFn<K>): Promise<T | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.min
@@ -264,7 +264,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.min_by_key
      */
-    minByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn?: CompareFn<K>): Promise<T | undefined>;
+    minByKey<K>(keyFn: KeyFn<T, K>, cmpFn?: CompareFn<K>): Promise<T | undefined>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.nth
@@ -564,7 +564,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _maxBy<T>(fn, this);
     }
 
-    public maxByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
+    public maxByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
         logger.trace('maxByKey()');
         return _maxByKey<T, K>(keyFn, cmpFn, this);
     }
@@ -579,7 +579,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return _minBy<T>(fn, this);
     }
 
-    public minByKey<K>(keyFn: ByKeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
+    public minByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
         logger.trace('minByKey()');
         return _minByKey<T, K>(keyFn, cmpFn, this);
     }

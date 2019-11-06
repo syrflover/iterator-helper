@@ -66,7 +66,7 @@ export * from './types/pair';
 export * from './types/promise';
 
 // fn types
-export * from './types/fn/byKey';
+export * from './types/fn/key';
 export * from './types/fn/cmp';
 export * from './types/fn/equal';
 export * from './types/fn/fold';
