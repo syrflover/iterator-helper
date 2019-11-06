@@ -6,7 +6,8 @@ import { blue, cyan, green, yellow, red, bold } from 'https://deno.land/std/fmt/
 
 const getLevelByName = (levelName: string) => {
     switch (levelName) {
-        case 'NONE' || '':
+        case '':
+        case 'NONE':
             return -1;
         case 'TRACE':
             return 5;
@@ -47,23 +48,23 @@ class LogHandler extends BaseHandler {
         };
 
         const to = (t: string, lv: string, m: string, a: unknown[]) =>
-            `[${t}] ${lv} ${m} ${a.map((e) => stringify(e)).join(' ')}`;
+            `${t} ${lv} ${m} ${a.map((e) => stringify(e)).join(' ')}`;
 
         switch (level) {
             case 5: // trace
-                return to(time, blue('[TRACE]'), msg, args);
+                return to(`[${time}]`, blue('[TRACE]'), msg, args);
             case LogLevel.DEBUG:
-                return to(time, cyan('[DEBUG]'), msg, args);
+                return to(`[${time}]`, cyan('[DEBUG]'), msg, args);
             case LogLevel.INFO:
-                return to(time, green('[INFO]'), msg, args);
+                return to(`[${time}]`, green('[INFO]'), msg, args);
             case LogLevel.WARNING:
-                return to(time, yellow('[WARNING]'), msg, args);
+                return to(`[${time}]`, yellow('[WARNING]'), msg, args);
             case LogLevel.ERROR:
-                return to(time, red('[ERROR]'), msg, args);
+                return to(`[${time}]`, red('[ERROR]'), msg, args);
             case LogLevel.CRITICAL:
-                return to(time, bold(red('[CRITICAL]')), msg, args);
+                return to(`[${time}]`, bold(red('[CRITICAL]')), msg, args);
             default:
-                return to(time, '[NONE]', msg, args);
+                return '';
         }
     }
 
