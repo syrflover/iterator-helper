@@ -1,5 +1,6 @@
 {
     "mode": "file",
+    "readme": "none",
     "ignoreCompilerErrors": true,
     "excludeExternals": true,
     "includes": "src/",
