@@ -18,7 +18,7 @@ npm install @syrflover/iterator
 import '@syrflover/iterator/dist/types/global';
 
 // in deno
-import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/src/types/global.ts';
+import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/deno/types/global.ts';
 
 [1, 2, 3, 4, 5, 6]
     .iter()
