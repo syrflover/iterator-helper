@@ -4,9 +4,7 @@
 [![github actions](https://github.com/syrflover/iterator-helper/workflows/test/badge.svg)](https://github.com/syrflover/iterator-helper/actions?query=workflow%3Atest+)
 [![npm version](https://img.shields.io/npm/v/@syrflover/iterator?label=npm%20version)](https://www.npmjs.com/package/@syrflover/iterator)
 
-Iterator Helper used `AsyncIterator`, not used `Iterator`
-
-methods are implement by recursively
+Iterator Helper used `AsyncIterator`
 
 ## Installation
 
