@@ -75,6 +75,15 @@ export * from './types/fn/map.ts';
 export * from './types/fn/predicate.ts';
 export * from './types/fn/scan.ts';
 
+// type guards
+export * from './types/guard/isArrayLike.ts';
+export * from './types/guard/isArrayLikeOrString.ts';
+export * from './types/guard/isAsyncIterable.ts';
+export * from './types/guard/isIterable.ts';
+export * from './types/guard/isNull.ts';
+export * from './types/guard/isPromise.ts';
+export * from './types/guard/isString.ts';
+
 // iterable utils
 export * from './lib/iterable.ts';
 export * from './lib/iterable/append.ts';
@@ -83,6 +92,8 @@ export * from './lib/iterable/prepend.ts';
 
 // utils
 export * from './lib/$.ts';
-export * from './lib/cmp.ts';
+export { cmp, max as max_, maxBy as maxBy_, min as min_, minBy as minBy_ } from './lib/cmp.ts';
+export * from './lib/curry.ts';
 export * from './lib/flip.ts';
+export * from './lib/id.ts';
 export * from './lib/pipe.ts';

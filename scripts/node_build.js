@@ -73,10 +73,7 @@ const config = (ent) => {
                     }
                 ],
             }),
-            typescript({
-                tsconfig: 'tsconfig.build.json',
-                abortOnError: true,
-            }), // so Rollup can convert TypeScript to JavaScript
+            typescript({ tsconfig: 'tsconfig.build.json', abortOnError: false }), // so Rollup can convert TypeScript to JavaScript
             // terser(),
         ],
         // output: [{ entryFileNames: '[name].js', format: 'cjs' }],

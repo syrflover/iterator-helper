@@ -3,19 +3,25 @@ name: test
 on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
+        node-version: [13.x]
         deno: [v0.23.0]
 
-    name:
     steps:
       - uses: actions/checkout@master
-      - name: Setup Deno v${{ matrix.deno }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup Deno ${{ matrix.deno }}
         uses: denolib/setup-deno@v1
         with:
           deno-version: ${{ matrix.deno }}
-      - name: Test
-        run: deno test --config tsconfig.test.json test/**/*.test.ts test/**/**/*.test.ts test/**/**/**/*.test.ts --allow-net
+      - name: npm install, test
+        run: |
+          npm install
+          npm run test:reload

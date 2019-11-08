@@ -1,7 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isIterable } from '../../../src/types/guard/isIterable.ts';
+import { isIterable } from '../../../mod.ts';
 
 function* iterable() {
     yield 1;

@@ -1,7 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals, assert } from 'https://deno.land/std/testing/asserts.ts';
 
-import { toAsyncIterable } from '../../../src/lib/iterable.ts';
+import { toAsyncIterable } from '../../../mod.ts';
 
 function* iterable(): Iterable<number> {
     yield 1;

@@ -1,7 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isNull } from '../../../src/types/guard/isNull.ts';
+import { isNull } from '../../../mod.ts';
 
 test('isNull() null', () => {
     const actual = isNull(null);

@@ -1,7 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { pipe } from '../../src/lib/pipe.ts';
+import { pipe } from '../../mod.ts';
 
 test('pipe()', async () => {
     const fn = pipe(

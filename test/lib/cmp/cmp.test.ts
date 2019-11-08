@@ -1,9 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Ord } from '../../../src/types/ordering.ts';
-
-import { cmp } from '../../../src/lib/cmp.ts';
+import { Ord, cmp } from '../../../mod.ts';
 
 test('cmp(100, 1) == Greater', () => {
     const actual = cmp(100, 1);

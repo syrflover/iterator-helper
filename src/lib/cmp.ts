@@ -32,9 +32,6 @@ export async function maxBy<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>, a: T,
         case Ord.Equal:
             return b;
     }
-
-    // semantic error TS2366: Function lacks ending return statement and return type does not include 'undefined'.
-    throw new Error('');
 }
 
 export async function minBy<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>, a: T, b: T): Promise<T> {
@@ -52,9 +49,6 @@ export async function minBy<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>, a: T,
         case Ord.Equal:
             return b;
     }
-
-    // semantic error TS2366: Function lacks ending return statement and return type does not include 'undefined'.
-    throw new Error('');
 }
 
 export function max<T>(a: T, b: T): Promise<T> {

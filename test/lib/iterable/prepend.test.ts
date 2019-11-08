@@ -1,7 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { prepend } from '../../../src/lib/iterable/prepend.ts';
+import { prepend } from '../../../mod.ts';
 
 test('prepend(0, [1])', async () => {
     const actual: number[] = [];

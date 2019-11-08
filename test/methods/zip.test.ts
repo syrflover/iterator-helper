@@ -1,8 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
-import { Pair } from '../../src/types/pair.ts';
+import { iterator, Pair } from '../../mod.ts';
 
 test('zip() [1,2,3,4].zip([5,6,7,8])', async () => {
     const a = iterator([1, 2, 3, 4]);
