@@ -6,24 +6,27 @@ import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/skip');
 
-async function* _skip_impl_fn<T>(iter: AsyncIterable<T>, count: number, current: number = 1): AsyncIterable<T> {
-    logger.trace('_skip_impl_fn()');
-    const { done } = await next_async(iter);
+async function* _skip_impl_fn<T>(iter: AsyncIterable<T>, count: number): AsyncIterable<T> {
+    let current = 1;
 
-    logger.debug('done    =', done);
-    logger.debug('count   =', count);
-    logger.debug('current =', current);
+    while (true) {
+        const { done } = await next_async(iter);
 
-    if (done) {
-        return;
+        logger.debug('done    =', done);
+        logger.debug('count   =', count);
+        logger.debug('current =', current);
+
+        if (done) {
+            return;
+        }
+
+        if (current >= count) {
+            yield* iter;
+            return;
+        }
+
+        current += 1;
     }
-
-    if (current >= count) {
-        yield* iter;
-        return;
-    }
-
-    yield* _skip_impl_fn(iter, count, current + 1);
 }
 
 export interface Skip {

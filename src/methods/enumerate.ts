@@ -4,19 +4,18 @@ import { pair, Pair } from '../types/pair.ts';
 
 import { next_async } from '../lib/iterable/next.ts';
 
+import { _scanl } from './scanl.ts';
+
 const logger = getLogger('iterator/enumerate');
 
-async function* _enumerate_impl_fn<T>(iter: AsyncIterable<T>, current: number = 0): AsyncIterable<Pair<number, T>> {
-    logger.trace('_enumerate_impl_fn()');
+async function* _enumerate_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Pair<number, T>> {
     const { done, value } = await next_async(iter);
 
     if (done) {
         return;
     }
 
-    yield pair(current, value);
-
-    yield* _enumerate_impl_fn(iter, current + 1);
+    yield* _scanl(([current], elem) => pair(current + 1, elem), pair(0, value), iter);
 }
 
 export function _enumerate<T>(iter: AsyncIterable<T>) {

@@ -3,8 +3,6 @@ import { getLogger } from '../logger.ts';
 import { Flatten } from '../types/flatten.ts';
 import { MapFn } from '../types/fn/map.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/flatMap');
@@ -13,21 +11,14 @@ async function* _flat_map_impl_fn<T, R extends Iterable<any> | AsyncIterable<any
     iter: AsyncIterable<T>,
     fn: MapFn<T, R>,
 ): AsyncIterable<Flatten<R>> {
-    logger.trace('_flat_map_impl_fn()');
-    const { done, value } = await next_async(iter);
+    for await (const elem of iter) {
+        const mapped = await fn(elem);
 
-    logger.debug('done  =', done);
-    logger.debug('value =', value);
+        logger.debug('element =', elem);
+        logger.debug('mapped  =', mapped);
 
-    if (done) {
-        return;
+        yield* mapped as AsyncIterable<any>;
     }
-
-    const mapped = await fn(value);
-
-    yield* mapped as AsyncIterable<any>;
-
-    yield* _flat_map_impl_fn(iter, fn);
 }
 
 export interface FlatMap {

@@ -13,7 +13,6 @@ import { id } from '../lib/id.ts';
 const logger = getLogger('iterator/minBy');
 
 async function _min_by_impl_fn<T>(iter: AsyncIterable<T>, fn: CompareFn<T>): Promise<T | undefined> {
-    logger.trace('_min_by_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {

@@ -2,25 +2,23 @@ import { getLogger } from '../logger.ts';
 
 import { EqualFn } from '../types/fn/equal.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
+import { sequence } from '../lib/iterable.ts';
 
 import { _curry } from '../lib/curry.ts';
 
-import { _filter } from './filter.ts';
+import { _any } from './any.ts';
 
 const logger = getLogger('iterator/nubBy');
 
 async function* _nub_by_impl_fn<T>(iter: AsyncIterable<T>, fn: EqualFn<T>): AsyncIterable<T> {
-    logger.trace('_nub_by_impl_fn()');
-    const { done, value } = await next_async(iter);
+    const prev: T[] = [];
 
-    if (done) {
-        return;
+    for await (const elem of iter) {
+        if (!(await _any((prev_elem) => fn(prev_elem, elem), sequence(prev)))) {
+            yield elem;
+            prev.push(elem);
+        }
     }
-
-    yield value;
-
-    yield* _nub_by_impl_fn(_filter(async (e) => !(await fn(value, e)), iter), fn);
 }
 
 export interface NubBy {

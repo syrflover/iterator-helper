@@ -13,7 +13,6 @@ import { _foldl } from './foldl.ts';
 const logger = getLogger('iterator/minByKey');
 
 async function _min_by_key_impl_fn<T, K>(iter: AsyncIterable<T>, cmpFn: CompareFn<K>, keyFn: KeyFn<T, K>): Promise<T | undefined> {
-    logger.trace('_min_by_key_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {

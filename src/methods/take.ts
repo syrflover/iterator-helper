@@ -1,26 +1,23 @@
 import { getLogger } from '../logger.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/take');
 
-async function* _take_impl_fn<T>(iter: AsyncIterable<T>, limit: number, current: number = 1): AsyncIterable<T> {
-    logger.trace('_take_impl_fn()');
-    const { done, value } = await next_async(iter);
+async function* _take_impl_fn<T>(iter: AsyncIterable<T>, limit: number): AsyncIterable<T> {
+    let current = 1;
 
-    logger.debug('done    =', done);
-    logger.debug('value   =', value);
-    logger.debug('limit   =', limit);
-    logger.debug('current =', current);
+    for await (const elem of iter) {
+        if (current > limit) {
+            return;
+        }
 
-    if (done || current > limit) {
-        return;
+        logger.debug('element   =', elem);
+
+        yield elem;
+
+        current += 1;
     }
-
-    yield value;
-    yield* _take_impl_fn(iter, limit, current + 1);
 }
 
 export interface Take {

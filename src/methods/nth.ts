@@ -1,24 +1,18 @@
 import { getLogger } from '../logger.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/nth');
 
-async function _nth_impl_fn<T>(iter: AsyncIterable<T>, n: number, current: number = 0): Promise<T | undefined> {
-    logger.trace('_nth_impl_fn()');
-    const { done, value } = await next_async(iter);
+async function _nth_impl_fn<T>(iter: AsyncIterable<T>, n: number): Promise<T | undefined> {
+    let current = 0;
 
-    if (done || current > n) {
-        return;
+    for await (const elem of iter) {
+        if (n === current) {
+            return elem;
+        }
+        current += 1;
     }
-
-    if (n === current) {
-        return value;
-    }
-
-    return _nth_impl_fn(iter, n, current + 1);
 }
 
 export interface Nth {

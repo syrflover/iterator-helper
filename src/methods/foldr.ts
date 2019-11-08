@@ -2,13 +2,12 @@ import { getLogger } from '../logger.ts';
 
 import { FoldrFn } from '../types/fn/fold.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry, Curry2 } from '../lib/curry.ts';
+import { _reverse } from './reverse.ts';
 
 const logger = getLogger('iterator/foldr');
 
-async function _foldr_impl_fn<A, B>(iter: AsyncIterable<A>, accumulator: B | Promise<B>, fn: FoldrFn<A, B>): Promise<B> {
+/* async function _foldr_impl_fn<A, B>(iter: AsyncIterable<A>, accumulator: B | Promise<B>, fn: FoldrFn<A, B>): Promise<B> {
     logger.trace('_foldr_impl_fn()');
     const acc = await accumulator;
     const { done, value } = await next_async(iter);
@@ -22,6 +21,20 @@ async function _foldr_impl_fn<A, B>(iter: AsyncIterable<A>, accumulator: B | Pro
     }
 
     return fn(value, await _foldr_impl_fn(iter, acc, fn));
+} */
+
+async function _foldr_impl_fn<A, B>(iter: AsyncIterable<A>, init: B | Promise<B>, fn: FoldrFn<A, B>): Promise<B> {
+    logger.trace('_foldr_impl_fn()');
+    let acc = await init;
+
+    for await (const elem of _reverse(iter)) {
+        acc = await fn(elem, acc);
+
+        logger.debug('element     =', elem);
+        logger.debug('accumulator =', acc);
+    }
+
+    return acc;
 }
 
 export interface Foldr {

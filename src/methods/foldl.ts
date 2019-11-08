@@ -2,26 +2,22 @@ import { getLogger } from '../logger.ts';
 
 import { FoldlFn } from '../types/fn/fold.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry, Curry2 } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/foldl');
 
-async function _foldl_impl_fn<A, B>(iter: AsyncIterable<A>, accumulator: B | Promise<B>, fn: FoldlFn<A, B>): Promise<B> {
-    logger.trace('_foldl_impl_fn()');
-    const acc = await accumulator;
-    const { done, value: elem } = await next_async(iter);
+async function _foldl_impl_fn<A, B>(iter: AsyncIterable<A>, init: B | Promise<B>, fn: FoldlFn<A, B>): Promise<B> {
+    let acc = await init;
 
-    logger.debug('done        =', done);
-    logger.debug('value       =', elem);
-    logger.debug('accumulator =', acc);
+    logger.debug('init        =', init);
 
-    if (done) {
-        return acc;
+    for await (const elem of iter) {
+        acc = await fn(acc, elem);
+        logger.debug('accumulator =', acc);
+        logger.debug('element     =', elem);
     }
 
-    return _foldl_impl_fn(iter, await fn(acc, elem), fn);
+    return acc;
 }
 
 export interface Foldl {

@@ -10,25 +10,25 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/dropWhile');
 
 async function* _skip_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
-    logger.trace('_drop_while_impl_fn()');
-    const { done, value } = await next_async(iter);
+    while (true) {
+        const { done, value } = await next_async(iter);
 
-    logger.debug('done      =', done);
-    logger.debug('value     =', value);
+        logger.debug('done      =', done);
+        logger.debug('value     =', value);
 
-    if (done) {
-        return;
+        if (done) {
+            return;
+        }
+
+        const condition = await predicate(value);
+
+        logger.debug('condition =', condition);
+
+        if (!condition) {
+            yield* prepend(value, iter);
+            return;
+        }
     }
-
-    const condition = await predicate(value);
-
-    logger.debug('condition =', condition);
-
-    if (!condition) {
-        yield* prepend(value, iter);
-        return;
-    }
-    yield* _skip_while_impl_fn(iter, predicate);
 }
 
 export interface SkipWhile {

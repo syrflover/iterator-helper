@@ -5,7 +5,6 @@ import { _curry } from '../lib/curry.ts';
 const logger = getLogger('iterator/chain');
 
 async function* _chain_impl_fn<T>(iter: AsyncIterable<T>, other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>): AsyncIterable<T> {
-    logger.trace('_chain_impl_fn()');
     yield* iter;
     yield* other;
 }

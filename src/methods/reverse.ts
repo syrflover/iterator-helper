@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { _foldl } from './foldl.ts';
 
-import { toAsyncIterable } from '../lib/iterable.ts';
+import { sequence } from '../lib/iterable.ts';
 
 import { prepend } from '../lib/iterable/prepend.ts';
 
@@ -10,9 +10,9 @@ import { flip } from '../lib/flip.ts';
 
 const logger = getLogger('iterator/reverse');
 
-async function* _reverse_impl_fn<T>(iter: AsyncIterable<T>) {
+async function* _reverse_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('_reverse_impl_fn()');
-    const emptyIter = toAsyncIterable<T>([]);
+    const emptyIter = sequence<T>([]);
     yield* await _foldl((acc, e) => flip(prepend, acc, e), emptyIter, iter);
 }
 

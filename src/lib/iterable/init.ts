@@ -1,22 +1,7 @@
-import { next_async } from './next.ts';
-import { prepend } from './prepend.ts';
-
-async function* _init<T>(a: T, iter: AsyncIterable<T>): AsyncIterable<T> {
-    const { done, value } = await next_async(iter);
-
-    if (done) {
-        return;
-    }
-
-    yield* prepend(a, _init(value, iter));
-}
+import { initLast } from './initLast.ts';
 
 export async function* init<T>(iter: AsyncIterable<T>) {
-    const { done, value } = await next_async(iter);
+    const [r] = await initLast(iter);
 
-    if (done) {
-        return;
-    }
-
-    yield* _init(value, iter);
+    yield* r;
 }

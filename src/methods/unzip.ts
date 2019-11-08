@@ -1,28 +1,23 @@
 import { getLogger } from '../logger.ts';
 
-import { Pair } from '../types/pair.ts';
+import { Pair, pair } from '../types/pair.ts';
 
-import { toAsyncIterable } from '../lib/iterable.ts';
-import { next_async } from '../lib/iterable/next.ts';
+import { sequence } from '../lib/iterable.ts';
 import { append } from '../lib/iterable/append.ts';
+
+import { _foldl } from './foldl.ts';
 
 const logger = getLogger('iterator/unzip');
 
 async function _unzip_impl_fn<T, U>(
     iter: AsyncIterable<Pair<T, U>>,
-    left_iter: AsyncIterable<T> = toAsyncIterable<T>([]),
-    right_iter: AsyncIterable<U> = toAsyncIterable<U>([]),
 ): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
-    logger.trace('_unzip_impl_fn()');
-    const { done, value } = await next_async(iter);
+    return _foldl((acc, elem) => {
+        const [left_iter, right_iter] = acc;
+        const [left_value, right_value] = elem;
 
-    if (done) {
-        return [left_iter, right_iter];
-    }
-
-    const [left, right] = value;
-
-    return _unzip_impl_fn(iter, append(left, left_iter), append(right, right_iter));
+        return pair(append(left_value, left_iter), append(right_value, right_iter));
+    }, pair(sequence<T>([]), sequence<U>([])), iter);
 }
 
 export function _unzip<T, U>(iter: AsyncIterable<Pair<T, U>>) {

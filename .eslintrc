@@ -46,6 +46,7 @@
         "no-nested-ternary": "off",
         "no-template-curly-in-string": "off",
         "object-curly-newline": "off",
+        "no-await-in-loop": "off",
 
         "func-names": "off",
 

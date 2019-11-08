@@ -2,28 +2,19 @@ import { getLogger } from '../logger.ts';
 
 import { ScanlFn } from '../types/fn/scan.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry, Curry2 } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/scanl');
 
-async function* _scanl_impl_fn<A, B>(iter: AsyncIterable<A>, state: B | Promise<B>, fn: ScanlFn<A, B>): AsyncIterable<B> {
-    logger.trace('_scanl_impl_fn()');
-    const st = await state;
-    const { done, value } = await next_async(iter);
+async function* _scanl_impl_fn<A, B>(iter: AsyncIterable<A>, init: B | Promise<B>, fn: ScanlFn<A, B>): AsyncIterable<B> {
+    let state = await init;
 
-    logger.debug('state =', st);
-    logger.debug('done  =', done);
-    logger.debug('value =', value);
+    yield state;
 
-    yield st;
-
-    if (done) {
-        return;
+    for await (const elem of iter) {
+        state = await fn(state, elem);
+        yield state;
     }
-
-    yield* _scanl_impl_fn(iter, await fn(st, value), fn);
 }
 
 export interface Scanl {

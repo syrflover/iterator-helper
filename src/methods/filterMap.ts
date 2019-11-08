@@ -6,27 +6,21 @@ import { Nullable } from '../types/nullable.ts';
 
 import { isNull } from '../types/guard/isNull.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/filterMap');
 
 async function* _filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
-    logger.trace('filter_map_impl_fn()');
-    const { done, value } = await next_async(iter);
+    for await (const elem of iter) {
+        const mapped = await fn(elem);
 
-    if (done) {
-        return;
+        logger.debug('element =', elem);
+        logger.debug('mapped  =', mapped);
+
+        if (!isNull(mapped)) {
+            yield mapped;
+        }
     }
-
-    const mapped = await fn(value);
-
-    if (!isNull(mapped)) {
-        yield mapped;
-    }
-
-    yield* _filter_map_impl_fn(iter, fn);
 }
 
 export interface FilterMap {

@@ -2,32 +2,21 @@ import { getLogger } from '../logger.ts';
 
 import { PredicateFn } from '../types/fn/predicate.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/find');
 
 async function _find_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): Promise<T | undefined> {
-    logger.trace('_find_impl_fn()');
-    const { done, value } = await next_async(iter);
+    for await (const elem of iter) {
+        const condition = await predicate(elem);
 
-    logger.debug('done      =', done);
-    logger.debug('value     =', value);
+        logger.debug('element   =', elem);
+        logger.debug('condition =', condition);
 
-    if (done) {
-        return;
+        if (condition) {
+            return elem;
+        }
     }
-
-    const condition = await predicate(value);
-
-    logger.debug('condition =', condition);
-
-    if (condition) {
-        return value;
-    }
-
-    return _find_impl_fn(iter, predicate);
 }
 
 export interface Find {

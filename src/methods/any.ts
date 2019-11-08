@@ -2,32 +2,23 @@ import { getLogger } from '../logger.ts';
 
 import { PredicateFn } from '../types/fn/predicate.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/any');
 
 async function _any_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>): Promise<boolean> {
-    logger.trace('_any_impl_fn()');
-    const { done, value } = await next_async(iter);
+    for await (const elem of iter) {
+        const condition = await fn(elem);
 
-    logger.debug('done      =', done);
-    logger.debug('value     =', value);
+        logger.debug('elemen    =', elem);
+        logger.debug('condition =', condition);
 
-    if (done) {
-        return false;
+        if (condition) {
+            return true;
+        }
     }
 
-    const condition = await fn(value);
-
-    logger.debug('condition =', condition);
-
-    if (condition) {
-        return true;
-    }
-
-    return _any_impl_fn(iter, fn);
+    return false;
 }
 
 /* export function _any<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) {

@@ -6,32 +6,21 @@ import { Nullable } from '../types/nullable.ts';
 
 import { isNull } from '../types/guard/isNull.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
-
 import { _curry } from '../lib/curry.ts';
 
 const logger = getLogger('iterator/findMap');
 
 async function _find_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): Promise<R | undefined> {
-    logger.trace('_find_map_impl_fn()');
-    const { done, value } = await next_async(iter);
+    for await (const elem of iter) {
+        const mapped = await fn(elem);
 
-    logger.debug('done      =', done);
-    logger.debug('value     =', value);
+        logger.debug('element =', elem);
+        logger.debug('mapped  =', mapped);
 
-    if (done) {
-        return;
+        if (!isNull(mapped)) {
+            return mapped;
+        }
     }
-
-    const mapped = await fn(value);
-
-    logger.debug('mapped =', mapped);
-
-    if (!isNull(mapped)) {
-        return mapped;
-    }
-
-    return _find_map_impl_fn(iter, fn);
 }
 
 export interface FindMap {

@@ -13,7 +13,6 @@ import { _foldl } from './foldl.ts';
 const logger = getLogger('iterator/maxByKey');
 
 async function _max_by_key_impl_fn<T, K>(iter: AsyncIterable<T>, cmpFn: CompareFn<K>, keyFn: KeyFn<T, K>): Promise<T | undefined> {
-    logger.trace('_max_by_key_impl_fn()');
     const { done, value } = await next_async(iter);
 
     if (done) {

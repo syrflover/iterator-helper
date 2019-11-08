@@ -20,6 +20,6 @@
             "https://*": ["~/Library/Caches/deno/deps/https/*"]
         }
     },
-    "include": ["./src/**/*.ts", "./test/**/*.ts"],
+    "include": ["./src/**/*.ts", "./test/**/*.ts", "./bench/**/*.ts"],
     "exclude": ["./dist/**/*.js", "./dist/**/*.ts"]
 }
