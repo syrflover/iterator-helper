@@ -5,6 +5,13 @@
 
 Iterator Helper used `AsyncIterator`
 
+## Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Path of internal modules](#path-of-internal-modules)
+- [References](#references)
+
 ## Installation
 
 ### Node
@@ -29,7 +36,7 @@ import 'https://raw.githubusercontent.com/syrflover/iterator-helper/v0.1.0/mod.t
 
 ## Usage
 
-### Use Function
+### Use constructor
 
 ```typescript
 // in browser or node
@@ -60,6 +67,29 @@ import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/deno/
     .map((e) => e + 1)
     .sum()
     .then((r) => logger.info(r)); // 15
+```
+
+## Path of internal modules
+
+```txt
+src
+├── mod.ts
+├── lib
+│   ├── compare
+│   │   └── mod.ts
+│   ├── iterable
+│   │   └── mod.ts
+│   └── utils
+│       └── mod.ts
+├── methods
+│   └── mod.ts
+└── types
+    ├── global.ts
+    ├── mod.ts
+    ├── function
+    │   └── mod.ts
+    └── guard
+        └── mod.ts
 ```
 
 ## References
