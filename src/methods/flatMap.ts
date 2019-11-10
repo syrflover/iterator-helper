@@ -1,7 +1,7 @@
 import { getLogger } from '../logger.ts';
 
 import { Flatten } from '../types/mod.ts';
-import { MapFn } from '../types/fn/mod.ts';
+import { MapFn } from '../types/function/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 

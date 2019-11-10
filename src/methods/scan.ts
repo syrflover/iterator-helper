@@ -1,6 +1,6 @@
 import { getLogger } from '../logger.ts';
 
-import { ScanFn } from '../types/fn/mod.ts';
+import { ScanFn } from '../types/function/mod.ts';
 
 import { _curry, Curry2 } from '../lib/utils/mod.ts';
 

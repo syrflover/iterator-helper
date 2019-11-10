@@ -1,6 +1,6 @@
 import { getLogger } from '../logger.ts';
 
-import { MapFn } from '../types/fn/mod.ts';
+import { MapFn } from '../types/function/mod.ts';
 import { Nullable } from '../types/mod.ts';
 import { isNull } from '../types/guard/mod.ts';
 

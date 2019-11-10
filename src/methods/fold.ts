@@ -1,6 +1,6 @@
 import { getLogger } from '../logger.ts';
 
-import { FoldFn } from '../types/fn/mod.ts';
+import { FoldFn } from '../types/function/mod.ts';
 
 import { _curry, Curry2 } from '../lib/utils/mod.ts';
 

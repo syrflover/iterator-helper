@@ -1,4 +1,4 @@
-import { CompareFn, KeyFn } from '../../types/fn/mod.ts';
+import { CompareFn, KeyFn } from '../../types/function/mod.ts';
 
 import { Ord } from '../../types/mod.ts';
 

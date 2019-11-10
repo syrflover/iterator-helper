@@ -1,7 +1,7 @@
 import { getLogger } from '../logger.ts';
 
 import { pair, Pair } from '../types/mod.ts';
-import { PredicateFn } from '../types/fn/mod.ts';
+import { PredicateFn } from '../types/function/mod.ts';
 
 import { append, sequence } from '../lib/iterable/mod.ts';
 import { _curry } from '../lib/utils/mod.ts';
