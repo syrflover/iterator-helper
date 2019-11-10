@@ -4,7 +4,7 @@ import { pair, Pair } from '../types/mod.ts';
 
 import { next_async } from '../lib/iterable/mod.ts';
 
-import { scanl } from './scanl.ts';
+import { scan } from './scan.ts';
 
 
 
@@ -16,7 +16,7 @@ async function* _enumerate_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Pai
         return;
     }
 
-    yield* scanl(([current], elem) => pair(current + 1, elem), pair(0, value), iter);
+    yield* scan(([current], elem) => pair(current + 1, elem), pair(0, value), iter);
 }
 
 export function enumerate<T>(iter: AsyncIterable<T>) {

@@ -3,7 +3,7 @@ import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
 import { iterator } from '../../mod.ts';
 
-test('foldl() sum', async () => {
+test('fold() sum', async () => {
     const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
     const actual_elements: number[] = [];
@@ -12,7 +12,7 @@ test('foldl() sum', async () => {
     const actual_accumulator_without_result: number[] = [];
     const expected_accumulator_without_result = [1, 2, 4, 7, 11];
 
-    const actual_result = await a.foldl(Promise.resolve(1), (acc, e) => {
+    const actual_result = await a.fold(Promise.resolve(1), (acc, e) => {
         actual_elements.push(e);
         actual_accumulator_without_result.push(acc);
         return acc + e;
@@ -24,7 +24,7 @@ test('foldl() sum', async () => {
     assertEquals(actual_result, expected_result);
 });
 
-test('foldl() `${acc}${e}`', async () => {
+test('fold() `${acc}${e}`', async () => {
     const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
     const actual_elements: number[] = [];
@@ -33,7 +33,7 @@ test('foldl() `${acc}${e}`', async () => {
     const actual_accumulator_without_result: string[] = [];
     const expected_accumulator_without_result = ['1', '11', '112', '1123', '11234'];
 
-    const actual_result = await a.foldl('1', (acc, e) => {
+    const actual_result = await a.fold('1', (acc, e) => {
         actual_elements.push(e);
         actual_accumulator_without_result.push(acc);
         return `${acc}${e}`;

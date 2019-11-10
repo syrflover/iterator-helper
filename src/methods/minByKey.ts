@@ -6,7 +6,7 @@ import { minBy } from '../lib/compare/mod.ts';
 import { next_async } from '../lib/iterable/mod.ts';
 import { _curry, Curry2 } from '../lib/utils/mod.ts';
 
-import { foldl } from './foldl.ts';
+import { fold } from './fold.ts';
 
 const logger = getLogger('methods/minByKey');
 
@@ -18,7 +18,7 @@ async function _min_by_key_impl_fn<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>
         return;
     }
 
-    return foldl(async (acc, e) => minBy(keyFn, cmpFn, acc, e), value, iter);
+    return fold(async (acc, e) => minBy(keyFn, cmpFn, acc, e), value, iter);
 }
 
 export interface MinByKey {

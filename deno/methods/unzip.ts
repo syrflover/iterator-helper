@@ -4,7 +4,7 @@ import { Pair, pair } from '../types/mod.ts';
 
 import { append, sequence } from '../lib/iterable/mod.ts';
 
-import { foldl } from './foldl.ts';
+import { fold } from './fold.ts';
 
 
 
@@ -12,7 +12,7 @@ async function _unzip_impl_fn<T, U>(
     iter: AsyncIterable<Pair<T, U>>,
 ): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
     
-    return foldl((acc, elem) => {
+    return fold((acc, elem) => {
         const [left_iter, right_iter] = acc;
         const [left_value, right_value] = elem;
 

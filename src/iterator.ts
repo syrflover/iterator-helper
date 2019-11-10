@@ -12,12 +12,12 @@ import {
 
 import {
     ForEachFn,
-    FoldlFn,
+    FoldFn,
     MapFn,
     PredicateFn,
     CompareFn,
     KeyFn,
-    ScanlFn,
+    ScanFn,
     EqualFn,
 } from './types/fn/mod.ts';
 
@@ -36,8 +36,8 @@ import {
     findMap,
     flatMap,
     flatten,
-    foldl,
-    foldl1,
+    fold,
+    fold1,
     forEach,
     head,
     inspect,
@@ -56,8 +56,8 @@ import {
     position,
     product,
     reverse,
-    scanl,
-    scanl1,
+    scan,
+    scan1,
     skip,
     skipWhile,
     stepBy,
@@ -68,7 +68,7 @@ import {
     zip,
 } from './methods/mod.ts';
 
-const logger = getLogger('methods');
+const logger = getLogger('iterator');
 
 // prettier-ignore
 export type ToAsyncIterator<T> =
@@ -186,14 +186,14 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldl
      */
-    foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>): Promise<U>;
+    fold<U>(init: U | Promise<U>, fn: FoldFn<T, U>): Promise<U>;
 
     /**
      * @throws empty iterator
      *
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldl1
      */
-    foldl1(fn: FoldlFn<T, T>): Promise<T>;
+    fold1(fn: FoldFn<T, T>): Promise<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.for_each
@@ -289,12 +289,12 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanl
      */
-    scanl<U>(init: U | Promise<U>, fn: ScanlFn<T, U>): ToAsyncIterator<U>;
+    scan<U>(init: U | Promise<U>, fn: ScanFn<T, U>): ToAsyncIterator<U>;
 
     /**
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanl1
      */
-    scanl1(fn: ScanlFn<T, T>): ToAsyncIterator<T>;
+    scan1(fn: ScanFn<T, T>): ToAsyncIterator<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.skip
@@ -420,224 +420,180 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     }
 
     public all(fn: PredicateFn<T>) {
-        logger.trace('all()');
         return all<T>(fn, this);
     }
 
     public any(fn: PredicateFn<T>) {
-        logger.trace('any()');
         return any<T>(fn, this);
     }
 
     public average() {
-        logger.trace('average()');
         return average(this as any);
     }
 
     public chain(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
-        logger.trace('chain()');
         return (new AsyncIterator_<T>(chain<T>(other, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public collect() {
-        logger.trace('collect()');
         return collect<T>(this);
     }
 
     public count() {
-        logger.trace('count()');
         return count<T>(this);
     }
 
     public cycle() {
-        logger.trace('cycle()');
         return (new AsyncIterator_<T>(cycle<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public enumerate() {
-        logger.trace('enumerate()');
         return (new AsyncIterator_<Pair<number, T>>(enumerate<T>(this)) as unknown) as ToAsyncIterator<Pair<number, T>>;
     }
 
     public filter(predicate: PredicateFn<T>) {
-        logger.trace('filter()');
         return (new AsyncIterator_<T>(filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public filterMap<R>(fn: MapFn<T, Nullable<R>>) {
-        logger.trace('filterMap()');
         return (new AsyncIterator_<R>(filterMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public find(predicate: PredicateFn<T>) {
-        logger.trace('find()');
         return find<T>(predicate, this);
     }
 
     public findMap<R>(fn: MapFn<T, Nullable<R>>) {
-        logger.trace('findMap()');
         return findMap<T, R>(fn, this);
     }
 
     public flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>) {
-        logger.trace('flatMap()');
         return (new AsyncIterator_<Flatten<R>>(flatMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<Flatten<R>>;
     }
 
     public flatten() {
-        logger.trace('flatten()');
         return (new AsyncIterator_<Flatten<T>>(flatten<T>(this)) as unknown) as ToAsyncIterator<Flatten<T>>;
     }
 
-    public foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>) {
-        logger.trace('fold()');
-        return foldl<T, U>(fn, init, this);
+    public fold<U>(init: U | Promise<U>, fn: FoldFn<T, U>) {
+        return fold<T, U>(fn, init, this);
     }
 
-    public foldl1(fn: FoldlFn<T, T>) {
-        logger.trace('fold1()');
-        return foldl1<T>(fn, this);
+    public fold1(fn: FoldFn<T, T>) {
+        return fold1<T>(fn, this);
     }
 
     public forEach(fn: ForEachFn<T>) {
-        logger.trace('forEach()');
         return forEach<T>(fn, this);
     }
 
     public head() {
-        logger.trace('head()');
         return head<T>(this);
     }
 
     public inspect(fn: ForEachFn<T>) {
-        logger.trace('inspect()');
         return (new AsyncIterator_<T>(inspect<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public last() {
-        logger.trace('last()');
         return last<T>(this);
     }
 
     public map<R>(fn: MapFn<T, R>) {
-        logger.trace('map()');
         return (new AsyncIterator_<R>(map<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public max() {
-        logger.trace('max()');
         return max<T>(this);
     }
 
     public maxBy(fn: CompareFn<T>) {
-        logger.trace('maxBy()');
         return maxBy<T>(fn, this);
     }
 
     public maxByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = compare) {
-        logger.trace('maxByKey()');
         return maxByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public min() {
-        logger.trace('min()');
         return min<T>(this);
     }
 
     public minBy(fn: CompareFn<T>) {
-        logger.trace('minBy()');
         return minBy<T>(fn, this);
     }
 
     public minByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = compare) {
-        logger.trace('minByKey()');
         return minByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public nth(n: number) {
-        logger.trace('nth()');
         return nth<T>(n, this);
     }
 
     public nub() {
-        logger.trace('nub()');
         return (new AsyncIterator_<T>(nub<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public nubBy(fn: EqualFn<T>) {
-        logger.trace('nubBy()');
         return (new AsyncIterator_<T>(nubBy<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async partition(fn: PredicateFn<T>) {
-        logger.trace('partition()');
         const [left, right] = await partition(fn, this);
         return (pair(new AsyncIterator_<T>(left), new AsyncIterator_<T>(right)) as unknown) as Pair<ToAsyncIterator<T>, ToAsyncIterator<T>>;
     }
 
     public position(fn: PredicateFn<T>) {
-        logger.trace('position()');
         return position<T>(fn, this);
     }
 
     public product() {
-        logger.trace('product()');
         return product(this as any);
     }
 
     public reverse() {
-        logger.trace('reverse()');
         return (new AsyncIterator_<T>(reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
-    public scanl<U>(init: U | Promise<U>, fn: ScanlFn<T, U>) {
-        logger.trace('scanl()');
-        return (new AsyncIterator_<U>(scanl<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
+    public scan<U>(init: U | Promise<U>, fn: ScanFn<T, U>) {
+        return (new AsyncIterator_<U>(scan<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
     }
 
-    public scanl1(fn: ScanlFn<T, T>) {
-        logger.trace('scanl1()');
-        return (new AsyncIterator_<T>(scanl1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
+    public scan1(fn: ScanFn<T, T>) {
+        return (new AsyncIterator_<T>(scan1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skip(count_: number) {
-        logger.trace('drop()');
         return (new AsyncIterator_<T>(skip<T>(count_, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skipWhile(predicate: PredicateFn<T>) {
-        logger.trace('dropWhile()');
         return (new AsyncIterator_<T>(skipWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public stepBy(step: number) {
-        logger.trace('stepBy()');
         return (new AsyncIterator_<T>(stepBy<T>(step, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public sum() {
-        logger.trace('sum()');
         return sum(this as any);
     }
 
     public take(limit: number) {
-        logger.trace('take()');
         return (new AsyncIterator_<T>(take<T>(limit, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public takeWhile(predicate: PredicateFn<T>) {
-        logger.trace('takeWhile()');
         return (new AsyncIterator_<T>(takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async unzip() {
-        logger.trace('unzip()');
         const [left, right] = await unzip<any, any>(this as any);
         return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
     }
 
     public zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>) {
-        logger.trace('zip()');
         return (new AsyncIterator_<Pair<T, U>>(zip<T, U>(other, this)) as unknown) as ToAsyncIterator<Pair<T, U>>;
     }
 }

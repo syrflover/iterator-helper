@@ -6,7 +6,7 @@ import { PredicateFn } from '../types/fn/mod.ts';
 import { append, sequence } from '../lib/iterable/mod.ts';
 import { _curry } from '../lib/utils/mod.ts';
 
-import { foldl } from './foldl.ts';
+import { fold } from './fold.ts';
 
 const logger = getLogger('methods/partition');
 
@@ -15,7 +15,7 @@ async function _partition_impl_fn<T>(
     iter: AsyncIterable<T>,
 ): Promise<Pair<AsyncIterable<T>, AsyncIterable<T>>> {
     logger.trace('partition()');
-    return foldl(async ([left, right], elem) => {
+    return fold(async ([left, right], elem) => {
         const condition = await fn(elem);
 
         if (condition) {

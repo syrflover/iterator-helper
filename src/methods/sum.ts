@@ -1,10 +1,10 @@
 import { getLogger } from '../logger.ts';
 
-import { foldl } from './foldl.ts';
+import { fold } from './fold.ts';
 
 const logger = getLogger('methods/sum');
 
 export function sum(iter: AsyncIterable<number>) {
     logger.trace('sum()');
-    return foldl((acc, e) => acc + e, 0, iter);
+    return fold((acc, e) => acc + e, 0, iter);
 }

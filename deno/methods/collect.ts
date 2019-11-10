@@ -1,10 +1,10 @@
 
 
-import { foldl } from './foldl.ts';
+import { fold } from './fold.ts';
 
 
 
 export function collect<T>(iter: AsyncIterable<T>) {
     
-    return foldl((acc: T[], e: T) => [...acc, e], [] as T[], iter);
+    return fold((acc: T[], e: T) => [...acc, e], [] as T[], iter);
 }
