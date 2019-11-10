@@ -7,11 +7,45 @@ Iterator Helper used `AsyncIterator`
 
 ## Installation
 
+### Node
+
 ```bash
 npm install @syrflover/iterator
 ```
 
+### Deno
+
+Import master branch (as latest)
+
+```typescript
+import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts';
+```
+
+Import specified version
+
+```typescript
+import 'https://raw.githubusercontent.com/syrflover/iterator-helper/v0.1.0/mod.ts';
+```
+
 ## Usage
+
+### Use Function
+
+```typescript
+// in browser or node
+import { iterator } from '@syrflover/iterator';
+
+// in deno
+import { iterator } from 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts';
+
+iterator([1, 2, 3, 4, 5, 6])
+    .filter((e) => e % 2 === 0)
+    .map((e) => e + 1)
+    .sum()
+    .then((r) => logger.info(r)); // 15
+```
+
+### Use Array.prototype.iter
 
 ```typescript
 // in browser or node
@@ -22,22 +56,6 @@ import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/deno/
 
 [1, 2, 3, 4, 5, 6]
     .iter()
-    .filter((e) => e % 2 === 0)
-    .map((e) => e + 1)
-    .sum()
-    .then((r) => logger.info(r)); // 15
-```
-
-or
-
-```typescript
-// in browser or node
-import { iterator } from '@syrflover/iterator';
-
-// in deno
-import { iterator } from 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts';
-
-iterator([1, 2, 3, 4, 5, 6])
     .filter((e) => e % 2 === 0)
     .map((e) => e + 1)
     .sum()
