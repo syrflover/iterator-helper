@@ -10,6 +10,7 @@ Iterator Helper used `AsyncIterator`
 - [Installation](#installation)
 - [Usage](#usage)
 - [Path of internal modules](#path-of-internal-modules)
+- [Releases](#releases)
 - [References](#references)
 
 ## Installation
@@ -31,7 +32,7 @@ import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.t
 Import specified version
 
 ```typescript
-import 'https://raw.githubusercontent.com/syrflover/iterator-helper/v0.1.0/mod.ts';
+import 'https://raw.githubusercontent.com/syrflover/iterator-helper/v0.2.0/mod.ts';
 ```
 
 ## Usage
@@ -91,6 +92,10 @@ src
     └── guard
         └── mod.ts
 ```
+
+## Releases
+
+[Github Releases](https://github.com/syrflover/iterator-helper/releases)
 
 ## References
 
