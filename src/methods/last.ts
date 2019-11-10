@@ -1,11 +1,11 @@
 import { getLogger } from '../logger.ts';
 
-import { _foldl } from './foldl.ts';
+import { foldl } from './foldl.ts';
 
-const logger = getLogger('iterator/last');
+const logger = getLogger('methods/last');
 
 // [a] -> Maybe a
-export function _last<T>(iter: AsyncIterable<T>) {
-    logger.trace('_last()');
-    return _foldl((_, e) => e, undefined as T | undefined, iter);
+export function last<T>(iter: AsyncIterable<T>) {
+    logger.trace('last()');
+    return foldl((_, e) => e, undefined as T | undefined, iter);
 }

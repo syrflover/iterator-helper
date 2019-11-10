@@ -1,7 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isString } from '../../../mod.ts';
+import { isString } from '../../../deno/types/guard/mod.ts';
 
 test('isString() string', () => {
     const actual = isString('hello');

@@ -3,6 +3,7 @@
 
 
 async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
+    
     const r: T[] = [];
 
     for await (const elem of iter) {
@@ -15,7 +16,6 @@ async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     }
 }
 
-export function _cycle<T>(iter: AsyncIterable<T>) {
-    
+export function cycle<T>(iter: AsyncIterable<T>) {
     return _cycle_impl_fn(iter);
 }

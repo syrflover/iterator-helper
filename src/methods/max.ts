@@ -1,12 +1,12 @@
 import { getLogger } from '../logger.ts';
 
-import { cmp } from '../lib/cmp.ts';
+import { compare } from '../lib/compare/mod.ts';
 
-import { _maxBy } from './maxBy.ts';
+import { maxBy } from './maxBy.ts';
 
-const logger = getLogger('iterator/max');
+const logger = getLogger('methods/max');
 
-export function _max<T>(iter: AsyncIterable<T>) {
-    logger.trace('_max()');
-    return _maxBy(cmp, iter);
+export function max<T>(iter: AsyncIterable<T>) {
+    logger.trace('max()');
+    return maxBy(compare, iter);
 }

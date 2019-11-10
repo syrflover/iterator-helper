@@ -1,14 +1,13 @@
 import { getLogger } from '../logger.ts';
 
-import { MapFn } from '../types/fn/map.ts';
+import { MapFn } from '../types/fn/mod.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-import { _curry } from '../lib/curry.ts';
+const logger = getLogger('methods/map');
 
-const logger = getLogger('iterator/map');
-
-async function* _map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, R>): AsyncIterable<R> {
+async function* _map_impl_fn<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>): AsyncIterable<R> {
+    logger.trace('map()');
     for await (const elem of iter) {
         const mapped = await fn(elem);
 
@@ -24,7 +23,4 @@ export interface Map {
     <T, R>(fn: MapFn<T, R>): (iter: AsyncIterable<T>) => AsyncIterable<R>;
 }
 
-export const _map: Map = _curry(<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>) => {
-    logger.trace('_map()');
-    return _map_impl_fn(iter, fn);
-});
+export const map: Map = _curry(_map_impl_fn);

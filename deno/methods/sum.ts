@@ -1,10 +1,10 @@
 
 
-import { _foldl } from './foldl.ts';
+import { foldl } from './foldl.ts';
 
 
 
-export function _sum(iter: AsyncIterable<number>) {
+export function sum(iter: AsyncIterable<number>) {
     
-    return _foldl((acc, e) => acc + e, 0, iter);
+    return foldl((acc, e) => acc + e, 0, iter);
 }

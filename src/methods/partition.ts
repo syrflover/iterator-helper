@@ -1,22 +1,21 @@
 import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/fn/predicate.ts';
-import { pair, Pair } from '../types/pair.ts';
+import { pair, Pair } from '../types/mod.ts';
+import { PredicateFn } from '../types/fn/mod.ts';
 
-import { sequence } from '../lib/iterable.ts';
-import { append } from '../lib/iterable/append.ts';
+import { append, sequence } from '../lib/iterable/mod.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-import { _curry } from '../lib/curry.ts';
+import { foldl } from './foldl.ts';
 
-import { _foldl } from './foldl.ts';
-
-const logger = getLogger('iterator/partition');
+const logger = getLogger('methods/partition');
 
 async function _partition_impl_fn<T>(
-    iter: AsyncIterable<T>,
     fn: PredicateFn<T>,
+    iter: AsyncIterable<T>,
 ): Promise<Pair<AsyncIterable<T>, AsyncIterable<T>>> {
-    return _foldl(async ([left, right], elem) => {
+    logger.trace('partition()');
+    return foldl(async ([left, right], elem) => {
         const condition = await fn(elem);
 
         if (condition) {
@@ -31,7 +30,4 @@ export interface Partition {
     <T>(fn: PredicateFn<T>): (iter: AsyncIterable<T>) => Promise<Pair<AsyncIterable<T>, AsyncIterable<T>>>;
 }
 
-export const _partition: Partition = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_partition()');
-    return _partition_impl_fn(iter, fn);
-});
+export const partition: Partition = _curry(_partition_impl_fn);

@@ -1,7 +1,8 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator, Ord } from '../../mod.ts';
+import { Ord } from '../../deno/types/mod.ts';
+import { iterator } from '../../mod.ts';
 
 function _cmp<T>(a: T, b: T): Ord {
     if (a > b) {

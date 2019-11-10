@@ -1,22 +1,18 @@
 
 
-import { _foldl } from './foldl.ts';
+import { foldl } from './foldl.ts';
 
-import { sequence } from '../lib/iterable.ts';
-
-import { prepend } from '../lib/iterable/prepend.ts';
-
-import { flip } from '../lib/flip.ts';
+import { prepend, sequence } from '../lib/iterable/mod.ts';
+import { flip } from '../lib/utils/mod.ts';
 
 
 
 async function* _reverse_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     
     const emptyIter = sequence<T>([]);
-    yield* await _foldl((acc, e) => flip(prepend, acc, e), emptyIter, iter);
+    yield* await foldl((acc, e) => flip(prepend, acc, e), emptyIter, iter);
 }
 
-export function _reverse<T>(iter: AsyncIterable<T>) {
-    
+export function reverse<T>(iter: AsyncIterable<T>) {
     return _reverse_impl_fn(iter);
 }

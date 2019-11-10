@@ -1,10 +1,10 @@
 import { getLogger } from '../logger.ts';
 
-import { _foldl } from './foldl.ts';
+import { foldl } from './foldl.ts';
 
-const logger = getLogger('iterator/product');
+const logger = getLogger('methods/product');
 
-export function _product(iter: AsyncIterable<number>) {
-    logger.trace('_product()');
-    return _foldl((acc, e) => acc * e, 1, iter);
+export function product(iter: AsyncIterable<number>) {
+    logger.trace('product()');
+    return foldl((acc, e) => acc * e, 1, iter);
 }

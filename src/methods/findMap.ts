@@ -1,16 +1,15 @@
 import { getLogger } from '../logger.ts';
 
-import { MapFn } from '../types/fn/map.ts';
+import { MapFn } from '../types/fn/mod.ts';
+import { Nullable } from '../types/mod.ts';
+import { isNull } from '../types/guard/mod.ts';
 
-import { Nullable } from '../types/nullable.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-import { isNull } from '../types/guard/isNull.ts';
+const logger = getLogger('methods/findMap');
 
-import { _curry } from '../lib/curry.ts';
-
-const logger = getLogger('iterator/findMap');
-
-async function _find_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): Promise<R | undefined> {
+async function _find_map_impl_fn<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>): Promise<R | undefined> {
+    logger.trace('findMap()');
     for await (const elem of iter) {
         const mapped = await fn(elem);
 
@@ -28,7 +27,4 @@ export interface FindMap {
     <T, R>(fn: MapFn<T, Nullable<R>>): (iter: AsyncIterable<T>) => Promise<R | undefined>;
 }
 
-export const _findMap: FindMap = _curry(<T, R>(predicate: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
-    logger.trace('_findMap()');
-    return _find_map_impl_fn(iter, predicate);
-});
+export const findMap: FindMap = _curry(_find_map_impl_fn);

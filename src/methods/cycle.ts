@@ -1,8 +1,9 @@
 import { getLogger } from '../logger.ts';
 
-const logger = getLogger('iterator/cycle');
+const logger = getLogger('methods/cycle');
 
 async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
+    logger.trace('cycle()');
     const r: T[] = [];
 
     for await (const elem of iter) {
@@ -15,7 +16,6 @@ async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     }
 }
 
-export function _cycle<T>(iter: AsyncIterable<T>) {
-    logger.trace('_cycle()');
+export function cycle<T>(iter: AsyncIterable<T>) {
     return _cycle_impl_fn(iter);
 }

@@ -1,9 +1,10 @@
 import { pair, Pair } from '../../types/pair.ts';
 
-import { sequence } from '../iterable.ts';
-import { next_async } from './next.ts';
+import { foldl } from '../../methods/foldl.ts';
+
 import { append } from './append.ts';
-import { _foldl } from '../../methods/foldl.ts';
+import { next_async } from './next.ts';
+import { sequence } from './toAsyncIterable.ts';
 
 export async function initLast<T>(
     iter: AsyncIterable<T>,
@@ -14,5 +15,5 @@ export async function initLast<T>(
         return pair(iter, undefined);
     }
 
-    return _foldl(([r, prev], elem) => pair(append(prev, r), elem), pair(sequence<T>([]), value), iter);
+    return foldl(([r, prev], elem) => pair(append(prev, r), elem), pair(sequence<T>([]), value), iter);
 }

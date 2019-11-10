@@ -1,12 +1,11 @@
 
 
-import { _foldl } from './foldl.ts';
+import { foldl } from './foldl.ts';
 
 
 
 // [a] -> Int
-export function _count<T>(iter: AsyncIterable<T>) {
+export function count<T>(iter: AsyncIterable<T>) {
     
-    return _foldl((count: number) => count + 1, 0, iter);
-    // return _count_impl_fn(iter);
+    return foldl((count_: number) => count_ + 1, 0, iter);
 }

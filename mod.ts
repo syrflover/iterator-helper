@@ -1,1 +1,1 @@
-export * from './deno/index.ts';
+export * from './deno/mod.ts';

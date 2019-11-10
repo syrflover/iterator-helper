@@ -1,6 +1,6 @@
 
 
-import { iterator, ToAsyncIterator } from '../iterator.ts';
+import { iterator, ToAsyncIterator } from '../mod.ts';
 
 import { EP } from './promise.ts';
 

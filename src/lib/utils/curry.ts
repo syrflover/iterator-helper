@@ -17,7 +17,14 @@ export function curry(fn: (...args: any[]) => any) {
     };
 }
 
-export const _curry = curry as (fn: (...args: any[]) => any) => any;
+export function _curry(fn: (...args: any[]) => any) {
+    return (...args: any[]) => {
+        if (fn.length > args.length) {
+            return (...nextArgs: any[]) => (curry(fn) as any)(...args, ...nextArgs);
+        }
+        return fn(...args);
+    };
+}
 
 export interface Curry2<P1, P2, R> {
     (p1: P1): (p2: P2) => R;

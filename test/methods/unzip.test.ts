@@ -1,7 +1,8 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator, Pair } from '../../mod.ts';
+import { Pair } from '../../deno/types/mod.ts';
+import { iterator } from '../../mod.ts';
 
 test('unzip() [[1, 5], [2, 6], [3, 7], [4, 8]]', async () => {
     const a = iterator<Pair<number, number>>([[1, 5], [2, 6], [3, 7], [4, 8]]);

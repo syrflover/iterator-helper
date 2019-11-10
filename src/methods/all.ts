@@ -1,12 +1,13 @@
 import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/fn/predicate.ts';
+import { PredicateFn } from '../types/fn/mod.ts';
 
-import { _curry } from '../lib/curry.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('iterator/all');
+const logger = getLogger('methods/all');
 
-async function _all_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>): Promise<boolean> {
+async function _all_impl_fn<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>): Promise<boolean> {
+    logger.trace('all()');
     for await (const elem of iter) {
         const condition = await fn(elem);
 
@@ -26,7 +27,4 @@ export interface All {
     <T>(fn: PredicateFn<T>): (iter: AsyncIterable<T>) => Promise<boolean>;
 }
 
-export const _all: All = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_all()');
-    return _all_impl_fn(iter, fn);
-});
+export const all: All = _curry(_all_impl_fn);

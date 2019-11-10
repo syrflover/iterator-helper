@@ -1,10 +1,11 @@
 import { getLogger } from '../logger.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
+import { next_async } from '../lib/iterable/mod.ts';
 
-const logger = getLogger('iterator/head');
+const logger = getLogger('methods/head');
 
 async function _head_impl_fn<T>(iter: AsyncIterable<T>): Promise<T | undefined> {
+    logger.trace('head()');
     const { done, value } = await next_async(iter);
 
     logger.debug('done  =', done);
@@ -17,7 +18,6 @@ async function _head_impl_fn<T>(iter: AsyncIterable<T>): Promise<T | undefined> 
     return value;
 }
 
-export function _head<T>(iter: AsyncIterable<T>) {
-    logger.trace('_head()');
+export function head<T>(iter: AsyncIterable<T>) {
     return _head_impl_fn(iter);
 }

@@ -1,8 +1,6 @@
-import { isArrayLikeOrString } from '../types/guard/isArrayLikeOrString.ts';
+import { isArrayLikeOrString } from '../../types/guard/isArrayLikeOrString.ts';
 
-export function* toIterable<T>(iter: Iterable<T>): Iterable<T> {
-    yield* iter;
-}
+import { toIterable } from './toIterable.ts';
 
 export function toAsyncIterable<T>(
     iter: Iterable<T> | AsyncIterable<T> | Promise<Iterable<T>> | Promise<AsyncIterable<T>>,

@@ -1,13 +1,12 @@
 import { getLogger } from '../logger.ts';
 
-import { Flatten } from '../types/flatten.ts';
+import { Flatten } from '../types/mod.ts';
+import { isIterable, isAsyncIterable } from '../types/guard/mod.ts';
 
-import { isIterable } from '../types/guard/isIterable.ts';
-import { isAsyncIterable } from '../types/guard/isAsyncIterable.ts';
-
-const logger = getLogger('iterator/flatten');
+const logger = getLogger('methods/flatten');
 
 async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatten<T>> {
+    logger.trace('flatten()');
     for await (const elem of iter) {
         logger.debug('element =', elem);
 
@@ -19,7 +18,6 @@ async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatt
     }
 }
 
-export function _flatten<T>(iter: AsyncIterable<T>) {
-    logger.trace('_flatten()');
+export function flatten<T>(iter: AsyncIterable<T>) {
     return _flatten_impl_fn(iter);
 }

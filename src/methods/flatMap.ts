@@ -1,16 +1,17 @@
 import { getLogger } from '../logger.ts';
 
-import { Flatten } from '../types/flatten.ts';
-import { MapFn } from '../types/fn/map.ts';
+import { Flatten } from '../types/mod.ts';
+import { MapFn } from '../types/fn/mod.ts';
 
-import { _curry } from '../lib/curry.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('iterator/flatMap');
+const logger = getLogger('methods/flatMap');
 
 async function* _flat_map_impl_fn<T, R extends Iterable<any> | AsyncIterable<any>>(
-    iter: AsyncIterable<T>,
     fn: MapFn<T, R>,
+    iter: AsyncIterable<T>,
 ): AsyncIterable<Flatten<R>> {
+    logger.trace('flatMap()');
     for await (const elem of iter) {
         const mapped = await fn(elem);
 
@@ -26,7 +27,4 @@ export interface FlatMap {
     <T, R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>): (iter: AsyncIterable<T>) => AsyncIterable<Flatten<R>>;
 }
 
-export const _flatMap: FlatMap = _curry(<T, R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>, iter: AsyncIterable<T>) => {
-    logger.trace('_flatMap()');
-    return _flat_map_impl_fn(iter, fn);
-});
+export const flatMap: FlatMap = _curry(_flat_map_impl_fn);

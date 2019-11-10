@@ -1,70 +1,72 @@
 
 
-import { sequence } from './lib/iterable.ts';
-import { next_async } from './lib/iterable/next.ts';
-import { cmp } from './lib/cmp.ts';
+import { compare } from './lib/compare/mod.ts';
+import { next_async, sequence } from './lib/iterable/mod.ts';
 
-import { ForEachFn } from './types/fn/forEach.ts';
-import { FoldlFn, FoldrFn } from './types/fn/fold.ts';
-import { MapFn } from './types/fn/map.ts';
-import { PredicateFn } from './types/fn/predicate.ts';
-import { CompareFn } from './types/fn/cmp.ts';
-import { KeyFn } from './types/fn/key.ts';
-import { ScanlFn, ScanrFn } from './types/fn/scan.ts';
-import { EqualFn } from './types/fn/equal.ts';
+import {
+    Flatten,
+    Pair,
+    pair,
+    Nullable,
+} from './types/mod.ts';
 
-import { Flatten } from './types/flatten.ts';
-import { Pair, pair } from './types/pair.ts';
-import { Nullable } from './types/nullable.ts';
+import {
+    ForEachFn,
+    FoldlFn,
+    MapFn,
+    PredicateFn,
+    CompareFn,
+    KeyFn,
+    ScanlFn,
+    EqualFn,
+} from './types/fn/mod.ts';
 
-import { _all } from './methods/all.ts';
-import { _any } from './methods/any.ts';
-import { _average } from './methods/average.ts';
-import { _chain } from './methods/chain.ts';
-import { _collect } from './methods/collect.ts';
-import { _count } from './methods/count.ts';
-import { _cycle } from './methods/cycle.ts';
-import { _enumerate } from './methods/enumerate.ts';
-import { _filter } from './methods/filter.ts';
-import { _filterMap } from './methods/filterMap.ts';
-import { _find } from './methods/find.ts';
-import { _findMap } from './methods/findMap.ts';
-import { _flatMap } from './methods/flatMap.ts';
-import { _flatten } from './methods/flatten.ts';
-import { _foldl } from './methods/foldl.ts';
-import { _foldl1 } from './methods/foldl1.ts';
-import { _foldr } from './methods/foldr.ts';
-import { _foldr1 } from './methods/foldr1.ts';
-import { _forEach } from './methods/forEach.ts';
-import { _head } from './methods/head.ts';
-import { _inspect } from './methods/inspect.ts';
-import { _last } from './methods/last.ts';
-import { _map } from './methods/map.ts';
-import { _max } from './methods/max.ts';
-import { _maxBy } from './methods/maxBy.ts';
-import { _maxByKey } from './methods/maxByKey.ts';
-import { _min } from './methods/min.ts';
-import { _minBy } from './methods/minBy.ts';
-import { _minByKey } from './methods/minByKey.ts';
-import { _nth } from './methods/nth.ts';
-import { _nub } from './methods/nub.ts';
-import { _nubBy } from './methods/nubBy.ts';
-import { _partition } from './methods/partition.ts';
-import { _position } from './methods/position.ts';
-import { _product } from './methods/product.ts';
-import { _reverse } from './methods/reverse.ts';
-import { _scanl } from './methods/scanl.ts';
-import { _scanl1 } from './methods/scanl1.ts';
-import { _scanr } from './methods/scanr.ts';
-import { _scanr1 } from './methods/scanr1.ts';
-import { _skip } from './methods/skip.ts';
-import { _skipWhile } from './methods/skipWhile.ts';
-import { _stepBy } from './methods/stepBy.ts';
-import { _sum } from './methods/sum.ts';
-import { _take } from './methods/take.ts';
-import { _takeWhile } from './methods/takeWhile.ts';
-import { _unzip } from './methods/unzip.ts';
-import { _zip } from './methods/zip.ts';
+import {
+    all,
+    any,
+    average,
+    chain,
+    collect,
+    count,
+    cycle,
+    enumerate,
+    filter,
+    filterMap,
+    find,
+    findMap,
+    flatMap,
+    flatten,
+    foldl,
+    foldl1,
+    forEach,
+    head,
+    inspect,
+    last,
+    map,
+    max,
+    maxBy,
+    maxByKey,
+    min,
+    minBy,
+    minByKey,
+    nth,
+    nub,
+    nubBy,
+    partition,
+    position,
+    product,
+    reverse,
+    scanl,
+    scanl1,
+    skip,
+    skipWhile,
+    stepBy,
+    sum,
+    take,
+    takeWhile,
+    unzip,
+    zip,
+} from './methods/mod.ts';
 
 
 
@@ -194,18 +196,6 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     foldl1(fn: FoldlFn<T, T>): Promise<T>;
 
     /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldr
-     */
-    foldr<U>(init: U | Promise<U>, fn: FoldrFn<T, U>): Promise<U>;
-
-    /**
-     * @throws empty iterator
-     *
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldr1
-     */
-    foldr1(fn: FoldrFn<T, T>): Promise<T>;
-
-    /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.for_each
      */
     forEach(fn: ForEachFn<T>): Promise<void>;
@@ -305,16 +295,6 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
      * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanl1
      */
     scanl1(fn: ScanlFn<T, T>): ToAsyncIterator<T>;
-
-    /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanr
-     */
-    scanr<U>(init: U | Promise<U>, fn: ScanrFn<T, U>): ToAsyncIterator<U>;
-
-    /**
-     * @see http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:scanr1
-     */
-    scanr1(fn: ScanrFn<T, T>): ToAsyncIterator<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.skip
@@ -441,244 +421,224 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public all(fn: PredicateFn<T>) {
         
-        return _all<T>(fn, this);
+        return all<T>(fn, this);
     }
 
     public any(fn: PredicateFn<T>) {
         
-        return _any<T>(fn, this);
+        return any<T>(fn, this);
     }
 
     public average() {
         
-        return _average(this as any);
+        return average(this as any);
     }
 
     public chain(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
         
-        return (new AsyncIterator_<T>(_chain<T>(other, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(chain<T>(other, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public collect() {
         
-        return _collect<T>(this);
+        return collect<T>(this);
     }
 
     public count() {
         
-        return _count<T>(this);
+        return count<T>(this);
     }
 
     public cycle() {
         
-        return (new AsyncIterator_<T>(_cycle<T>(this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(cycle<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public enumerate() {
         
-        return (new AsyncIterator_<Pair<number, T>>(_enumerate<T>(this)) as unknown) as ToAsyncIterator<Pair<number, T>>;
+        return (new AsyncIterator_<Pair<number, T>>(enumerate<T>(this)) as unknown) as ToAsyncIterator<Pair<number, T>>;
     }
 
     public filter(predicate: PredicateFn<T>) {
         
-        return (new AsyncIterator_<T>(_filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(filter<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public filterMap<R>(fn: MapFn<T, Nullable<R>>) {
         
-        return (new AsyncIterator_<R>(_filterMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
+        return (new AsyncIterator_<R>(filterMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public find(predicate: PredicateFn<T>) {
         
-        return _find<T>(predicate, this);
+        return find<T>(predicate, this);
     }
 
     public findMap<R>(fn: MapFn<T, Nullable<R>>) {
         
-        return _findMap<T, R>(fn, this);
+        return findMap<T, R>(fn, this);
     }
 
     public flatMap<R extends Iterable<any> | AsyncIterable<any>>(fn: MapFn<T, R>) {
         
-        return (new AsyncIterator_<Flatten<R>>(_flatMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<Flatten<R>>;
+        return (new AsyncIterator_<Flatten<R>>(flatMap<T, R>(fn, this)) as unknown) as ToAsyncIterator<Flatten<R>>;
     }
 
     public flatten() {
         
-        return (new AsyncIterator_<Flatten<T>>(_flatten<T>(this)) as unknown) as ToAsyncIterator<Flatten<T>>;
+        return (new AsyncIterator_<Flatten<T>>(flatten<T>(this)) as unknown) as ToAsyncIterator<Flatten<T>>;
     }
 
     public foldl<U>(init: U | Promise<U>, fn: FoldlFn<T, U>) {
         
-        return _foldl<T, U>(fn, init, this);
+        return foldl<T, U>(fn, init, this);
     }
 
     public foldl1(fn: FoldlFn<T, T>) {
         
-        return _foldl1<T>(fn, this);
-    }
-
-    public foldr<U>(init: U | Promise<U>, fn: FoldrFn<T, U>) {
-        
-        return _foldr(fn, init, this);
-    }
-
-    public foldr1(fn: FoldrFn<T, T>) {
-        
-        return _foldr1(fn, this);
+        return foldl1<T>(fn, this);
     }
 
     public forEach(fn: ForEachFn<T>) {
         
-        return _forEach<T>(fn, this);
+        return forEach<T>(fn, this);
     }
 
     public head() {
         
-        return _head<T>(this);
+        return head<T>(this);
     }
 
     public inspect(fn: ForEachFn<T>) {
         
-        return (new AsyncIterator_<T>(_inspect<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(inspect<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public last() {
         
-        return _last<T>(this);
+        return last<T>(this);
     }
 
     public map<R>(fn: MapFn<T, R>) {
         
-        return (new AsyncIterator_<R>(_map<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
+        return (new AsyncIterator_<R>(map<T, R>(fn, this)) as unknown) as ToAsyncIterator<R>;
     }
 
     public max() {
         
-        return _max<T>(this);
+        return max<T>(this);
     }
 
     public maxBy(fn: CompareFn<T>) {
         
-        return _maxBy<T>(fn, this);
+        return maxBy<T>(fn, this);
     }
 
-    public maxByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
+    public maxByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = compare) {
         
-        return _maxByKey<T, K>(keyFn, cmpFn, this);
+        return maxByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public min() {
         
-        return _min<T>(this);
+        return min<T>(this);
     }
 
     public minBy(fn: CompareFn<T>) {
         
-        return _minBy<T>(fn, this);
+        return minBy<T>(fn, this);
     }
 
-    public minByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = cmp) {
+    public minByKey<K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K> = compare) {
         
-        return _minByKey<T, K>(keyFn, cmpFn, this);
+        return minByKey<T, K>(keyFn, cmpFn, this);
     }
 
     public nth(n: number) {
         
-        return _nth<T>(n, this);
+        return nth<T>(n, this);
     }
 
     public nub() {
         
-        return (new AsyncIterator_<T>(_nub<T>(this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(nub<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public nubBy(fn: EqualFn<T>) {
         
-        return (new AsyncIterator_<T>(_nubBy<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(nubBy<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async partition(fn: PredicateFn<T>) {
         
-        const [left, right] = await _partition(fn, this);
+        const [left, right] = await partition(fn, this);
         return (pair(new AsyncIterator_<T>(left), new AsyncIterator_<T>(right)) as unknown) as Pair<ToAsyncIterator<T>, ToAsyncIterator<T>>;
     }
 
     public position(fn: PredicateFn<T>) {
         
-        return _position<T>(fn, this);
+        return position<T>(fn, this);
     }
 
     public product() {
         
-        return _product(this as any);
+        return product(this as any);
     }
 
     public reverse() {
         
-        return (new AsyncIterator_<T>(_reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(reverse<T>(this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public scanl<U>(init: U | Promise<U>, fn: ScanlFn<T, U>) {
         
-        return (new AsyncIterator_<U>(_scanl<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
+        return (new AsyncIterator_<U>(scanl<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
     }
 
     public scanl1(fn: ScanlFn<T, T>) {
         
-        return (new AsyncIterator_<T>(_scanl1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(scanl1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
     }
 
-    public scanr<U>(init: U | Promise<U>, fn: ScanrFn<T, U>) {
+    public skip(count_: number) {
         
-        return (new AsyncIterator_<U>(_scanr<T, U>(fn, init, this)) as unknown) as ToAsyncIterator<U>;
-    }
-
-    public scanr1(fn: ScanrFn<T, T>) {
-        
-        return (new AsyncIterator_<T>(_scanr1<T>(fn, this)) as unknown) as ToAsyncIterator<T>;
-    }
-
-    public skip(count: number) {
-        
-        return (new AsyncIterator_<T>(_skip<T>(count, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(skip<T>(count_, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public skipWhile(predicate: PredicateFn<T>) {
         
-        return (new AsyncIterator_<T>(_skipWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(skipWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public stepBy(step: number) {
         
-        return (new AsyncIterator_<T>(_stepBy<T>(step, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(stepBy<T>(step, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public sum() {
         
-        return _sum(this as any);
+        return sum(this as any);
     }
 
     public take(limit: number) {
         
-        return (new AsyncIterator_<T>(_take<T>(limit, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(take<T>(limit, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public takeWhile(predicate: PredicateFn<T>) {
         
-        return (new AsyncIterator_<T>(_takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
+        return (new AsyncIterator_<T>(takeWhile<T>(predicate, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public async unzip() {
         
-        const [left, right] = await _unzip<any, any>(this as any);
+        const [left, right] = await unzip<any, any>(this as any);
         return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
     }
 
     public zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>) {
         
-        return (new AsyncIterator_<Pair<T, U>>(_zip<T, U>(other, this)) as unknown) as ToAsyncIterator<Pair<T, U>>;
+        return (new AsyncIterator_<Pair<T, U>>(zip<T, U>(other, this)) as unknown) as ToAsyncIterator<Pair<T, U>>;
     }
 }
 

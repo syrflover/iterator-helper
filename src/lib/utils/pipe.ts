@@ -1,7 +1,6 @@
-import { sequence } from './iterable.ts';
-import { next_async } from './iterable/next.ts';
+import { next_async, sequence } from '../iterable/mod.ts';
 
-import { _foldl } from '../methods/foldl.ts';
+import { foldl } from '../../methods/mod.ts';
 
 export function pipe<P extends any[], R1>(f0: (...p: P) => (R1 | Promise<R1>)): (...p: P) => Promise<R1>;
 export function pipe<P extends any[], R1, R2>(f0: (...p: P) => (R1 | Promise<R1>), f1: (r0: R1) => (R2 | Promise<R2>)): (...p: P) => Promise<R2>;
@@ -28,6 +27,6 @@ export function pipe(...fns: any[]) {
     return async (...args: any[]) => {
         const fns_ = sequence(fns);
         const { value: fn_ } = await next_async(fns_);
-        return _foldl((acc: any, fn: any) => fn(acc), fn_(...args), fns_);
+        return foldl((acc: any, fn: any) => fn(acc), fn_(...args), fns_);
     };
 }

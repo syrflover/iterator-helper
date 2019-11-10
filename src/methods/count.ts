@@ -1,12 +1,11 @@
 import { getLogger } from '../logger.ts';
 
-import { _foldl } from './foldl.ts';
+import { foldl } from './foldl.ts';
 
-const logger = getLogger('iterator/count');
+const logger = getLogger('methods/count');
 
 // [a] -> Int
-export function _count<T>(iter: AsyncIterable<T>) {
-    logger.trace('_count()');
-    return _foldl((count: number) => count + 1, 0, iter);
-    // return _count_impl_fn(iter);
+export function count<T>(iter: AsyncIterable<T>) {
+    logger.trace('count()');
+    return foldl((count_: number) => count_ + 1, 0, iter);
 }

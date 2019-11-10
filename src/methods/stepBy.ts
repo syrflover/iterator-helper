@@ -1,10 +1,11 @@
 import { getLogger } from '../logger.ts';
 
-import { _curry } from '../lib/curry.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('iterator/stepBy');
+const logger = getLogger('methods/stepBy');
 
-async function* _step_by_impl_fn<T>(iter: AsyncIterable<T>, step: number): AsyncIterable<T> {
+async function* _step_by_impl_fn<T>(step: number, iter: AsyncIterable<T>): AsyncIterable<T> {
+    logger.trace('stepBy()');
     let current_step = 0;
 
     for await (const elem of iter) {
@@ -21,7 +22,4 @@ export interface StepBy {
     <T>(step: number): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _stepBy: StepBy = _curry(<T>(step: number, iter: AsyncIterable<T>) => {
-    logger.trace('_stepBy()');
-    return _step_by_impl_fn(iter, step);
-});
+export const stepBy: StepBy = _curry(_step_by_impl_fn);

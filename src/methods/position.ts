@@ -1,12 +1,13 @@
 import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/fn/predicate.ts';
+import { PredicateFn } from '../types/fn/mod.ts';
 
-import { _curry } from '../lib/curry.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('iterator/position');
+const logger = getLogger('methods/position');
 
-async function _position_impl_fn<T>(iter: AsyncIterable<T>, fn: PredicateFn<T>): Promise<number | undefined> {
+async function _position_impl_fn<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>): Promise<number | undefined> {
+    logger.trace('position()');
     let pos = 0;
 
     for await (const elem of iter) {
@@ -25,7 +26,4 @@ export interface Position {
     <T>(fn: PredicateFn<T>): (iter: AsyncIterable<T>) => Promise<number | undefined>;
 }
 
-export const _position: Position = _curry(<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_position()');
-    return _position_impl_fn(iter, fn);
-});
+export const position: Position = _curry(_position_impl_fn);

@@ -1,12 +1,13 @@
 
 
-import { FoldlFn } from '../types/fn/fold.ts';
+import { FoldlFn } from '../types/fn/mod.ts';
 
-import { _curry, Curry2 } from '../lib/curry.ts';
+import { _curry, Curry2 } from '../lib/utils/mod.ts';
 
 
 
-async function _foldl_impl_fn<A, B>(iter: AsyncIterable<A>, init: B | Promise<B>, fn: FoldlFn<A, B>): Promise<B> {
+async function _foldl_impl_fn<A, B>(fn: FoldlFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>): Promise<B> {
+    
     let acc = await init;
 
     
@@ -27,7 +28,4 @@ export interface Foldl {
 }
 
 // (b -> a -> b) -> b -> t a -> b
-export const _foldl: Foldl = _curry(<A, B>(fn: FoldlFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>) => {
-    
-    return _foldl_impl_fn(iter, init, fn);
-});
+export const foldl: Foldl = _curry(_foldl_impl_fn);

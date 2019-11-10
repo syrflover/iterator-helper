@@ -1,16 +1,15 @@
 
 
-import { FoldlFn } from '../types/fn/fold.ts';
+import { FoldlFn } from '../types/fn/mod.ts';
 
-import { next_async } from '../lib/iterable/next.ts';
+import { next_async } from '../lib/iterable/mod.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-import { _curry } from '../lib/curry.ts';
-
-import { _foldl } from './foldl.ts';
-
+import { foldl } from './foldl.ts';
 
 
-async function _foldl1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldlFn<T, T>) {
+
+async function _foldl1_impl_fn<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) {
     
     const { done, value: head } = await next_async(iter);
 
@@ -21,7 +20,7 @@ async function _foldl1_impl_fn<T>(iter: AsyncIterable<T>, fn: FoldlFn<T, T>) {
         throw new Error('Least one element is required in Iterator');
     }
 
-    return _foldl(fn, head, iter);
+    return foldl(fn, head, iter);
 }
 
 export interface Foldl1 {
@@ -29,7 +28,4 @@ export interface Foldl1 {
     <T>(fn: FoldlFn<T, T>): (iter: AsyncIterable<T>) => Promise<T>;
 }
 
-export const _foldl1: Foldl1 = _curry(<T>(fn: FoldlFn<T, T>, iter: AsyncIterable<T>) => {
-    
-    return _foldl1_impl_fn(iter, fn);
-});
+export const foldl1: Foldl1 = _curry(_foldl1_impl_fn);

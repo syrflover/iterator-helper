@@ -1,10 +1,10 @@
 import { getLogger } from '../logger.ts';
 
-import { _nubBy } from './nubBy.ts';
+import { nubBy } from './nubBy.ts';
 
-const logger = getLogger('iterator/nub');
+const logger = getLogger('methods/nub');
 
-export function _nub<T>(iter: AsyncIterable<T>) {
-    logger.trace('_nubBy()');
-    return _nubBy((a: T, b: T) => a === b, iter);
+export function nub<T>(iter: AsyncIterable<T>) {
+    logger.trace('nub()');
+    return nubBy<T>((a, b) => a === b, iter);
 }

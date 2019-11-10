@@ -1,15 +1,14 @@
 import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/fn/predicate.ts';
+import { PredicateFn } from '../types/fn/mod.ts';
 
-import { prepend } from '../lib/iterable/prepend.ts';
-import { next_async } from '../lib/iterable/next.ts';
+import { next_async, prepend } from '../lib/iterable/mod.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-import { _curry } from '../lib/curry.ts';
+const logger = getLogger('methods/dropWhile');
 
-const logger = getLogger('iterator/dropWhile');
-
-async function* _skip_while_impl_fn<T>(iter: AsyncIterable<T>, predicate: PredicateFn<T>): AsyncIterable<T> {
+async function* _skip_while_impl_fn<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>): AsyncIterable<T> {
+    logger.trace('skipWhile()');
     while (true) {
         const { done, value } = await next_async(iter);
 
@@ -36,7 +35,4 @@ export interface SkipWhile {
     <T>(predicate: PredicateFn<T>): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
-export const _skipWhile: SkipWhile = _curry(<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) => {
-    logger.trace('_dropWhile()');
-    return _skip_while_impl_fn(iter, predicate);
-});
+export const skipWhile: SkipWhile = _curry(_skip_while_impl_fn);

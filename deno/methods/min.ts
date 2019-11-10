@@ -1,12 +1,12 @@
 
 
-import { cmp } from '../lib/cmp.ts';
+import { compare } from '../lib/compare/mod.ts';
 
-import { _minBy } from './minBy.ts';
+import { minBy } from './minBy.ts';
 
 
 
-export function _min<T>(iter: AsyncIterable<T>) {
+export function min<T>(iter: AsyncIterable<T>) {
     
-    return _minBy(cmp, iter);
+    return minBy(compare, iter);
 }

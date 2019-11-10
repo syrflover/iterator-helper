@@ -1,13 +1,12 @@
 
 
-import { Flatten } from '../types/flatten.ts';
-
-import { isIterable } from '../types/guard/isIterable.ts';
-import { isAsyncIterable } from '../types/guard/isAsyncIterable.ts';
+import { Flatten } from '../types/mod.ts';
+import { isIterable, isAsyncIterable } from '../types/guard/mod.ts';
 
 
 
 async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatten<T>> {
+    
     for await (const elem of iter) {
         
 
@@ -19,7 +18,6 @@ async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatt
     }
 }
 
-export function _flatten<T>(iter: AsyncIterable<T>) {
-    
+export function flatten<T>(iter: AsyncIterable<T>) {
     return _flatten_impl_fn(iter);
 }

@@ -1,10 +1,10 @@
 
 
-import { _nubBy } from './nubBy.ts';
+import { nubBy } from './nubBy.ts';
 
 
 
-export function _nub<T>(iter: AsyncIterable<T>) {
+export function nub<T>(iter: AsyncIterable<T>) {
     
-    return _nubBy((a: T, b: T) => a === b, iter);
+    return nubBy<T>((a, b) => a === b, iter);
 }

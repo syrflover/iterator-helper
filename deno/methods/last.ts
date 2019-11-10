@@ -1,11 +1,11 @@
 
 
-import { _foldl } from './foldl.ts';
+import { foldl } from './foldl.ts';
 
 
 
 // [a] -> Maybe a
-export function _last<T>(iter: AsyncIterable<T>) {
+export function last<T>(iter: AsyncIterable<T>) {
     
-    return _foldl((_, e) => e, undefined as T | undefined, iter);
+    return foldl((_, e) => e, undefined as T | undefined, iter);
 }

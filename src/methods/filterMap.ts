@@ -1,16 +1,15 @@
 import { getLogger } from '../logger.ts';
 
-import { MapFn } from '../types/fn/map.ts';
+import { Nullable } from '../types/mod.ts';
+import { MapFn } from '../types/fn/mod.ts';
+import { isNull } from '../types/guard/mod.ts';
 
-import { Nullable } from '../types/nullable.ts';
+import { _curry } from '../lib/utils/mod.ts';
 
-import { isNull } from '../types/guard/isNull.ts';
+const logger = getLogger('methods/filterMap');
 
-import { _curry } from '../lib/curry.ts';
-
-const logger = getLogger('iterator/filterMap');
-
-async function* _filter_map_impl_fn<T, R>(iter: AsyncIterable<T>, fn: MapFn<T, Nullable<R>>): AsyncIterable<R> {
+async function* _filter_map_impl_fn<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>): AsyncIterable<R> {
+    logger.trace('filterMap()');
     for await (const elem of iter) {
         const mapped = await fn(elem);
 
@@ -28,7 +27,4 @@ export interface FilterMap {
     <T, R>(fn: MapFn<T, Nullable<R>>): (iter: AsyncIterable<T>) => AsyncIterable<R>;
 }
 
-export const _filterMap: FilterMap = _curry(<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>) => {
-    logger.trace('filterMap()');
-    return _filter_map_impl_fn(iter, fn);
-});
+export const filterMap: FilterMap = _curry(_filter_map_impl_fn);
