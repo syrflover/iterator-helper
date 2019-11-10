@@ -1,6 +1,6 @@
 
 
-import { CompareFn, KeyFn } from '../types/fn/mod.ts';
+import { CompareFn, KeyFn } from '../types/function/mod.ts';
 
 import { minBy } from '../lib/compare/mod.ts';
 import { next_async } from '../lib/iterable/mod.ts';

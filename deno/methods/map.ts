@@ -1,6 +1,6 @@
 
 
-import { MapFn } from '../types/fn/mod.ts';
+import { MapFn } from '../types/function/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 

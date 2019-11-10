@@ -1,6 +1,6 @@
 
 
-import { EqualFn } from '../types/fn/equal.ts';
+import { EqualFn } from '../types/function/mod.ts';
 
 import { sequence } from '../lib/iterable/mod.ts';
 import { _curry } from '../lib/utils/mod.ts';
