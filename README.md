@@ -32,7 +32,7 @@ import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.t
 Import specified version
 
 ```typescript
-import 'https://raw.githubusercontent.com/syrflover/iterator-helper/v0.2.0/mod.ts';
+import 'https://raw.githubusercontent.com/syrflover/iterator-helper/v0.2.2/mod.ts';
 ```
 
 ## Usage
