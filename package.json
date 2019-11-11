@@ -1,6 +1,6 @@
 {
     "name": "@syrflover/iterator",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Iterator Helper for TypeScript",
     "main": "dist/mod.js",
     "types": "dist/mod.d.ts",
