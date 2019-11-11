@@ -12,7 +12,7 @@
         "test": "npm run build:deno && deno run --allow-read --allow-run scripts/test.ts",
         "test:reload": "npm run build:deno && deno run --allow-read --allow-run scripts/test.ts reload",
         "build:node": "rm -rf ./dist && node scripts/node_build.js",
-        "build:deno": "rm -rf ./deno && node scripts/deno_build.js",
+        "build:deno": "rm -rf ./deno && deno run --allow-read --allow-write scripts/deno_build.ts",
         "lint": "eslint src/**/*.ts",
         "doc": "typedoc --options typedoc.json",
         "prepublishOnly": "npm run lint && npm run test:reload && npm run build:node && npm run build:deno"

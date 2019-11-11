@@ -23,6 +23,10 @@ async function main(dir) {
                 continue;
             }
 
+            if (file.endsWith('_test.ts')) {
+                continue;
+            }
+
             const stat = await fs.promises.stat(`${dir}/${file}`);
             if (stat.isFile()) {
                 entries.push(`${dir}/${file}`);
