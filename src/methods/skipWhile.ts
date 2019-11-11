@@ -1,6 +1,6 @@
 import { getLogger } from '../logger.ts';
 
-import { PredicateFn } from '../types/function/mod.ts';
+import { PredicateFn } from '../types/functions/mod.ts';
 
 import { next_async, prepend } from '../lib/iterable/mod.ts';
 import { _curry } from '../lib/utils/mod.ts';

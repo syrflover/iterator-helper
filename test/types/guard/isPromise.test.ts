@@ -1,7 +1,7 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isPromise } from '../../../deno/types/guard/mod.ts';
+import { isPromise } from '../../../deno/types/guards/mod.ts';
 
 test('isPromise() true', () => {
     const actual = isPromise(Promise.resolve());

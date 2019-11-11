@@ -1,6 +1,6 @@
 import { getLogger } from '../logger.ts';
 
-import { MapFn } from '../types/function/mod.ts';
+import { MapFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 

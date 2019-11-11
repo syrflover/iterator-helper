@@ -1,6 +1,6 @@
 
 
-import { ForEachFn } from '../types/function/mod.ts';
+import { ForEachFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 

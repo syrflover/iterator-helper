@@ -19,7 +19,7 @@ import {
     KeyFn,
     ScanFn,
     EqualFn,
-} from './types/function/mod.ts';
+} from './types/functions/mod.ts';
 
 import {
     all,

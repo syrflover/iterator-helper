@@ -1,4 +1,4 @@
-import { isArrayLikeOrString } from '../../types/guard/isArrayLikeOrString.ts';
+import { isArrayLikeOrString } from '../../types/guards/isArrayLikeOrString.ts';
 
 import { toIterable } from './toIterable.ts';
 

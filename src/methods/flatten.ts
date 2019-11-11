@@ -1,7 +1,7 @@
 import { getLogger } from '../logger.ts';
 
 import { Flatten } from '../types/mod.ts';
-import { isIterable, isAsyncIterable } from '../types/guard/mod.ts';
+import { isIterable, isAsyncIterable } from '../types/guards/mod.ts';
 
 const logger = getLogger('methods/flatten');
 

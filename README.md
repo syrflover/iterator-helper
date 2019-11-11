@@ -87,9 +87,9 @@ src
 └── types
     ├── global.ts
     ├── mod.ts
-    ├── function
+    ├── functions
     │   └── mod.ts
-    └── guard
+    └── guards
         └── mod.ts
 ```
 
