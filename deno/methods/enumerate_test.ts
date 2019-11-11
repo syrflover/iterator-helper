@@ -1,8 +1,8 @@
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
+import { pair, Pair } from '../../deno/types/mod.ts';
 import { iterator } from '../../mod.ts';
-import { pair, Pair } from '../../src/types/pair.ts';
 
 test(`enumerate(['a', 'b', 'c', 'd', 'e'])`, async () => {
     const a = iterator(['a', 'b', 'c', 'd', 'e']);
