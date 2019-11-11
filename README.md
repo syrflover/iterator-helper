@@ -53,7 +53,7 @@ iterator([1, 2, 3, 4, 5, 6])
     .then((r) => logger.info(r)); // 15
 ```
 
-### Use Array.prototype.iter
+### Use ArrayLike.prototype.iter
 
 ```typescript
 // in browser or node
@@ -69,6 +69,20 @@ import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/deno/
     .sum()
     .then((r) => logger.info(r)); // 15
 ```
+
+#### List of supported ArrayLike.prototype.iter
+
+- `String`
+- `Array`
+- `Int8Array`
+- `Int16Array`
+- `Int32Array`
+- `Uint8Array`
+- `Uint8ClampedArray`
+- `Uint16Array`
+- `Uint32Array`
+- `Float32Array`
+- `Float64Array`
 
 ## Path of internal modules
 
