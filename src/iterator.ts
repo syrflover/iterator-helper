@@ -80,19 +80,25 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://tc39.es/proposal-iterator-helpers/#sec-asynciteratorprototype-@@tostringtag
      */
-    [Symbol.toStringTag]: 'Async Iterator';
+    [Symbol.toStringTag]: string;
 
     /**
+     * similar Array.prototype.every
+     *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.all
      */
     all(fn: PredicateFn<T>): Promise<boolean>;
 
     /**
+     * similar Array.prototype.some
+     *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.any
      */
     any(fn: PredicateFn<T>): Promise<boolean>;
 
     /**
+     * similar concat
+     *
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.chain
      */
     chain(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>): ToAsyncIterator<T>;
@@ -314,7 +320,7 @@ export interface IAsyncIterator_<T> extends AsyncIterableIterator<T> {
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.take
      */
-    take(limit: number): ToAsyncIterator<T>;
+    take(count: number): ToAsyncIterator<T>;
 
     /**
      * @see https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html#method.take_while
@@ -580,8 +586,8 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
         return sum(this as any);
     }
 
-    public take(limit: number) {
-        return (new AsyncIterator_<T>(take<T>(limit, this)) as unknown) as ToAsyncIterator<T>;
+    public take(count_: number) {
+        return (new AsyncIterator_<T>(take<T>(count_, this)) as unknown) as ToAsyncIterator<T>;
     }
 
     public takeWhile(predicate: PredicateFn<T>) {
