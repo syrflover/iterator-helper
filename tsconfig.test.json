@@ -9,7 +9,5 @@
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "alwaysStrict": true
-    },
-    "include": ["test/**/*.ts"],
-    "exclude": ["test/__cjs/**", "test/__esm/**"]
+    }
 }
