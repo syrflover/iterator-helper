@@ -1,7 +1,7 @@
-export function isTypedArray(iter: any) {
-    return ArrayBuffer.isView(iter);
+export function isTypedArray(a: any) {
+    return ArrayBuffer.isView(a);
 }
 
-export function isArrayLike(iter: any): iter is any[] {
-    return Array.isArray(iter) || isTypedArray(iter);
+export function isArrayLike(a: any): a is any[] {
+    return Array.isArray(a) || isTypedArray(a);
 }

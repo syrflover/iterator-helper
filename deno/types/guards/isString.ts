@@ -1,3 +1,5 @@
+import { isNull } from './isNull.ts';
+
 export function isString(a: any): a is string {
-    return a ? a.constructor === String : false;
+    return isNull(a) ? false : a.constructor === String;
 }

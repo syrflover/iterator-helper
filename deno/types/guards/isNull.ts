@@ -1,6 +1,6 @@
 /**
- * v is null | undefined | NaN
+ * a is null | undefined | NaN
  */
-export function isNull(v: any): v is null | undefined {
-    return v === null || v === undefined || Number.isNaN(v);
+export function isNull(a: any): a is null | undefined {
+    return a === null || a === undefined || Number.isNaN(a);
 }
