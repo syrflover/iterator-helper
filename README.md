@@ -10,6 +10,7 @@ Iterator Helper used `AsyncIterator`
 - [Installation](#installation)
 - [Usage](#usage)
 - [Path of internal modules](#path-of-internal-modules)
+- [TypeDoc](#typedoc)
 - [Releases](#releases)
 - [References](#references)
 
@@ -106,6 +107,11 @@ src
     └── guards
         └── mod.ts
 ```
+
+## TypeDoc
+
+- [latest](https://syrflover.github.io/iterator-helper/docs/master)
+- [v0.2.3](https://syrflover.github.io/iterator-helper/docs/v0.2.3)
 
 ## Releases
 
