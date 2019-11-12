@@ -13,6 +13,6 @@ async function* _reverse_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     yield* await fold((acc, e) => flip(prepend, acc, e), emptyIter, iter);
 }
 
-export function reverse<T>(iter: AsyncIterable<T>) {
+export function reverse<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     return _reverse_impl_fn(iter);
 }

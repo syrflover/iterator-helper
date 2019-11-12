@@ -5,7 +5,7 @@ import { fold } from './fold.ts';
 const logger = getLogger('methods/count');
 
 // [a] -> Int
-export function count<T>(iter: AsyncIterable<T>) {
+export function count<T>(iter: AsyncIterable<T>): Promise<number> {
     logger.trace('count()');
     return fold((count_: number) => count_ + 1, 0, iter);
 }

@@ -6,7 +6,7 @@ import { minBy } from './minBy.ts';
 
 const logger = getLogger('methods/min');
 
-export function min<T>(iter: AsyncIterable<T>) {
+export function min<T>(iter: AsyncIterable<T>): Promise<T | undefined> {
     logger.trace('min()');
     return minBy(compare, iter);
 }

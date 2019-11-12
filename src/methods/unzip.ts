@@ -20,6 +20,6 @@ async function _unzip_impl_fn<T, U>(
     }, pair(sequence<T>([]), sequence<U>([])), iter);
 }
 
-export function unzip<T, U>(iter: AsyncIterable<Pair<T, U>>) {
+export function unzip<T, U>(iter: AsyncIterable<Pair<T, U>>): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
     return _unzip_impl_fn(iter);
 }
