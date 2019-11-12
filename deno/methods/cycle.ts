@@ -16,6 +16,6 @@ async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     }
 }
 
-export function cycle<T>(iter: AsyncIterable<T>) {
+export function cycle<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     return _cycle_impl_fn(iter);
 }

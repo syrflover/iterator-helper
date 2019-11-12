@@ -36,6 +36,10 @@ main('src')
                 continue;
             }
 
+            if (e.endsWith('_test.ts')) {
+                continue;
+            }
+
             for (const r of ex) {
                 if (r.test(e)) {
                     continue entriesLabel;
@@ -47,13 +51,14 @@ main('src')
 
 
         sourcesLabel: for (const source of sources) {
-            const withoutExt = source.replace(/\.ts$/, '');
+            const withTestExt = source.replace(/\.ts$/, '_test.ts');
 
             for (const test of tests) {
-                if (test.startsWith(withoutExt)) {
+                if (test.includes((withTestExt))) {
                     continue sourcesLabel;
                 }
             }
+
 
             console.error(`Not Found Test of "${source}"`);
             Deno.exit(1);

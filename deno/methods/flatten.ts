@@ -18,6 +18,6 @@ async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatt
     }
 }
 
-export function flatten<T>(iter: AsyncIterable<T>) {
+export function flatten<T>(iter: AsyncIterable<T>): AsyncIterable<Flatten<T>> {
     return _flatten_impl_fn(iter);
 }

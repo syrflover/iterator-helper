@@ -19,6 +19,6 @@ async function* _enumerate_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Pai
     yield* scan(([current], elem) => pair(current + 1, elem), pair(0, value), iter);
 }
 
-export function enumerate<T>(iter: AsyncIterable<T>) {
+export function enumerate<T>(iter: AsyncIterable<T>): AsyncIterable<Pair<number, T>> {
     return _enumerate_impl_fn(iter);
 }

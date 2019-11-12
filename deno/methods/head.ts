@@ -18,6 +18,6 @@ async function _head_impl_fn<T>(iter: AsyncIterable<T>): Promise<T | undefined> 
     return value;
 }
 
-export function head<T>(iter: AsyncIterable<T>) {
+export function head<T>(iter: AsyncIterable<T>): Promise<T | undefined> {
     return _head_impl_fn(iter);
 }
