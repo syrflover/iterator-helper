@@ -24,16 +24,16 @@ npm install @syrflover/iterator
 
 ### Deno
 
-Import master branch (as latest)
+Fetch master branch (as latest)
 
-```typescript
-import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts';
+```bash
+deno fetch https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts
 ```
 
-Import specified version
+Fetch specified version
 
-```typescript
-import 'https://raw.githubusercontent.com/syrflover/iterator-helper/v0.2.3/mod.ts';
+```bash
+deno fetch https://raw.githubusercontent.com/syrflover/iterator-helper/v0.2.3/mod.ts
 ```
 
 ## Usage
