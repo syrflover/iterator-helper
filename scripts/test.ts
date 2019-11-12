@@ -31,7 +31,7 @@ main('src')
         const sources: string[] = [];
         const tests = entries.filter((e) => e.endsWith('_test.ts'));
 
-        entriesLabel: for await (const e of entries) {
+        pushToSources: for await (const e of entries) {
             if (e.endsWith('mod.ts')) {
                 continue;
             }
@@ -42,7 +42,7 @@ main('src')
 
             for (const r of ex) {
                 if (r.test(e)) {
-                    continue entriesLabel;
+                    continue pushToSources;
                 }
             }
 
@@ -50,12 +50,12 @@ main('src')
         }
 
 
-        sourcesLabel: for (const source of sources) {
+        checkTestFile: for (const source of sources) {
             const withTestExt = source.replace(/\.ts$/, '_test.ts');
 
             for (const test of tests) {
                 if (test.includes((withTestExt))) {
-                    continue sourcesLabel;
+                    continue checkTestFile;
                 }
             }
 
