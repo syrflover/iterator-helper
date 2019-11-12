@@ -15,7 +15,7 @@
         "build:deno": "rm -rf ./deno && deno run --allow-read --allow-write scripts/deno_build.ts",
         "lint": "eslint src/**/*.ts",
         "doc": "typedoc --options typedoc.json",
-        "prepublishOnly": "npm run lint && npm run test:reload && npm run build:node && npm run build:deno"
+        "prepublishOnly": "npm run lint && npm run test:reload && npm run build:node && npm run build:deno && npm run doc"
     },
     "author": {
         "name": "Lee Tae Woo",
