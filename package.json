@@ -14,9 +14,10 @@
         "build:node": "rm -rf ./dist && node scripts/node_build.js",
         "build:deno": "rm -rf ./deno && deno run --allow-read --allow-write scripts/deno_build.ts",
         "lint": "eslint src/**/*.ts",
-        "doc": "deno --allow-run scripts/docs.ts",
+        "doc": "deno --allow-run --allow-write scripts/docs.ts",
         "doc:master": "deno --allow-run scripts/docs.ts onlyMaster",
-        "prepublishOnly": "npm run lint && npm run test:reload && npm run build:node && npm run build:deno && npm run doc"
+        "prepublishOnly": "npm run lint && npm run test:reload && npm run build:node && npm run build:deno",
+        "postpublish": "npm run doc"
     },
     "author": {
         "name": "Lee Tae Woo",

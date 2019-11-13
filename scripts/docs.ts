@@ -5,7 +5,7 @@ const { version: VERSION } = pkg;
 
 async function docsGen(version: string) {
     const task = Deno.run({
-        args: `./node_modules/.bin/typedoc --options typedoc.json --gitRevision ${version} --out docs/${version}`.split(' '),
+        args: `./node_modules/.bin/typedoc --options typedoc.json --name @syrflover/iterator@${version} --gitRevision ${version} --out docs/${version}`.split(' '),
     });
 
     const { code } = await task.status();
@@ -17,9 +17,12 @@ async function docsGen(version: string) {
 
 async function main() {
     if (Deno.args.some((e) => e === 'onlyMaster')) {
+        Deno.remove(`docs/${MASTER}`, { recursive: true });
         await docsGen(MASTER);
         return;
     }
+    Deno.remove(`docs/${MASTER}`, { recursive: true });
+    Deno.remove(`docs/v${VERSION}`, { recursive: true });
     await docsGen(MASTER);
     await docsGen(`v${VERSION}`);
 }
