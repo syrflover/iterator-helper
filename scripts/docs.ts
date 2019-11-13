@@ -17,12 +17,12 @@ async function docsGen(version: string) {
 
 async function main() {
     if (Deno.args.some((e) => e === 'onlyMaster')) {
-        Deno.remove(`docs/${MASTER}`, { recursive: true });
+        await Deno.remove(`docs/${MASTER}`, { recursive: true });
         await docsGen(MASTER);
         return;
     }
-    Deno.remove(`docs/${MASTER}`, { recursive: true });
-    Deno.remove(`docs/v${VERSION}`, { recursive: true });
+    await Deno.remove(`docs/${MASTER}`, { recursive: true });
+    await Deno.remove(`docs/v${VERSION}`, { recursive: true });
     await docsGen(MASTER);
     await docsGen(`v${VERSION}`);
 }
