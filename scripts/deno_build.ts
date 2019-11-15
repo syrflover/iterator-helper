@@ -17,7 +17,7 @@ readDir('src', ['src/playground.ts', 'src/logger.ts']).then(async (entries) => {
         const to = decoder
             .decode(code)
             .replace(/const logger.+;/, '')
-            .replace(/import { getLogger } from '.+logger\.ts';/, '')
+            .replace(/import { getLogger } from \'.+logger\.ts\';/, '')
             .replace(/logger\..+\(.+\);/g, '');
 
         const filepath = entry.replace(/src/, 'deno');
