@@ -10,7 +10,7 @@
     "scripts": {
         "start": "ITER_HELPER_LOG_LEVEL=NOTSET deno run --config tsconfig.json src/playground.ts --ITER_HELPER_LOG",
         "test": "npm run build:deno && deno run --allow-read --allow-run scripts/test.ts",
-        "test:reload": "npm run build:deno && deno run --allow-read --allow-run scripts/test.ts reload",
+        "test:reload": "npm run build:deno && npm run test reload",
         "build:node": "rm -rf ./dist && node scripts/node_build.js",
         "build:deno": "rm -rf ./deno && deno run --allow-read --allow-write scripts/deno_build.ts",
         "lint": "eslint src/**/*.ts",
