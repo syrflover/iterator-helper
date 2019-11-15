@@ -8,16 +8,18 @@ import { fold } from './fold.ts';
 
 const logger = getLogger('methods/unzip');
 
-async function _unzip_impl_fn<T, U>(
-    iter: AsyncIterable<Pair<T, U>>,
-): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
+async function _unzip_impl_fn<T, U>(iter: AsyncIterable<Pair<T, U>>): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
     logger.trace('unzip()');
-    return fold((acc, elem) => {
-        const [left_iter, right_iter] = acc;
-        const [left_value, right_value] = elem;
+    return fold(
+        (acc, elem) => {
+            const [left_iter, right_iter] = acc;
+            const [left_value, right_value] = elem;
 
-        return pair(append(left_value, left_iter), append(right_value, right_iter));
-    }, pair(sequence<T>([]), sequence<U>([])), iter);
+            return pair(append(left_value, left_iter), append(right_value, right_iter));
+        },
+        pair(sequence<T>([]), sequence<U>([])),
+        iter,
+    );
 }
 
 export function unzip<T, U>(iter: AsyncIterable<Pair<T, U>>): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {

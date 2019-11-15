@@ -1,16 +1,10 @@
-
-
 import { ForEachFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
 async function _for_each_impl_fn<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>): Promise<void> {
-    
     for await (const elem of iter) {
         await fn(elem);
-        
     }
 }
 

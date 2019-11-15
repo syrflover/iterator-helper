@@ -1,21 +1,12 @@
-
-
 import { next_async } from '../lib/iterable/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
 async function* _skip_impl_fn<T>(count: number, iter: AsyncIterable<T>): AsyncIterable<T> {
-    
     let current = 1;
 
     while (true) {
         const { done } = await next_async(iter);
-
-        
-        
-        
 
         if (done) {
             return;

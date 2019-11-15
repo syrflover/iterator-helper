@@ -1,25 +1,9 @@
-
-
 import { compare } from './lib/compare/mod.ts';
 import { next_async, sequence } from './lib/iterable/mod.ts';
 
-import {
-    Flatten,
-    Pair,
-    pair,
-    Nullable,
-} from './types/mod.ts';
+import { Flatten, Pair, pair, Nullable } from './types/mod.ts';
 
-import {
-    ForEachFn,
-    FoldFn,
-    MapFn,
-    PredicateFn,
-    CompareFn,
-    KeyFn,
-    ScanFn,
-    EqualFn,
-} from './types/functions/mod.ts';
+import { ForEachFn, FoldFn, MapFn, PredicateFn, CompareFn, KeyFn, ScanFn, EqualFn } from './types/functions/mod.ts';
 
 import {
     all,
@@ -67,8 +51,6 @@ import {
     unzip,
     zip,
 } from './methods/mod.ts';
-
-
 
 // prettier-ignore
 export type ToAsyncIterator<T> =
@@ -386,7 +368,6 @@ export interface IAsyncIterator_zip<T, U> extends IAsyncIterator_<Pair<T, U>> {
 
 export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     constructor(iter: AsyncIterable<T | Promise<T>>) {
-        
         this._iter = {
             async *[Symbol.asyncIterator]() {
                 yield* iter;
@@ -411,12 +392,10 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public readonly [Symbol.toStringTag] = 'Async Iterator' as const;
 
     public [Symbol.asyncIterator]() {
-        
         return this;
     }
 
     public async next() {
-        
         const { done, value } = await next_async(this._iter);
 
         return {
@@ -596,7 +575,10 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public async unzip() {
         const [left, right] = await unzip<any, any>(this as any);
-        return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
+        return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<
+            ToAsyncIterator<any>,
+            ToAsyncIterator<any>
+        >;
     }
 
     public zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>) {
@@ -605,7 +587,6 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 }
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
-    
     const it = sequence(iter);
     return (new AsyncIterator_<T>(it) as unknown) as ToAsyncIterator<T>;
 }

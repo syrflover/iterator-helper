@@ -41,7 +41,12 @@ async function main(dir) {
 
 main('src').then(async () => {
     const a = await rollup(config(entries));
-    await a.write({ dir: 'dist', entryFileNames: '[name].js', format: 'cjs', sourcemap: true });
+    await a.write({
+        dir: 'dist',
+        entryFileNames: '[name].js',
+        format: 'cjs',
+        sourcemap: true,
+    });
     // await a.write({ dir: 'es', entryFileNames: '[name].mjs', format: 'es', sourcemap: true });
 });
 
@@ -74,10 +79,13 @@ const config = (ent) => {
                     {
                         test: /\.ts/g,
                         replace: '',
-                    }
+                    },
                 ],
             }),
-            typescript({ tsconfig: 'tsconfig.build.json', abortOnError: false }), // so Rollup can convert TypeScript to JavaScript
+            typescript({
+                tsconfig: 'tsconfig.build.json',
+                abortOnError: false,
+            }), // so Rollup can convert TypeScript to JavaScript
             // terser(),
         ],
         // output: [{ entryFileNames: '[name].js', format: 'cjs' }],

@@ -1,10 +1,6 @@
-
-
 import { iterator, ToAsyncIterator } from '../mod.ts';
 
 import { EP } from './promise.ts';
-
-
 
 declare global {
     interface String {
@@ -53,56 +49,45 @@ declare global {
 }
 
 String.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Int8Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Int16Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Int32Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Uint8Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Uint8ClampedArray.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Uint16Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Uint32Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Float32Array.prototype.iter = function() {
-    
     return iterator(this);
 };
 
 Float64Array.prototype.iter = function() {
-    
     return iterator(this);
 };

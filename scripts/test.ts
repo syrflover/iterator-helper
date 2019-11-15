@@ -49,16 +49,14 @@ main('src')
             sources.push(e);
         }
 
-
         checkTestFile: for (const source of sources) {
             const withTestExt = source.replace(/\.ts$/, '_test.ts');
 
             for (const test of tests) {
-                if (test.includes((withTestExt))) {
+                if (test.includes(withTestExt)) {
                     continue checkTestFile;
                 }
             }
-
 
             console.error(`Not Found Test of "${source}"`);
             Deno.exit(1);

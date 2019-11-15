@@ -1,19 +1,12 @@
-
-
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
 async function* _take_impl_fn<T>(limit: number, iter: AsyncIterable<T>): AsyncIterable<T> {
-    
     let current = 1;
 
     for await (const elem of iter) {
         if (current > limit) {
             return;
         }
-
-        
 
         yield elem;
 

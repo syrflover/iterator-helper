@@ -5,7 +5,9 @@ const { version: VERSION } = pkg;
 
 async function docsGen(version: string) {
     const task = Deno.run({
-        args: `./node_modules/.bin/typedoc --options typedoc.json --name @syrflover/iterator@${version} --gitRevision ${version} --out docs/${version}`.split(' '),
+        args: `./node_modules/.bin/typedoc --options typedoc.json --name @syrflover/iterator@${version} --gitRevision ${version} --out docs/${version}`.split(
+            ' ',
+        ),
     });
 
     const { code } = await task.status();

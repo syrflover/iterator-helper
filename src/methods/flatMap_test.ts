@@ -1,4 +1,3 @@
-
 import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
@@ -18,7 +17,10 @@ test(`flatMap() [\`it's Sunny in\`, '', 'California'] split(' ')`, async () => {
 });
 
 test('flatMap() [[1,2,3],[4,5,6]] * 2', async () => {
-    const a = iterator([[1, 2, 3], [4, 5, 6]]);
+    const a = iterator([
+        [1, 2, 3],
+        [4, 5, 6],
+    ]);
 
     const actual: (number | number[])[] = [];
     const expected = [2, 4, 6, 8, 10, 12];

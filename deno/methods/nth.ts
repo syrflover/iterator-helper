@@ -1,11 +1,6 @@
-
-
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
 async function _nth_impl_fn<T>(n: number, iter: AsyncIterable<T>): Promise<T | undefined> {
-    
     let current = 0;
 
     for await (const elem of iter) {

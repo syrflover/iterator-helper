@@ -8,15 +8,16 @@
         "dist"
     ],
     "scripts": {
-        "start": "ITER_HELPER_LOG_LEVEL=NOTSET deno run --config tsconfig.json src/playground.ts --ITER_HELPER_LOG",
-        "test": "npm run build:deno && deno run --allow-read --allow-run scripts/test.ts",
+        "start": "deno run --config tsconfig.json src/playground.ts --ITER_HELPER_LOG",
+        "test": "npm run build:deno && deno run --allow-run --allow-read scripts/test.ts",
         "test:reload": "npm run build:deno && npm run test reload",
         "build:node": "rm -rf ./dist && node scripts/node_build.js",
         "build:deno": "rm -rf ./deno && deno run --allow-read --allow-write scripts/deno_build.ts",
         "lint": "eslint src/**/*.ts",
+        "fmt": "deno run --allow-run --allow-read scripts/fmt.ts",
         "doc": "deno --allow-run --allow-write scripts/docs.ts",
         "doc:master": "deno --allow-run scripts/docs.ts onlyMaster",
-        "prepublishOnly": "npm run lint && npm run test:reload && npm run build:node && npm run build:deno",
+        "prepublishOnly": "npm run lint && npm run fmt && npm run test:reload && npm run build:node && npm run build:deno && npm run fmt publish",
         "postpublish": "npm run doc"
     },
     "author": {

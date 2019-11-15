@@ -1,13 +1,8 @@
-
-
 import { PredicateFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
 async function _position_impl_fn<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>): Promise<number | undefined> {
-    
     let pos = 0;
 
     for await (const elem of iter) {

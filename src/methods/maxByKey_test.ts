@@ -26,7 +26,16 @@ test('maxByKey() [1,2,-3,4,5,-10].maxByKey(Math.abs)', async () => {
 });
 
 test('maxByKey() object', async () => {
-    const a = [{ a: 6, b: 11 }, { a: 4, b: 7 }, { a: 1, b: 5 }, { a: 3, b: 2 }, { a: 11, b: 1 }, { a: 5, b: 4 }, { a: 2, b: 3 }, { a: 7, b: 6 }];
+    const a = [
+        { a: 6, b: 11 },
+        { a: 4, b: 7 },
+        { a: 1, b: 5 },
+        { a: 3, b: 2 },
+        { a: 11, b: 1 },
+        { a: 5, b: 4 },
+        { a: 2, b: 3 },
+        { a: 7, b: 6 },
+    ];
 
     const actual_a = await iterator(a).maxByKey((e) => e.a);
     const expected_a = { a: 11, b: 1 };

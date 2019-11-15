@@ -1,11 +1,9 @@
-
-
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
-async function* _chain_impl_fn<T>(other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>, iter: AsyncIterable<T>): AsyncIterable<T> {
-    
+async function* _chain_impl_fn<T>(
+    other: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>,
+    iter: AsyncIterable<T>,
+): AsyncIterable<T> {
     yield* iter;
     yield* other;
 }

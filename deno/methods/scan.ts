@@ -1,13 +1,8 @@
-
-
 import { ScanFn } from '../types/functions/mod.ts';
 
 import { _curry, Curry2 } from '../lib/utils/mod.ts';
 
-
-
 async function* _scan_impl_fn<A, B>(fn: ScanFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>): AsyncIterable<B> {
-    
     let state = await init;
 
     yield state;

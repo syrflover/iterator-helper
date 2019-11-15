@@ -5,7 +5,12 @@ import { Pair } from '../../deno/types/mod.ts';
 import { iterator } from '../../mod.ts';
 
 test('unzip() [[1, 5], [2, 6], [3, 7], [4, 8]]', async () => {
-    const a = iterator<Pair<number, number>>([[1, 5], [2, 6], [3, 7], [4, 8]]);
+    const a = iterator<Pair<number, number>>([
+        [1, 5],
+        [2, 6],
+        [3, 7],
+        [4, 8],
+    ]);
 
     const actual_left: number[] = [];
     const expected_left = [1, 2, 3, 4];
@@ -28,7 +33,12 @@ test('unzip() [[1, 5], [2, 6], [3, 7], [4, 8]]', async () => {
 });
 
 test(`unzip() [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]`, async () => {
-    const a = iterator<Pair<number, string>>([[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]);
+    const a = iterator<Pair<number, string>>([
+        [1, 'a'],
+        [2, 'b'],
+        [3, 'c'],
+        [4, 'd'],
+    ]);
 
     const actual_left: number[] = [];
     const expected_left = [1, 2, 3, 4];

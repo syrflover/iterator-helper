@@ -33,9 +33,7 @@ class LogHandler extends BaseHandler {
     }
 
     public format(logRecord: LogRecord): string {
-        const {
-            datetime, level, msg, args,
-        } = logRecord;
+        const { datetime, level, msg, args } = logRecord;
         const time = datetime.toISOString();
 
         const stringify = (v: any) => {
@@ -47,8 +45,7 @@ class LogHandler extends BaseHandler {
             }
         };
 
-        const to = (t: string, lv: string, m: string, a: unknown[]) =>
-            `${t} ${lv} ${m} ${a.map((e) => stringify(e)).join(' ')}`;
+        const to = (t: string, lv: string, m: string, a: unknown[]) => `${t} ${lv} ${m} ${a.map((e) => stringify(e)).join(' ')}`;
 
         switch (level) {
             case 5: // trace

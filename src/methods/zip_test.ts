@@ -8,7 +8,12 @@ test('zip() [1,2,3,4].zip([5,6,7,8])', async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, number>[] = [];
-    const expected: Pair<number, number>[] = [[1, 5], [2, 6], [3, 7], [4, 8]];
+    const expected: Pair<number, number>[] = [
+        [1, 5],
+        [2, 6],
+        [3, 7],
+        [4, 8],
+    ];
 
     const it = a.zip([5, 6, 7, 8]);
 
@@ -23,7 +28,12 @@ test(`zip() [1,2,3,4].zip(['a','b','c','d','e'])`, async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, string>[] = [];
-    const expected: Pair<number, string>[] = [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']];
+    const expected: Pair<number, string>[] = [
+        [1, 'a'],
+        [2, 'b'],
+        [3, 'c'],
+        [4, 'd'],
+    ];
 
     const it = a.zip(['a', 'b', 'c', 'd', 'e']);
 
@@ -38,7 +48,12 @@ test('zip() string', async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, string>[] = [];
-    const expected: Pair<number, string>[] = [[1, 'h'], [2, 'e'], [3, 'l'], [4, 'l']];
+    const expected: Pair<number, string>[] = [
+        [1, 'h'],
+        [2, 'e'],
+        [3, 'l'],
+        [4, 'l'],
+    ];
 
     const it = a.zip('hello world');
 
@@ -53,7 +68,12 @@ test('zip() [1,2,3,4].zip([5,Promise(6),7,8])', async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, number>[] = [];
-    const expected: Pair<number, number>[] = [[1, 5], [2, 6], [3, 7], [4, 8]];
+    const expected: Pair<number, number>[] = [
+        [1, 5],
+        [2, 6],
+        [3, 7],
+        [4, 8],
+    ];
 
     const it = a.zip([5, Promise.resolve(6), 7, 8]);
 

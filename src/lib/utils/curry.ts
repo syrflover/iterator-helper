@@ -2,11 +2,21 @@ export function curry<P1, P2, R>(f: (p1: P1, p2: P2) => R): Curry2<P1, P2, R>;
 export function curry<P1, P2, P3, R>(f: (p1: P1, p2: P2, p3: P3) => R): Curry3<P1, P2, P3, R>;
 export function curry<P1, P2, P3, P4, R>(f: (p1: P1, p2: P2, p3: P3, p4: P4) => R): Curry4<P1, P2, P3, P4, R>;
 export function curry<P1, P2, P3, P4, P5, R>(f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5) => R): Curry5<P1, P2, P3, P4, P5, R>;
-export function curry<P1, P2, P3, P4, P5, P6, R>(f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6) => R): Curry6<P1, P2, P3, P4, P5, P6, R>;
-export function curry<P1, P2, P3, P4, P5, P6, P7, R>(f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7) => R): Curry7<P1, P2, P3, P4, P5, P6, P7, R>;
-export function curry<P1, P2, P3, P4, P5, P6, P7, P8, R>(f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8) => R): Curry8<P1, P2, P3, P4, P5, P6, P7, P8, R>;
-export function curry<P1, P2, P3, P4, P5, P6, P7, P8, P9, R>(f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8, p9: P9) => R): Curry9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R>;
-export function curry<P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, R>(f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8, p9: P9, p10: P10) => R): Curry10<P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, R>;
+export function curry<P1, P2, P3, P4, P5, P6, R>(
+    f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6) => R,
+): Curry6<P1, P2, P3, P4, P5, P6, R>;
+export function curry<P1, P2, P3, P4, P5, P6, P7, R>(
+    f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7) => R,
+): Curry7<P1, P2, P3, P4, P5, P6, P7, R>;
+export function curry<P1, P2, P3, P4, P5, P6, P7, P8, R>(
+    f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8) => R,
+): Curry8<P1, P2, P3, P4, P5, P6, P7, P8, R>;
+export function curry<P1, P2, P3, P4, P5, P6, P7, P8, P9, R>(
+    f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8, p9: P9) => R,
+): Curry9<P1, P2, P3, P4, P5, P6, P7, P8, P9, R>;
+export function curry<P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, R>(
+    f: (p1: P1, p2: P2, p3: P3, p4: P4, p5: P5, p6: P6, p7: P7, p8: P8, p9: P9, p10: P10) => R,
+): Curry10<P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, R>;
 
 export function curry(fn: (...args: any[]) => any) {
     return (...args: any[]) => {

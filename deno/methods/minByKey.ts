@@ -1,5 +1,3 @@
-
-
 import { CompareFn, KeyFn } from '../types/functions/mod.ts';
 
 import { minBy } from '../lib/compare/mod.ts';
@@ -8,10 +6,7 @@ import { _curry, Curry2 } from '../lib/utils/mod.ts';
 
 import { fold } from './fold.ts';
 
-
-
 async function _min_by_key_impl_fn<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>, iter: AsyncIterable<T>): Promise<T | undefined> {
-    
     const { done, value } = await next_async(iter);
 
     if (done) {

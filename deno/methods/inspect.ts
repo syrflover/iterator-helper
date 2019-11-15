@@ -1,17 +1,10 @@
-
-
 import { ForEachFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
 async function* _inspect_impl_fn<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>): AsyncIterable<T> {
-    
     for await (const elem of iter) {
         await fn(elem);
-
-        
 
         yield elem;
     }

@@ -1,5 +1,3 @@
-
-
 import { ScanFn } from '../types/functions/mod.ts';
 
 import { next_async } from '../lib/iterable/mod.ts';
@@ -7,10 +5,7 @@ import { _curry } from '../lib/utils/mod.ts';
 
 import { scan } from './scan.ts';
 
-
-
 async function* _scan1_impl_fn<T>(fn: ScanFn<T, T>, iter: AsyncIterable<T>): AsyncIterable<T> {
-    
     const { done, value: head } = await next_async(iter);
 
     if (done) {

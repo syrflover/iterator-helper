@@ -1,11 +1,6 @@
-
-
 import { _curry } from '../lib/utils/mod.ts';
 
-
-
 async function* _step_by_impl_fn<T>(step: number, iter: AsyncIterable<T>): AsyncIterable<T> {
-    
     let current_step = 0;
 
     for await (const elem of iter) {

@@ -1,3 +1,5 @@
-pipe.ts
-curry.ts
-$.ts
+node_modules/
+
+dist/
+
+docs/
