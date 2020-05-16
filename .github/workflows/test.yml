@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [13.x]
-        deno: [v0.24.0]
+        deno: [v1.0.0]
 
     steps:
       - uses: actions/checkout@master
