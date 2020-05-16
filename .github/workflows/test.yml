@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [13.x]
+        node-version: [14.x]
         deno: [v1.0.0]
 
     steps:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Setup Deno ${{ matrix.deno }}
-        uses: denolib/setup-deno@v1
+        uses: denolib/setup-deno@master
         with:
           deno-version: ${{ matrix.deno }}
       - name: npm install, test
