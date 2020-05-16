@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Ord } from '../../deno/types/mod.ts';
-import { compare } from '../../deno/lib/compare/mod.ts';
-import { iterator } from '../../mod.ts';
+import { Ord } from '../types/mod.ts';
+import { compare } from '../lib/compare/mod.ts';
+import { iterator } from '../mod.ts';
 
 function _compare<T>(a: T, b: T): Ord {
     if (a > b) {
@@ -17,7 +16,7 @@ function _compare<T>(a: T, b: T): Ord {
     return Ord.Equal;
 }
 
-test('maxBy() [1,2,3,4,5]', async () => {
+Deno.test('maxBy() [1,2,3,4,5]', async () => {
     const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
     const actual = await a.maxBy(compare);
@@ -26,7 +25,7 @@ test('maxBy() [1,2,3,4,5]', async () => {
     assertEquals(actual, expected);
 });
 
-test('maxBy() custom compare', async () => {
+Deno.test('maxBy() custom compare', async () => {
     const i = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
     const actual = await i.maxBy(_compare);
@@ -35,7 +34,7 @@ test('maxBy() custom compare', async () => {
     assertEquals(actual, expected);
 });
 
-test('maxBy() empty iter', async () => {
+Deno.test('maxBy() empty iter', async () => {
     const a = iterator<number>([]);
 
     const actual = await a.maxBy(compare);

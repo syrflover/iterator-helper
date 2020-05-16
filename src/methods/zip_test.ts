@@ -1,10 +1,9 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Pair } from '../../deno/types/mod.ts';
-import { iterator } from '../../mod.ts';
+import { Pair } from '../types/mod.ts';
+import { iterator } from '../mod.ts';
 
-test('zip() [1,2,3,4].zip([5,6,7,8])', async () => {
+Deno.test('zip() [1,2,3,4].zip([5,6,7,8])', async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, number>[] = [];
@@ -24,7 +23,7 @@ test('zip() [1,2,3,4].zip([5,6,7,8])', async () => {
     assertEquals(actual, expected);
 });
 
-test(`zip() [1,2,3,4].zip(['a','b','c','d','e'])`, async () => {
+Deno.test(`zip() [1,2,3,4].zip(['a','b','c','d','e'])`, async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, string>[] = [];
@@ -44,7 +43,7 @@ test(`zip() [1,2,3,4].zip(['a','b','c','d','e'])`, async () => {
     assertEquals(actual, expected);
 });
 
-test('zip() string', async () => {
+Deno.test('zip() string', async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, string>[] = [];
@@ -64,7 +63,7 @@ test('zip() string', async () => {
     assertEquals(actual, expected);
 });
 
-test('zip() [1,2,3,4].zip([5,Promise(6),7,8])', async () => {
+Deno.test('zip() [1,2,3,4].zip([5,Promise(6),7,8])', async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual: Pair<number, number>[] = [];
@@ -84,7 +83,7 @@ test('zip() [1,2,3,4].zip([5,Promise(6),7,8])', async () => {
     assertEquals(actual, expected);
 });
 
-test('zip() empty iter', async () => {
+Deno.test('zip() empty iter', async () => {
     const a = iterator<number>([]);
 
     const actual: Pair<number, number>[] = [];

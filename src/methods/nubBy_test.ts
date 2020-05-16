@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test(`nubBy() ['a', 'bb', 'ccc']`, async () => {
+Deno.test(`nubBy() ['a', 'bb', 'ccc']`, async () => {
     const a = iterator(['a', 'bb', 'b', 'ccc', 'aa', 'cc', 'aaa']);
 
     const actual: string[] = [];

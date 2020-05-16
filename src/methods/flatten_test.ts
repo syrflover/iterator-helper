@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test('flatten() [1,2,3,Promise<4>,5,[Promise<6>,7],AsyncIterator_<8,9>,10]', async () => {
+Deno.test('flatten() [1,2,3,Promise<4>,5,[Promise<6>,7],AsyncIterator_<8,9>,10]', async () => {
     const a = iterator([1, 2, 3, Promise.resolve(4), 5, [Promise.resolve(6), 7], iterator([8, 9]), 10]);
 
     const actual: number[] = [];
@@ -16,7 +15,7 @@ test('flatten() [1,2,3,Promise<4>,5,[Promise<6>,7],AsyncIterator_<8,9>,10]', asy
     assertEquals(actual, expected);
 });
 
-test('flatten() [1,[2, [3]]] == [1, 2, [3]]', async () => {
+Deno.test('flatten() [1,[2, [3]]] == [1, 2, [3]]', async () => {
     const a = iterator([1, [2, [3]]]);
 
     const actual: (number | number[])[] = [];
@@ -29,7 +28,7 @@ test('flatten() [1,[2, [3]]] == [1, 2, [3]]', async () => {
     assertEquals(actual, expected);
 });
 
-test('flatten() [1,2,3] == [1,2,3]', async () => {
+Deno.test('flatten() [1,2,3] == [1,2,3]', async () => {
     const a = iterator([1, 2, 3]);
 
     const actual: number[] = [];

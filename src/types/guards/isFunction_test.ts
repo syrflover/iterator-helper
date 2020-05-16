@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isFunction } from '../../../deno/types/guards/mod.ts';
+import { isFunction } from './mod.ts';
 
-test('isFunction() function', () => {
+Deno.test('isFunction() function', () => {
     function a() {}
 
     const actual = isFunction(a);
@@ -12,14 +11,14 @@ test('isFunction() function', () => {
     assertEquals(actual, expected);
 });
 
-test('isFunction() arrow function', () => {
+Deno.test('isFunction() arrow function', () => {
     const actual = isFunction(() => {});
     const expected = true;
 
     assertEquals(actual, expected);
 });
 
-test('isFunction() generator function', () => {
+Deno.test('isFunction() generator function', () => {
     function* a() {
         yield 1;
     }
@@ -32,7 +31,7 @@ test('isFunction() generator function', () => {
     assertEquals(actual, expected);
 });
 
-test('isFunction() async generator function', () => {
+Deno.test('isFunction() async generator function', () => {
     async function* a() {
         yield 1;
     }
@@ -45,7 +44,7 @@ test('isFunction() async generator function', () => {
     assertEquals(actual, expected);
 });
 
-test('isFunction() undefined', () => {
+Deno.test('isFunction() undefined', () => {
     const actual = isFunction(undefined);
     const expected = false;
 

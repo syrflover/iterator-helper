@@ -4,7 +4,7 @@ const entries: string[] = [];
 async function main(dir: string) {
     const ex = ['src/playground.ts', 'src/logger.ts', 'src/iterator.ts'];
 
-    const files = await Deno.readDir(dir);
+    const files = Deno.readDir(dir);
 
     for await (const file of files) {
         try {
@@ -13,9 +13,9 @@ async function main(dir: string) {
             }
 
             const stat = await Deno.stat(`${dir}/${file.name}`);
-            if (stat.isFile()) {
+            if (stat.isFile) {
                 entries.push(`${dir}/${file.name}`);
-            } else if (stat.isDirectory()) {
+            } else if (stat.isDirectory) {
                 await main(`${dir}/${file.name}`);
             }
         } catch (error) {
@@ -69,7 +69,7 @@ main('src')
         const testOpts = `--allow-net${reload} --config tsconfig.test.json ${tests.join(' ')}`;
 
         const test = Deno.run({
-            args: `deno test ${testOpts}`.split(' '),
+            cmd: `deno test ${testOpts}`.split(' '),
         });
 
         const { code } = await test.status();

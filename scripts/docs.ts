@@ -1,11 +1,10 @@
-import pkg from '../package.json';
+import { readFileStr, readJson, exists } from 'https://deno.land/std/fs/mod.ts';
 
-const MASTER = 'master';
-const { version: VERSION } = pkg;
+const decoder = new TextDecoder('utf-8');
 
 async function docsGen(version: string) {
     const task = Deno.run({
-        args: `./node_modules/.bin/typedoc --options typedoc.json --name @syrflover/iterator@${version} --gitRevision ${version} --out docs/${version}`.split(
+        cmd: `./node_modules/.bin/typedoc --options typedoc.json --name @syrflover/iterator@${version} --gitRevision ${version} --out docs/${version}`.split(
             ' ',
         ),
     });
@@ -18,13 +17,25 @@ async function docsGen(version: string) {
 }
 
 async function main() {
+    const MASTER = 'master';
+    const { version: VERSION } = await Deno.realPath('./package.json')
+        .then((r) => Deno.readFile(r))
+        .then((r) => decoder.decode(r))
+        .then((r) => JSON.parse(r)); // decoder.decode(await Deno.readFile(await Deno.realPath('./package.json')));
+
     if (Deno.args.some((e) => e === 'onlyMaster')) {
-        await Deno.remove(`docs/${MASTER}`, { recursive: true });
+        if (await exists(`docs/${MASTER}`)) {
+            await Deno.remove(`docs/${MASTER}`, { recursive: true });
+        }
         await docsGen(MASTER);
         return;
     }
-    await Deno.remove(`docs/${MASTER}`, { recursive: true });
-    await Deno.remove(`docs/v${VERSION}`, { recursive: true });
+    if (await exists(`docs/${MASTER}`)) {
+        await Deno.remove(`docs/${MASTER}`, { recursive: true });
+    }
+    if (await exists(`docs/v${VERSION}`)) {
+        await Deno.remove(`docs/v${VERSION}`, { recursive: true });
+    }
     await docsGen(MASTER);
     await docsGen(`v${VERSION}`);
 }

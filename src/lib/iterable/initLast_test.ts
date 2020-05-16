@@ -1,10 +1,9 @@
 /* eslint
 no-empty-function: "off"
 */
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { initLast } from '../../../deno/lib/iterable/mod.ts';
+import { initLast } from './mod.ts';
 
 async function* asyncIterable(): AsyncIterable<number> {
     yield 1;
@@ -15,7 +14,7 @@ async function* asyncIterable(): AsyncIterable<number> {
 
 async function* emptyAsyncIterable() {}
 
-test('initLast() [1, 2, 3, 4]', async () => {
+Deno.test('initLast() [1, 2, 3, 4]', async () => {
     const [init, last] = await initLast(asyncIterable());
 
     const actual_init: number[] = [];
@@ -32,7 +31,7 @@ test('initLast() [1, 2, 3, 4]', async () => {
     assertEquals(actual_last, expected_last);
 });
 
-test('initLast() empty', async () => {
+Deno.test('initLast() empty', async () => {
     const [init, last] = await initLast(emptyAsyncIterable());
 
     const actual_init: number[] = [];

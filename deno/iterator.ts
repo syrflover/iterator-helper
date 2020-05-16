@@ -1,3 +1,5 @@
+
+
 import { compare } from './lib/compare/mod.ts';
 import { next_async, sequence } from './lib/iterable/mod.ts';
 
@@ -51,6 +53,8 @@ import {
     unzip,
     zip,
 } from './methods/mod.ts';
+
+
 
 // prettier-ignore
 export type ToAsyncIterator<T> =
@@ -368,6 +372,7 @@ export interface IAsyncIterator_zip<T, U> extends IAsyncIterator_<Pair<T, U>> {
 
 export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     constructor(iter: AsyncIterable<T | Promise<T>>) {
+        
         this._iter = {
             async *[Symbol.asyncIterator]() {
                 yield* iter;
@@ -392,10 +397,12 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
     public readonly [Symbol.toStringTag] = 'Async Iterator' as const;
 
     public [Symbol.asyncIterator]() {
+        
         return this;
     }
 
     public async next() {
+        
         const { done, value } = await next_async(this._iter);
 
         return {
@@ -587,6 +594,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 }
 
 export function iterator<T>(iter: Iterable<T | Promise<T>> | AsyncIterable<T | Promise<T>>) {
+    
     const it = sequence(iter);
     return (new AsyncIterator_<T>(it) as unknown) as ToAsyncIterator<T>;
 }

@@ -1,10 +1,9 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Pair } from '../../deno/types/mod.ts';
-import { iterator } from '../../mod.ts';
+import { Pair } from '../types/mod.ts';
+import { iterator } from '../mod.ts';
 
-test('unzip() [[1, 5], [2, 6], [3, 7], [4, 8]]', async () => {
+Deno.test('unzip() [[1, 5], [2, 6], [3, 7], [4, 8]]', async () => {
     const a = iterator<Pair<number, number>>([
         [1, 5],
         [2, 6],
@@ -32,7 +31,7 @@ test('unzip() [[1, 5], [2, 6], [3, 7], [4, 8]]', async () => {
     assertEquals(actual_right, expected_right);
 });
 
-test(`unzip() [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]`, async () => {
+Deno.test(`unzip() [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]`, async () => {
     const a = iterator<Pair<number, string>>([
         [1, 'a'],
         [2, 'b'],
@@ -60,7 +59,7 @@ test(`unzip() [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]`, async () => {
     assertEquals(actual_right, expected_right);
 });
 
-test(`unzip() [1,2,3,4].zip(['a','b','c','d'])`, async () => {
+Deno.test(`unzip() [1,2,3,4].zip(['a','b','c','d'])`, async () => {
     const a = iterator([1, 2, 3, 4]);
 
     const actual_left: number[] = [];

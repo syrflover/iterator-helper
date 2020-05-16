@@ -1,29 +1,32 @@
-import { next_async } from '../lib/iterable/mod.ts';
+import { next_async } from "../lib/iterable/mod.ts";
 
-import { _curry } from '../lib/utils/mod.ts';
+import { _curry } from "../lib/utils/mod.ts";
 
-async function* _skip_impl_fn<T>(count: number, iter: AsyncIterable<T>): AsyncIterable<T> {
-    let current = 1;
+async function* _skip_impl_fn<T>(
+  count: number,
+  iter: AsyncIterable<T>,
+): AsyncIterable<T> {
+  let current = 1;
 
-    while (true) {
-        const { done } = await next_async(iter);
+  while (true) {
+    const { done } = await next_async(iter);
 
-        if (done) {
-            return;
-        }
-
-        if (current >= count) {
-            yield* iter;
-            return;
-        }
-
-        current += 1;
+    if (done) {
+      return;
     }
+
+    if (current >= count) {
+      yield* iter;
+      return;
+    }
+
+    current += 1;
+  }
 }
 
 export interface Skip {
-    <T>(count: number, iter: AsyncIterable<T>): AsyncIterable<T>;
-    <T>(count: number): (iter: AsyncIterable<T>) => AsyncIterable<T>;
+  <T>(count: number, iter: AsyncIterable<T>): AsyncIterable<T>;
+  <T>(count: number): (iter: AsyncIterable<T>) => AsyncIterable<T>;
 }
 
 export const skip: Skip = _curry(_skip_impl_fn);

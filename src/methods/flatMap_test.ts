@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test(`flatMap() [\`it's Sunny in\`, '', 'California'] split(' ')`, async () => {
+Deno.test(`flatMap() [\`it's Sunny in\`, '', 'California'] split(' ')`, async () => {
     const a = iterator([`it's Sunny in`, '', 'California']);
 
     const actual: string[] = [];
@@ -16,7 +15,7 @@ test(`flatMap() [\`it's Sunny in\`, '', 'California'] split(' ')`, async () => {
     assertEquals(actual, expected);
 });
 
-test('flatMap() [[1,2,3],[4,5,6]] * 2', async () => {
+Deno.test('flatMap() [[1,2,3],[4,5,6]] * 2', async () => {
     const a = iterator([
         [1, 2, 3],
         [4, 5, 6],

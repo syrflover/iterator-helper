@@ -1,24 +1,23 @@
 // import * as log from 'https://deno.land/std/log/mod.ts';
 import { Logger, LogRecord } from 'https://deno.land/std/log/logger.ts';
-import { LogLevel, getLevelByName as getLevelByName_ } from 'https://deno.land/std/log/levels.ts';
+import { LogLevels, getLevelByName as getLevelByName_ } from 'https://deno.land/std/log/levels.ts';
 import { BaseHandler } from 'https://deno.land/std/log/handlers.ts';
 import { blue, cyan, green, yellow, red, bold } from 'https://deno.land/std/fmt/colors.ts';
 
-const getLevelByName = (levelName: string) => {
-    switch (levelName) {
-        case '':
-        case 'NONE':
+const getLevelByName = (levelName: 'NOTSET' | 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR' | 'CRITICAL' = 'NOTSET') => {
+    switch (levelName || 'NOTSET') {
+        /* case 'NONE':
             return -1;
         case 'TRACE':
-            return 5;
+            return 5; */
         default:
-            return getLevelByName_(levelName);
+            return getLevelByName_(levelName as any);
     }
 };
 
 class LogHandler extends BaseHandler {
-    constructor(levelName: string) {
-        super(levelName);
+    constructor(levelName: 'NOTSET' | 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR' | 'CRITICAL') {
+        super(levelName as any);
         this.level = getLevelByName(levelName);
         this.levelName = levelName;
     }
@@ -50,15 +49,15 @@ class LogHandler extends BaseHandler {
         switch (level) {
             case 5: // trace
                 return to(`[${time}]`, blue('[TRACE]'), msg, args);
-            case LogLevel.DEBUG:
+            case LogLevels.DEBUG:
                 return to(`[${time}]`, cyan('[DEBUG]'), msg, args);
-            case LogLevel.INFO:
+            case LogLevels.INFO:
                 return to(`[${time}]`, green('[INFO]'), msg, args);
-            case LogLevel.WARNING:
+            case LogLevels.WARNING:
                 return to(`[${time}]`, yellow('[WARNING]'), msg, args);
-            case LogLevel.ERROR:
+            case LogLevels.ERROR:
                 return to(`[${time}]`, red('[ERROR]'), msg, args);
-            case LogLevel.CRITICAL:
+            case LogLevels.CRITICAL:
                 return to(`[${time}]`, bold(red('[CRITICAL]')), msg, args);
             default:
                 return '';
@@ -72,16 +71,16 @@ class LogHandler extends BaseHandler {
 }
 
 const logEnable = Deno.args.some((e) => e.includes('ITER_HELPER_LOG'));
-const LOG_LEVEL = logEnable ? 'NOTSET' : 'NONE';
+const LOG_LEVEL = logEnable ? 'NOTSET' : 'ERROR';
 
 export const getLogger = (label: string) => {
     const logger = new Logger(LOG_LEVEL, [new LogHandler(LOG_LEVEL)]);
     return {
-        trace: (msg: string, ...args: unknown[]) => logger._log(5, label, msg, ...args),
-        debug: (msg: string, ...args: unknown[]) => logger._log(LogLevel.DEBUG, label, msg, ...args),
-        info: (msg: string, ...args: unknown[]) => logger._log(LogLevel.INFO, label, msg, ...args),
-        warning: (msg: string, ...args: unknown[]) => logger._log(LogLevel.WARNING, label, msg, ...args),
-        error: (msg: string, ...args: unknown[]) => logger._log(LogLevel.ERROR, label, msg, ...args),
-        critical: (msg: string, ...args: unknown[]) => logger._log(LogLevel.CRITICAL, label, msg, ...args),
+        trace: (msg: string, ...args: unknown[]) => logger._log(LogLevels.NOTSET, label, msg, ...args),
+        debug: (msg: string, ...args: unknown[]) => logger._log(LogLevels.DEBUG, label, msg, ...args),
+        info: (msg: string, ...args: unknown[]) => logger._log(LogLevels.INFO, label, msg, ...args),
+        warning: (msg: string, ...args: unknown[]) => logger._log(LogLevels.WARNING, label, msg, ...args),
+        error: (msg: string, ...args: unknown[]) => logger._log(LogLevels.ERROR, label, msg, ...args),
+        critical: (msg: string, ...args: unknown[]) => logger._log(LogLevels.CRITICAL, label, msg, ...args),
     };
 };

@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test('filter() is even', async () => {
+Deno.test('filter() is even', async () => {
     const a = iterator([1, 2, 3, 4, 5, 6]);
 
     const actual: number[] = [];

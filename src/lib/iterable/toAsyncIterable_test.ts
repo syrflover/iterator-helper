@@ -1,7 +1,6 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals, assert } from 'https://deno.land/std/testing/asserts.ts';
 
-import { toAsyncIterable } from '../../../deno/lib/iterable/mod.ts';
+import { toAsyncIterable } from './mod.ts';
 
 function* iterable(): Iterable<number> {
     yield 1;
@@ -17,7 +16,7 @@ async function* asyncIterable(): AsyncIterable<number> {
     yield 4;
 }
 
-test('toAsyncIterable() from Array', async () => {
+Deno.test('toAsyncIterable() from Array', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -31,7 +30,7 @@ test('toAsyncIterable() from Array', async () => {
     assert(Symbol.asyncIterator in iter);
 });
 
-test('toAsyncIterable() from Iterable', async () => {
+Deno.test('toAsyncIterable() from Iterable', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -45,7 +44,7 @@ test('toAsyncIterable() from Iterable', async () => {
     assert(Symbol.asyncIterator in iter);
 });
 
-test('toAsyncIterable() from AsyncIterable', async () => {
+Deno.test('toAsyncIterable() from AsyncIterable', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -59,7 +58,7 @@ test('toAsyncIterable() from AsyncIterable', async () => {
     assert(Symbol.asyncIterator in iter);
 });
 
-test('toAsyncIterable() from Promise Array', async () => {
+Deno.test('toAsyncIterable() from Promise Array', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -73,7 +72,7 @@ test('toAsyncIterable() from Promise Array', async () => {
     assert(Symbol.asyncIterator in iter);
 });
 
-test('toAsyncIterable() from Promise Iterable', async () => {
+Deno.test('toAsyncIterable() from Promise Iterable', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -87,7 +86,7 @@ test('toAsyncIterable() from Promise Iterable', async () => {
     assert(Symbol.asyncIterator in iter);
 });
 
-test('toAsyncIterable() from Promise AsyncIterable', async () => {
+Deno.test('toAsyncIterable() from Promise AsyncIterable', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -101,7 +100,7 @@ test('toAsyncIterable() from Promise AsyncIterable', async () => {
     assert(Symbol.asyncIterator in iter);
 });
 
-test('toAsyncIterable() from String', async () => {
+Deno.test('toAsyncIterable() from String', async () => {
     const actual: string[] = [];
     const expected = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'];
 

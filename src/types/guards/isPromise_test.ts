@@ -1,16 +1,15 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isPromise } from '../../../deno/types/guards/mod.ts';
+import { isPromise } from './mod.ts';
 
-test('isPromise() true', () => {
+Deno.test('isPromise() true', () => {
     const actual = isPromise(Promise.resolve());
     const expected = true;
 
     assertEquals(actual, expected);
 });
 
-test('isPromise() undefined', () => {
+Deno.test('isPromise() undefined', () => {
     const actual = isPromise(undefined);
     const expected = false;
 

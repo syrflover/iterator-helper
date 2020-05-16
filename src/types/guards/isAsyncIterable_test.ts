@@ -1,7 +1,6 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isAsyncIterable } from '../../../deno/types/guards/mod.ts';
+import { isAsyncIterable } from './mod.ts';
 
 function* iterable() {
     yield 1;
@@ -17,28 +16,28 @@ async function* asyncIterable() {
     yield 4;
 }
 
-test('isAsyncIterable() Array == false', () => {
+Deno.test('isAsyncIterable() Array == false', () => {
     const actual = isAsyncIterable([1, 2, 3, 4]);
     const expected = false;
 
     assertEquals(actual, expected);
 });
 
-test('isAsyncIterable() Iterable == false', () => {
+Deno.test('isAsyncIterable() Iterable == false', () => {
     const actual = isAsyncIterable(iterable());
     const expected = false;
 
     assertEquals(actual, expected);
 });
 
-test('isAsyncIterable() AsyncIterable == true', () => {
+Deno.test('isAsyncIterable() AsyncIterable == true', () => {
     const actual = isAsyncIterable(asyncIterable());
     const expected = true;
 
     assertEquals(actual, expected);
 });
 
-test('isAsyncIterable() undefined == false', () => {
+Deno.test('isAsyncIterable() undefined == false', () => {
     const actual = isAsyncIterable(undefined);
     const expected = false;
 

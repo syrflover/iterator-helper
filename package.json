@@ -1,6 +1,6 @@
 {
     "name": "@syrflover/iterator",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "description": "Iterator Helper for TypeScript",
     "main": "dist/mod.js",
     "types": "dist/mod.d.ts",
@@ -9,13 +9,13 @@
     ],
     "scripts": {
         "start": "deno run --config tsconfig.json src/playground.ts --ITER_HELPER_LOG",
-        "test": "npm run build:deno && deno run --allow-run --allow-read scripts/test.ts",
-        "test:reload": "npm run build:deno && npm run test reload",
+        "test": "npm run build:deno && deno run --allow-run --allow-write --allow-read ./scripts/test.ts",
+        "test:reload": "npm run build:deno && deno run --allow-run --allow-write --allow-read --reload ./scripts/test.ts",
         "build:node": "rm -rf ./dist && node scripts/node_build.js",
-        "build:deno": "rm -rf ./deno && deno run --allow-read --allow-write scripts/deno_build.ts && npm run fmt publish",
+        "build:deno": "rm -rf ./deno && deno run --reload --allow-read --allow-write scripts/deno_build.ts && npm run fmt",
         "lint": "eslint src/**/*.ts",
-        "fmt": "deno run --allow-run --allow-read scripts/fmt.ts",
-        "doc": "deno --allow-run --allow-write scripts/docs.ts",
+        "fmt": "deno fmt ./deno/**/*.ts",
+        "doc": "deno run --allow-run --allow-write --allow-read --reload --unstable ./scripts/docs.ts",
         "doc:master": "deno --allow-run scripts/docs.ts onlyMaster",
         "prepublishOnly": "npm run lint && npm run fmt && npm run test:reload && npm run build:node && npm run build:deno",
         "postpublish": "npm run doc"
@@ -38,18 +38,18 @@
         "async"
     ],
     "devDependencies": {
-        "@types/node": "^12.12.7",
-        "@typescript-eslint/eslint-plugin": "^2.7.0",
-        "@typescript-eslint/parser": "^2.7.0",
-        "eslint": "^6.6.0",
-        "eslint-config-airbnb": "^18.0.1",
-        "eslint-plugin-import": "^2.18.2",
-        "rollup": "^1.26.5",
+        "@types/node": "^12.12.39",
+        "@typescript-eslint/eslint-plugin": "^2.33.0",
+        "@typescript-eslint/parser": "^2.33.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-plugin-import": "^2.20.2",
+        "rollup": "^1.32.1",
         "rollup-plugin-ignore": "^1.0.5",
         "rollup-plugin-re": "^1.0.7",
-        "rollup-plugin-typescript2": "^0.25.2",
-        "typedoc": "^0.15.0",
-        "typescript": "^3.7.2",
-        "typescript-deno-plugin": "^1.2.7"
+        "rollup-plugin-typescript2": "^0.25.3",
+        "typedoc": "^0.15.8",
+        "typescript": "^3.9.2",
+        "typescript-deno-plugin": "^1.27.0"
     }
 }

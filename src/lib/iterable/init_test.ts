@@ -1,7 +1,6 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { init } from '../../../deno/lib/iterable/mod.ts';
+import { init } from './mod.ts';
 
 async function* asyncIterable() {
     yield 1;
@@ -10,7 +9,7 @@ async function* asyncIterable() {
     yield 4;
 }
 
-test('init() [1, 2, 3, 4]', async () => {
+Deno.test('init() [1, 2, 3, 4]', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3];
 

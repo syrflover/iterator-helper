@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { append } from '../../../deno/lib/iterable/mod.ts';
+import { append } from './mod.ts';
 
-test('append(1, [0])', async () => {
+Deno.test('append(1, [0])', async () => {
     const actual: number[] = [];
     const expected = [0, 1];
 

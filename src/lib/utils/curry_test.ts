@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { curry } from '../../../deno/lib/utils/mod.ts';
+import { curry } from './mod.ts';
 
-test('curry() add a b', () => {
+Deno.test('curry() add a b', () => {
     const add = (a: number, b: number) => a + b;
 
     const curried = curry(add);
@@ -13,7 +12,7 @@ test('curry() add a b', () => {
     assertEquals(add_2(5), 7);
 });
 
-test('curry() add a b c d', () => {
+Deno.test('curry() add a b c d', () => {
     const add = (a: number, b: number, c: number, d: number) => a + b + c + d;
 
     const curried = curry(add);

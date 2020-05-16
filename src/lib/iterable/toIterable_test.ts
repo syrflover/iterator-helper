@@ -1,7 +1,6 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals, assert } from 'https://deno.land/std/testing/asserts.ts';
 
-import { toIterable } from '../../../deno/lib/iterable/mod.ts';
+import { toIterable } from './mod.ts';
 
 function* iterable(): Iterable<number> {
     yield 1;
@@ -10,7 +9,7 @@ function* iterable(): Iterable<number> {
     yield 4;
 }
 
-test('toIterable() from Array', async () => {
+Deno.test('toIterable() from Array', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -24,7 +23,7 @@ test('toIterable() from Array', async () => {
     assert(Symbol.iterator in iter);
 });
 
-test('toIterable() from Iterable', async () => {
+Deno.test('toIterable() from Iterable', async () => {
     const actual: number[] = [];
     const expected = [1, 2, 3, 4];
 
@@ -38,7 +37,7 @@ test('toIterable() from Iterable', async () => {
     assert(Symbol.iterator in iter);
 });
 
-test('toIterable() from String', async () => {
+Deno.test('toIterable() from String', async () => {
     const actual: string[] = [];
     const expected = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'];
 

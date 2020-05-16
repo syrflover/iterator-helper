@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test('fold() sum', async () => {
+Deno.test('fold() sum', async () => {
     const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
     const actual_elements: number[] = [];
@@ -24,7 +23,7 @@ test('fold() sum', async () => {
     assertEquals(actual_result, expected_result);
 });
 
-test('fold() `${acc}${e}`', async () => {
+Deno.test('fold() `${acc}${e}`', async () => {
     const a = iterator([1, 2, 3, Promise.resolve(4), 5]);
 
     const actual_elements: number[] = [];

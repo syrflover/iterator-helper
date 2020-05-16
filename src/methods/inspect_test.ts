@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test('inspect() [1, 2, 3, 4]', async () => {
+Deno.test('inspect() [1, 2, 3, 4]', async () => {
     const a = iterator([1, 4, 2, 3]);
 
     const actual: number[] = [];
@@ -20,7 +19,7 @@ test('inspect() [1, 2, 3, 4]', async () => {
     assertEquals(actual, expected);
 });
 
-test('inspect() [1,4,2,3].filter(isEven)', async () => {
+Deno.test('inspect() [1,4,2,3].filter(isEven)', async () => {
     const a = iterator([1, 4, 2, 3]);
 
     const actual: number[] = [];

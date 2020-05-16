@@ -1,8 +1,7 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Ord } from '../../deno/types/mod.ts';
-import { iterator } from '../../mod.ts';
+import { Ord } from '../types/mod.ts';
+import { iterator } from '../mod.ts';
 
 function _cmp<T>(a: T, b: T): Ord {
     if (a > b) {
@@ -16,7 +15,7 @@ function _cmp<T>(a: T, b: T): Ord {
     return Ord.Equal;
 }
 
-test('minByKey() [1,2,-3,4,5,-10].minByKey(Math.abs)', async () => {
+Deno.test('minByKey() [1,2,-3,4,5,-10].minByKey(Math.abs)', async () => {
     const a = iterator([1, 2, -3, Promise.resolve(4), 5, -10]);
 
     const actual = await a.minByKey(Math.abs);
@@ -25,7 +24,7 @@ test('minByKey() [1,2,-3,4,5,-10].minByKey(Math.abs)', async () => {
     assertEquals(actual, expected);
 });
 
-test('minByKey() object', async () => {
+Deno.test('minByKey() object', async () => {
     const a = [
         { a: 6, b: 11 },
         { a: 4, b: 7 },
@@ -47,7 +46,7 @@ test('minByKey() object', async () => {
     assertEquals(actual_b, expected_b);
 });
 
-test('minByKey() custom cmp', async () => {
+Deno.test('minByKey() custom cmp', async () => {
     const a = iterator([1, 2, -3, Promise.resolve(4), 5, -10]);
 
     const actual = await a.minByKey(Math.abs, _cmp);
@@ -56,7 +55,7 @@ test('minByKey() custom cmp', async () => {
     assertEquals(actual, expected);
 });
 
-test('minByKey() empty iter', async () => {
+Deno.test('minByKey() empty iter', async () => {
     const a = iterator<number>([]);
 
     const actual = await a.minByKey((e) => e);

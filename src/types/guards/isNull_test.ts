@@ -1,51 +1,50 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { isNull } from '../../../deno/types/guards/mod.ts';
+import { isNull } from './mod.ts';
 
-test('isNull() null', () => {
+Deno.test('isNull() null', () => {
     const actual = isNull(null);
     const expected = true;
 
     assertEquals(actual, expected);
 });
 
-test('isNull() undefined', () => {
+Deno.test('isNull() undefined', () => {
     const actual = isNull(undefined);
     const expected = true;
 
     assertEquals(actual, expected);
 });
 
-test('isNull() NaN', () => {
+Deno.test('isNull() NaN', () => {
     const actual = isNull(NaN);
     const expected = true;
 
     assertEquals(actual, expected);
 });
 
-test('isNull() string', () => {
+Deno.test('isNull() string', () => {
     const actual = isNull('');
     const expected = false;
 
     assertEquals(actual, expected);
 });
 
-test('isNull() number', () => {
+Deno.test('isNull() number', () => {
     const actual = isNull(0);
     const expected = false;
 
     assertEquals(actual, expected);
 });
 
-test('isNull() array', () => {
+Deno.test('isNull() array', () => {
     const actual = isNull(['hello', 'world']);
     const expected = false;
 
     assertEquals(actual, expected);
 });
 
-test('isNull() object', () => {
+Deno.test('isNull() object', () => {
     const actual = isNull({ a: 1 });
     const expected = false;
 

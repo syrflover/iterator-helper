@@ -1,10 +1,9 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Pair } from '../../deno/types/mod.ts';
-import { iterator } from '../../mod.ts';
+import { Pair } from '../types/mod.ts';
+import { iterator } from '../mod.ts';
 
-test('any() x > 0', async () => {
+Deno.test('any() x > 0', async () => {
     const a = iterator([1, 2, 3]);
 
     const actual: Pair<boolean, number[]> = [await a.any((e) => e > 0), []];
@@ -17,7 +16,7 @@ test('any() x > 0', async () => {
     assertEquals(actual, expected);
 });
 
-test('any() x > 1', async () => {
+Deno.test('any() x > 1', async () => {
     const a = iterator([1, 2, 3]);
 
     const actual: Pair<boolean, number[]> = [await a.any((e) => e > 1), []];
@@ -30,7 +29,7 @@ test('any() x > 1', async () => {
     assertEquals(actual, expected);
 });
 
-test('any() x > 2', async () => {
+Deno.test('any() x > 2', async () => {
     const a = iterator([1, 2, 3]);
 
     const actual: Pair<boolean, number[]> = [await a.any((e) => e > 2), []];
@@ -43,7 +42,7 @@ test('any() x > 2', async () => {
     assertEquals(actual, expected);
 });
 
-test('any() x > 3', async () => {
+Deno.test('any() x > 3', async () => {
     const a = iterator([1, 2, 3]);
 
     const actual: Pair<boolean, number[]> = [await a.any((e) => e > 3), []];
@@ -56,7 +55,7 @@ test('any() x > 3', async () => {
     assertEquals(actual, expected);
 });
 
-test('any() empty iter', async () => {
+Deno.test('any() empty iter', async () => {
     const a = iterator<number>([]);
 
     const actual: Pair<boolean, number[]> = [await a.any((e) => e > 2), []];

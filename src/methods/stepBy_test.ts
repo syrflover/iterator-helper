@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test('stepBy(2)', async () => {
+Deno.test('stepBy(2)', async () => {
     const a = iterator([0, 1, 2, 3, 4, 5]);
 
     const actual: number[] = [];
@@ -18,7 +17,7 @@ test('stepBy(2)', async () => {
     assertEquals(actual, expected);
 });
 
-test('stepBy(Infinity)', async () => {
+Deno.test('stepBy(Infinity)', async () => {
     const a = iterator([0, 1, 2, 3, 4, 5]);
 
     const actual: number[] = [];
@@ -33,7 +32,7 @@ test('stepBy(Infinity)', async () => {
     assertEquals(actual, expected);
 });
 
-test('stepBy() empty iter', async () => {
+Deno.test('stepBy() empty iter', async () => {
     const a = iterator<number>([]);
 
     const actual: number[] = [];

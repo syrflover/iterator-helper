@@ -1,9 +1,8 @@
-import { test } from 'https://deno.land/std/testing/mod.ts';
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { iterator } from '../../mod.ts';
+import { iterator } from '../mod.ts';
 
-test('takeWhile(x < 3, [1,2,3,4,1,2,3,4]) == [1,2]', async () => {
+Deno.test('takeWhile(x < 3, [1,2,3,4,1,2,3,4]) == [1,2]', async () => {
     const a = iterator([1, 2, 3, 4, 1, 2, 3, 4]);
 
     const actual: number[] = [];
@@ -18,7 +17,7 @@ test('takeWhile(x < 3, [1,2,3,4,1,2,3,4]) == [1,2]', async () => {
     assertEquals(actual, expected);
 });
 
-test('takeWhile(e < 9, [1,2,3]) == [1,2,3]', async () => {
+Deno.test('takeWhile(e < 9, [1,2,3]) == [1,2,3]', async () => {
     const a = iterator([1, 2, 3]);
 
     const actual: number[] = [];
@@ -33,7 +32,7 @@ test('takeWhile(e < 9, [1,2,3]) == [1,2,3]', async () => {
     assertEquals(actual, expected);
 });
 
-test('takeWhile(e < 9, [1,2,3]) == []', async () => {
+Deno.test('takeWhile(e < 9, [1,2,3]) == []', async () => {
     const a = iterator([1, 2, 3]);
 
     const actual: number[] = [];

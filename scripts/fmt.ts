@@ -16,7 +16,7 @@ readDir(Deno.args.some((e) => e === 'publish') ? 'deno' : 'src')
 
         const prettier = 'https://deno.land/std/prettier/main.ts';
         const permissions = '--allow-write --allow-read';
-        const options = `${reload} --write --single-quote --arrow-parens always --print-width 140 --tab-width 4 --trailing-comma all`.trim();
+        const options = `${reload} --single-quote --arrow-parens always --print-width 140 --tab-width 4 --trailing-comma all`.trim();
 
         const task = Deno.run({
             args: `deno run ${permissions} ${prettier} ${options} ${targets}`.split(' '),
