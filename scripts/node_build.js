@@ -17,6 +17,8 @@ async function main(dir) {
 
     const files = await fs.promises.readdir(dir);
 
+    console.log(dir, files);
+
     for await (const file of files) {
         try {
             if (ex.includes(`${dir}/${file}`)) {
@@ -40,6 +42,8 @@ async function main(dir) {
 }
 
 main('src').then(async () => {
+    console.log(entries);
+
     const a = await rollup(config(entries));
     await a.write({
         dir: 'dist',
@@ -55,6 +59,7 @@ const config = (ent) => {
 
     for (const key of ent) {
         input[key.replace('src/', '').replace(/\.ts$/, '')] = key;
+        // input[key.replace(/\.ts$/, '')] = key;
     }
 
     return {

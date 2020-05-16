@@ -582,10 +582,7 @@ export class AsyncIterator_<T> implements IAsyncIterator_<T> {
 
     public async unzip() {
         const [left, right] = await unzip<any, any>(this as any);
-        return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<
-            ToAsyncIterator<any>,
-            ToAsyncIterator<any>
-        >;
+        return (pair(new AsyncIterator_<any>(left), new AsyncIterator_<any>(right)) as unknown) as Pair<ToAsyncIterator<any>, ToAsyncIterator<any>>;
     }
 
     public zip<U>(other: Iterable<U | Promise<U>> | AsyncIterable<U | Promise<U>>) {

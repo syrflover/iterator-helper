@@ -23,5 +23,6 @@
             "http://*": ["~/Library/Caches/deno/deps/http/*"],
             "https://*": ["~/Library/Caches/deno/deps/https/*"]
         }
-    }
+    },
+    "include": ["./src"]
 }
