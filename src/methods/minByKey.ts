@@ -8,7 +8,7 @@ import { _curry, Curry2 } from '../lib/utils/mod.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/minByKey');
+const logger = await getLogger('methods/minByKey');
 
 async function _min_by_key_impl_fn<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>, iter: AsyncIterable<T>): Promise<T | undefined> {
     logger.trace('minByKey()');

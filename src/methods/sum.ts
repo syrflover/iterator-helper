@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/sum');
+const logger = await getLogger('methods/sum');
 
 export function sum(iter: AsyncIterable<number>): Promise<number> {
     logger.trace('sum()');

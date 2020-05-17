@@ -6,7 +6,7 @@ import { next_async } from '../lib/iterable/mod.ts';
 
 import { scan } from './scan.ts';
 
-const logger = getLogger('methods/enumerate');
+const logger = await getLogger('methods/enumerate');
 
 async function* _enumerate_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Pair<number, T>> {
     logger.trace('enumerate()');

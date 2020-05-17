@@ -5,7 +5,7 @@ import { MapFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/flatMap');
+const logger = await getLogger('methods/flatMap');
 
 async function* _flat_map_impl_fn<T, R extends Iterable<any> | AsyncIterable<any>>(
     fn: MapFn<T, R>,

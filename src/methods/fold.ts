@@ -4,7 +4,7 @@ import { FoldFn } from '../types/functions/mod.ts';
 
 import { _curry, Curry2 } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/fold');
+const logger = await getLogger('methods/fold');
 
 async function _fold_impl_fn<A, B>(fn: FoldFn<A, B>, init: B | Promise<B>, iter: AsyncIterable<A>): Promise<B> {
     logger.trace('fold()');

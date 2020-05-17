@@ -6,7 +6,7 @@ import { _curry, id } from '../lib/utils/mod.ts';
 
 import { minByKey } from './minByKey.ts';
 
-const logger = getLogger('methods/minBy');
+const logger = await getLogger('methods/minBy');
 
 export interface MinBy {
     <T>(fn: CompareFn<T>, iter: AsyncIterable<T>): Promise<T | undefined>;

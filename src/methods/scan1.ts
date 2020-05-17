@@ -7,7 +7,7 @@ import { _curry } from '../lib/utils/mod.ts';
 
 import { scan } from './scan.ts';
 
-const logger = getLogger('methods/scan1');
+const logger = await getLogger('methods/scan1');
 
 async function* _scan1_impl_fn<T>(fn: ScanFn<T, T>, iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('scan1()');

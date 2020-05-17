@@ -4,7 +4,7 @@ import { ForEachFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/inspect');
+const logger = await getLogger('methods/inspect');
 
 async function* _inspect_impl_fn<T>(fn: ForEachFn<T>, iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('inspect()');

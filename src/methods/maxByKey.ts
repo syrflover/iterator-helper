@@ -8,7 +8,7 @@ import { _curry, Curry2 } from '../lib/utils/mod.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/maxByKey');
+const logger = await getLogger('methods/maxByKey');
 
 async function _max_by_key_impl_fn<T, K>(keyFn: KeyFn<T, K>, cmpFn: CompareFn<K>, iter: AsyncIterable<T>): Promise<T | undefined> {
     logger.trace('maxByKey()');

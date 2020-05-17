@@ -1,6 +1,6 @@
 import { getLogger } from '../logger.ts';
 
-const logger = getLogger('methods/cycle');
+const logger = await getLogger('methods/cycle');
 
 async function* _cycle_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('cycle()');

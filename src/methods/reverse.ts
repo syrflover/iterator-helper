@@ -5,7 +5,7 @@ import { fold } from './fold.ts';
 import { prepend, sequence } from '../lib/iterable/mod.ts';
 import { flip } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/reverse');
+const logger = await getLogger('methods/reverse');
 
 async function* _reverse_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('reverse()');

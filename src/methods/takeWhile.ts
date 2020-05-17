@@ -4,7 +4,7 @@ import { PredicateFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/takeWhile');
+const logger = await getLogger('methods/takeWhile');
 
 async function* _take_while_impl_fn<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('takeWhile()');

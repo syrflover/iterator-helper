@@ -4,7 +4,7 @@ import { next_async } from '../lib/iterable/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/skip');
+const logger = await getLogger('methods/skip');
 
 async function* _skip_impl_fn<T>(count: number, iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('skip()');

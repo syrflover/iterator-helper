@@ -1,23 +1,25 @@
 // import * as log from 'https://deno.land/std/log/mod.ts';
 import { Logger, LogRecord } from 'https://deno.land/std/log/logger.ts';
-import { LogLevels, getLevelByName as getLevelByName_ } from 'https://deno.land/std/log/levels.ts';
+import { LogLevels, getLevelByName } from 'https://deno.land/std/log/levels.ts';
 import { BaseHandler } from 'https://deno.land/std/log/handlers.ts';
 import { blue, cyan, green, yellow, red, bold } from 'https://deno.land/std/fmt/colors.ts';
 
-const getLevelByName = (levelName: 'NOTSET' | 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR' | 'CRITICAL' = 'NOTSET') => {
-    switch (levelName || 'NOTSET') {
-        /* case 'NONE':
+import type { LevelName } from 'https://deno.land/std/log/levels.ts';
+
+/* const getLevelByName = (levelName: string) => {
+    switch (levelName) {
+        case 'NONE':
             return -1;
         case 'TRACE':
-            return 5; */
+            return 5;
         default:
-            return getLevelByName_(levelName as any);
+            return getLevelByName_(levelName );
     }
-};
+}; */
 
 class LogHandler extends BaseHandler {
-    constructor(levelName: 'NOTSET' | 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR' | 'CRITICAL') {
-        super(levelName as any);
+    constructor(levelName: LevelName) {
+        super(levelName);
         this.level = getLevelByName(levelName);
         this.levelName = levelName;
     }
@@ -47,7 +49,7 @@ class LogHandler extends BaseHandler {
         const to = (t: string, lv: string, m: string, a: unknown[]) => `${t} ${lv} ${m} ${a.map((e) => stringify(e)).join(' ')}`;
 
         switch (level) {
-            case 5: // trace
+            case LogLevels.NOTSET: // trace
                 return to(`[${time}]`, blue('[TRACE]'), msg, args);
             case LogLevels.DEBUG:
                 return to(`[${time}]`, cyan('[DEBUG]'), msg, args);
@@ -65,16 +67,35 @@ class LogHandler extends BaseHandler {
     }
 
     public log(msg: string): void {
-        /* eslint-disable-next-line */
-        console.log(msg);
+        if (msg.length > 1) {
+            /* eslint-disable-next-line */
+            console.log(msg);
+        }
     }
 }
 
-const logEnable = Deno.args.some((e) => e.includes('ITER_HELPER_LOG'));
-const LOG_LEVEL = logEnable ? 'NOTSET' : 'ERROR';
+// const logEnable = Deno.args.some((e) => e.includes('ITER_HELPER_LOG'));
+// const LOG_LEVEL = logEnable ? 'NOTSET' : 'ERROR';
 
-export const getLogger = (label: string) => {
+export const getLogger = async (label: string) => {
+    const toLogLevel = (s: string): LevelName => {
+        switch (s) {
+            case 'TRACE':
+                return 'NOTSET';
+            case '':
+            case 'NONE':
+                return 'ERROR';
+            default:
+                return s as LevelName;
+        }
+    };
+
+    const isEnvGranted = (await Deno.permissions.query({ name: 'env' })).state === 'granted';
+    const LOG_LEVEL_ = isEnvGranted ? Deno.env.get('LOG_LEVEL')?.trim().toUpperCase() ?? 'ERROR' : 'ERROR';
+    const LOG_LEVEL = toLogLevel(LOG_LEVEL_);
+
     const logger = new Logger(LOG_LEVEL, [new LogHandler(LOG_LEVEL)]);
+
     return {
         trace: (msg: string, ...args: unknown[]) => logger._log(LogLevels.NOTSET, label, msg, ...args),
         debug: (msg: string, ...args: unknown[]) => logger._log(LogLevels.DEBUG, label, msg, ...args),

@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/take');
+const logger = await getLogger('methods/take');
 
 async function* _take_impl_fn<T>(limit: number, iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('take()');

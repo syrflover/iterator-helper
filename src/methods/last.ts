@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/last');
+const logger = await getLogger('methods/last');
 
 // [a] -> Maybe a
 export function last<T>(iter: AsyncIterable<T>): Promise<T | undefined> {

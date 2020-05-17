@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { nubBy } from './nubBy.ts';
 
-const logger = getLogger('methods/nub');
+const logger = await getLogger('methods/nub');
 
 export function nub<T>(iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('nub()');

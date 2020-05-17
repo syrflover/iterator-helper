@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/product');
+const logger = await getLogger('methods/product');
 
 export function product(iter: AsyncIterable<number>): Promise<number> {
     logger.trace('product()');

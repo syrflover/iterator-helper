@@ -1,6 +1,6 @@
 {
     "name": "@syrflover/iterator",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Iterator Helper for TypeScript",
     "main": "dist/mod.js",
     "types": "dist/mod.d.ts",
@@ -8,9 +8,9 @@
         "dist"
     ],
     "scripts": {
-        "start": "deno run --config tsconfig.json src/playground.ts --ITER_HELPER_LOG",
-        "test": "npm run build:deno && deno run --allow-run --allow-write --allow-read ./scripts/test.ts",
-        "test:reload": "npm run build:deno && deno run --allow-run --allow-write --allow-read --reload ./scripts/test.ts",
+        "start": "LOG_LEVEL=trace deno run --allow-env --unstable --config tsconfig.json src/playground.ts",
+        "test": "npm run build:deno && deno run --unstable --allow-run --allow-write --allow-read ./scripts/test.ts",
+        "test:reload": "npm run build:deno && deno run --unstable --allow-run --allow-write --allow-read --reload ./scripts/test.ts",
         "build:node": "rm -rf ./dist && node scripts/node_build.js",
         "build:deno": "rm -rf ./deno && deno run --reload --allow-read --allow-write scripts/deno_build.ts && npm run fmt",
         "lint": "eslint src/**/*.ts",

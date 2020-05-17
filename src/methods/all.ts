@@ -4,7 +4,7 @@ import { PredicateFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/all');
+const logger = await getLogger('methods/all');
 
 async function _all_impl_fn<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>): Promise<boolean> {
     logger.trace('all()');

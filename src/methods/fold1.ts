@@ -7,7 +7,7 @@ import { _curry } from '../lib/utils/mod.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/fold1');
+const logger = await getLogger('methods/fold1');
 
 async function _fold1_impl_fn<T>(fn: FoldFn<T, T>, iter: AsyncIterable<T>) {
     logger.trace('fold1()');

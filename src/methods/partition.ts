@@ -8,7 +8,7 @@ import { _curry } from '../lib/utils/mod.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/partition');
+const logger = await getLogger('methods/partition');
 
 async function _partition_impl_fn<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>): Promise<Pair<AsyncIterable<T>, AsyncIterable<T>>> {
     logger.trace('partition()');

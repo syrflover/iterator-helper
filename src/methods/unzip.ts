@@ -6,7 +6,7 @@ import { append, sequence } from '../lib/iterable/mod.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/unzip');
+const logger = await getLogger('methods/unzip');
 
 async function _unzip_impl_fn<T, U>(iter: AsyncIterable<Pair<T, U>>): Promise<Pair<AsyncIterable<T>, AsyncIterable<U>>> {
     logger.trace('unzip()');

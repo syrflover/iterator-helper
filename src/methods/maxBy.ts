@@ -6,7 +6,7 @@ import { _curry, id } from '../lib/utils/mod.ts';
 
 import { maxByKey } from './maxByKey.ts';
 
-const logger = getLogger('methods/maxBy');
+const logger = await getLogger('methods/maxBy');
 
 export interface MaxBy {
     <T>(fn: CompareFn<T>, iter: AsyncIterable<T>): Promise<T | undefined>;

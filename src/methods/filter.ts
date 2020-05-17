@@ -4,7 +4,7 @@ import { PredicateFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/filter');
+const logger = await getLogger('methods/filter');
 
 async function* _filter_impl_fn<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>) {
     logger.trace('filter()');

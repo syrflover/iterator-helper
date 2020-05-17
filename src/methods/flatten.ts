@@ -3,7 +3,7 @@ import { getLogger } from '../logger.ts';
 import { Flatten } from '../types/mod.ts';
 import { isIterable, isAsyncIterable } from '../types/guards/mod.ts';
 
-const logger = getLogger('methods/flatten');
+const logger = await getLogger('methods/flatten');
 
 async function* _flatten_impl_fn<T>(iter: AsyncIterable<T>): AsyncIterable<Flatten<T>> {
     logger.trace('flatten()');

@@ -6,7 +6,7 @@ import { isNull } from '../types/guards/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/filterMap');
+const logger = await getLogger('methods/filterMap');
 
 async function* _filter_map_impl_fn<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>): AsyncIterable<R> {
     logger.trace('filterMap()');

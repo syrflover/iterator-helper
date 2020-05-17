@@ -4,15 +4,11 @@ import { pair, Pair } from '../types/mod.ts';
 
 import { fold } from './fold.ts';
 
-export const logger = getLogger('methods/average');
+export const logger = await getLogger('methods/average');
 
 async function _average_impl_fn(iter: AsyncIterable<number>) {
     logger.trace('average()');
-    const [count, summed] = await fold(
-        ([current, value]: Pair<number, number>, e: number) => pair(current + 1, value + e),
-        pair(0, 0),
-        iter,
-    );
+    const [count, summed] = await fold(([current, value]: Pair<number, number>, e: number) => pair(current + 1, value + e), pair(0, 0), iter);
     return count === 0 ? 0 : summed / count;
 }
 

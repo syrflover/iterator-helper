@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { fold } from './fold.ts';
 
-const logger = getLogger('methods/count');
+const logger = await getLogger('methods/count');
 
 // [a] -> Int
 export function count<T>(iter: AsyncIterable<T>): Promise<number> {

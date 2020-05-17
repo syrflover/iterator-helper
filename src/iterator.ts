@@ -54,7 +54,7 @@ import {
     zip,
 } from './methods/mod.ts';
 
-const logger = getLogger('iterator');
+const logger = await getLogger('iterator');
 
 // prettier-ignore
 export type ToAsyncIterator<T> =

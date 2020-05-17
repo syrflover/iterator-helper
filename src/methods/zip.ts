@@ -5,7 +5,7 @@ import { Pair, pair } from '../types/mod.ts';
 import { next_async, sequence } from '../lib/iterable/mod.ts';
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/zip');
+const logger = await getLogger('methods/zip');
 
 async function* _zip_impl_fn<T, U>(other: AsyncIterable<U | Promise<U>>, iter: AsyncIterable<T>): AsyncIterable<Pair<T, U>> {
     logger.trace('zip()');

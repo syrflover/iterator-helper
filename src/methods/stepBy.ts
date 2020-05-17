@@ -2,7 +2,7 @@ import { getLogger } from '../logger.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/stepBy');
+const logger = await getLogger('methods/stepBy');
 
 async function* _step_by_impl_fn<T>(step: number, iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('stepBy()');

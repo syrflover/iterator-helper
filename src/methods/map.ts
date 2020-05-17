@@ -4,7 +4,7 @@ import { MapFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/map');
+const logger = await getLogger('methods/map');
 
 async function* _map_impl_fn<T, R>(fn: MapFn<T, R>, iter: AsyncIterable<T>): AsyncIterable<R> {
     logger.trace('map()');

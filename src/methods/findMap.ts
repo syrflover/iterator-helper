@@ -6,7 +6,7 @@ import { isNull } from '../types/guards/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/findMap');
+const logger = await getLogger('methods/findMap');
 
 async function _find_map_impl_fn<T, R>(fn: MapFn<T, Nullable<R>>, iter: AsyncIterable<T>): Promise<R | undefined> {
     logger.trace('findMap()');

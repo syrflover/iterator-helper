@@ -4,7 +4,7 @@ import { iterator, ToAsyncIterator } from '../mod.ts';
 
 import { EP } from './promise.ts';
 
-const logger = getLogger('global');
+const logger = await getLogger('global');
 
 declare global {
     interface String {
@@ -52,57 +52,57 @@ declare global {
     }
 }
 
-String.prototype.iter = function() {
+String.prototype.iter = function () {
     logger.trace('String', 'iter()');
     return iterator(this);
 };
 
-Array.prototype.iter = function() {
+Array.prototype.iter = function () {
     logger.trace('Array', 'iter()');
     return iterator(this);
 };
 
-Int8Array.prototype.iter = function() {
+Int8Array.prototype.iter = function () {
     logger.trace('Int8Array', 'iter()');
     return iterator(this);
 };
 
-Int16Array.prototype.iter = function() {
+Int16Array.prototype.iter = function () {
     logger.trace('Int16Array', 'iter()');
     return iterator(this);
 };
 
-Int32Array.prototype.iter = function() {
+Int32Array.prototype.iter = function () {
     logger.trace('Int32Array', 'iter()');
     return iterator(this);
 };
 
-Uint8Array.prototype.iter = function() {
+Uint8Array.prototype.iter = function () {
     logger.trace('Uint8Array', 'iter()');
     return iterator(this);
 };
 
-Uint8ClampedArray.prototype.iter = function() {
+Uint8ClampedArray.prototype.iter = function () {
     logger.trace('Uint8ClampedArray', 'iter()');
     return iterator(this);
 };
 
-Uint16Array.prototype.iter = function() {
+Uint16Array.prototype.iter = function () {
     logger.trace('Uint16Array', 'iter()');
     return iterator(this);
 };
 
-Uint32Array.prototype.iter = function() {
+Uint32Array.prototype.iter = function () {
     logger.trace('Uint32Array', 'iter()');
     return iterator(this);
 };
 
-Float32Array.prototype.iter = function() {
+Float32Array.prototype.iter = function () {
     logger.trace('Float32Array', 'iter()');
     return iterator(this);
 };
 
-Float64Array.prototype.iter = function() {
+Float64Array.prototype.iter = function () {
     logger.trace('Float64Array', 'iter()');
     return iterator(this);
 };

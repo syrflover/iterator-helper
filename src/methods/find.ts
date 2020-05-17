@@ -4,7 +4,7 @@ import { PredicateFn } from '../types/functions/mod.ts';
 
 import { _curry } from '../lib/utils/mod.ts';
 
-const logger = getLogger('methods/find');
+const logger = await getLogger('methods/find');
 
 async function _find_impl_fn<T>(predicate: PredicateFn<T>, iter: AsyncIterable<T>): Promise<T | undefined> {
     logger.trace('find()');

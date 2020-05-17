@@ -7,7 +7,7 @@ import { _curry } from '../lib/utils/mod.ts';
 
 import { any } from './any.ts';
 
-const logger = getLogger('methods/nubBy');
+const logger = await getLogger('methods/nubBy');
 
 async function* _nub_by_impl_fn<T>(fn: EqualFn<T>, iter: AsyncIterable<T>): AsyncIterable<T> {
     logger.trace('nubBy()');
