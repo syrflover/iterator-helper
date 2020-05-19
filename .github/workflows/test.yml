@@ -3,25 +3,26 @@ name: test
 on: [push]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-        deno: [v1.0.0]
+        strategy:
+            matrix:
+                node-version: [14.x]
+                deno: [v1.0.0]
 
-    steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@master
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Setup Deno ${{ matrix.deno }}
-        uses: denolib/setup-deno@master
-        with:
-          deno-version: ${{ matrix.deno }}
-      - name: npm install, test
-        run: |
-          npm install
-          npm run test:reload
+        steps:
+            - uses: actions/checkout@master
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@master
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Setup Deno ${{ matrix.deno }}
+              uses: denolib/setup-deno@master
+              with:
+                  deno-version: ${{ matrix.deno }}
+            - name: npm install, test
+              run: |
+                  npm install
+                  npm run build:node
+                  npm run test:reload
