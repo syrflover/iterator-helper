@@ -1,4 +1,5 @@
-import { Flatten } from "../types/mod.ts";
+import type { Flatten } from "../types/mod.ts";
+
 import { isIterable, isAsyncIterable } from "../types/guards/mod.ts";
 
 async function* _flatten_impl_fn<T>(

@@ -1,4 +1,4 @@
-import { PredicateFn } from "../types/functions/mod.ts";
+import type { PredicateFn } from "../types/functions/mod.ts";
 
 import { next_async, prepend } from "../lib/iterable/mod.ts";
 import { _curry } from "../lib/utils/mod.ts";

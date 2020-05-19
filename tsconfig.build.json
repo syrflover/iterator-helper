@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-        "target": "es2018",
-        "module": "commonjs",
+        "target": "esnext",
+        "module": "esnext",
         "baseUrl": ".",
         "outDir": "dist",
+        // "emitDeclarationOnly": true,
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,
@@ -15,5 +16,5 @@
         "alwaysStrict": true,
         "moduleResolution": "node"
     },
-    "include": ["./.temp/mod.ts"]
+    "include": ["./.temp/_ts/mod.ts", "./.temp/_ts/types/global.ts"]
 }

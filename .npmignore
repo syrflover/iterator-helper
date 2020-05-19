@@ -147,3 +147,4 @@ typedoc.json
 mod.ts
 
 deno/
+.temp/

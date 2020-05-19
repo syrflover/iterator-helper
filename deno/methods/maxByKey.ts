@@ -1,4 +1,4 @@
-import { CompareFn, KeyFn } from "../types/functions/mod.ts";
+import type { CompareFn, KeyFn } from "../types/functions/mod.ts";
 
 import { maxBy as compare_maxBy } from "../lib/compare/mod.ts";
 import { next_async } from "../lib/iterable/mod.ts";

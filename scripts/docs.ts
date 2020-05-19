@@ -1,4 +1,4 @@
-import { readFileStr, readJson, exists } from 'https://deno.land/std/fs/mod.ts';
+import { exists } from 'https://deno.land/std/fs/mod.ts';
 
 const decoder = new TextDecoder('utf-8');
 

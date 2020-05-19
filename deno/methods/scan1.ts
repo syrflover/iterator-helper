@@ -1,4 +1,4 @@
-import { ScanFn } from "../types/functions/mod.ts";
+import type { ScanFn } from "../types/functions/mod.ts";
 
 import { next_async } from "../lib/iterable/mod.ts";
 import { _curry } from "../lib/utils/mod.ts";

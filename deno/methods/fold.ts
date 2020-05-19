@@ -1,4 +1,4 @@
-import { FoldFn } from "../types/functions/mod.ts";
+import type { FoldFn } from "../types/functions/mod.ts";
 
 import { _curry, Curry2 } from "../lib/utils/mod.ts";
 

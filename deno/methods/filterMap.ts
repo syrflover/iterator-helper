@@ -1,5 +1,6 @@
-import { Nullable } from "../types/mod.ts";
-import { MapFn } from "../types/functions/mod.ts";
+import type { Nullable } from "../types/mod.ts";
+import type { MapFn } from "../types/functions/mod.ts";
+
 import { isNull } from "../types/guards/mod.ts";
 
 import { _curry } from "../lib/utils/mod.ts";

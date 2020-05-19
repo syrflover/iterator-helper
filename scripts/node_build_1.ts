@@ -22,7 +22,7 @@ for await (const entry of entries) {
         .replace(/logger\..+\(.+\);/g, '')
         .replace(/\.ts/g, '');
 
-    const filepath = entry.replace(/src/, '.temp');
+    const filepath = entry.replace(/src/, '.temp/_ts');
 
     const dir = dirname(filepath);
 

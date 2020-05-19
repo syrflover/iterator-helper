@@ -1,4 +1,4 @@
-import { CompareFn } from "../types/functions/mod.ts";
+import type { CompareFn } from "../types/functions/mod.ts";
 
 import { _curry, id } from "../lib/utils/mod.ts";
 

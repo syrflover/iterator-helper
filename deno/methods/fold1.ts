@@ -1,4 +1,4 @@
-import { FoldFn } from "../types/functions/mod.ts";
+import type { FoldFn } from "../types/functions/mod.ts";
 
 import { next_async } from "../lib/iterable/mod.ts";
 import { _curry } from "../lib/utils/mod.ts";

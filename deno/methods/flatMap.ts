@@ -1,5 +1,5 @@
-import { Flatten } from "../types/mod.ts";
-import { MapFn } from "../types/functions/mod.ts";
+import type { Flatten } from "../types/mod.ts";
+import type { MapFn } from "../types/functions/mod.ts";
 
 import { _curry } from "../lib/utils/mod.ts";
 

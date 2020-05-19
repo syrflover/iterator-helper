@@ -1,6 +1,6 @@
-import { iterator, ToAsyncIterator } from "../mod.ts";
+import type { EP } from "./promise.ts";
 
-import { EP } from "./promise.ts";
+import { iterator, ToAsyncIterator } from "../mod.ts";
 
 declare global {
   interface String {

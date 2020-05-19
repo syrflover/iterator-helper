@@ -131,3 +131,4 @@ package-lock.json
 yarn.lock
 
 src/playground.ts
+.temp/
