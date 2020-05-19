@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
+        "target": "es2018",
+        "module": "commonjs",
         "baseUrl": ".",
         "outDir": "dist",
         "sourceMap": true,
@@ -13,16 +13,7 @@
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "alwaysStrict": true,
-        "moduleResolution": "node",
-        "plugins": [
-            {
-                "name": "typescript-deno-plugin"
-            }
-        ],
-        "paths": {
-            "http://*": ["~/Library/Caches/deno/deps/http/*"],
-            "https://*": ["~/Library/Caches/deno/deps/https/*"]
-        }
+        "moduleResolution": "node"
     },
-    "include": ["./src"]
+    "include": ["./.temp/mod.ts"]
 }

@@ -77,7 +77,7 @@ class LogHandler extends BaseHandler {
 // const logEnable = Deno.args.some((e) => e.includes('ITER_HELPER_LOG'));
 // const LOG_LEVEL = logEnable ? 'NOTSET' : 'ERROR';
 
-export const getLogger = async (label: string) => {
+export async function getLogger(label: string) {
     const toLogLevel = (s: string): LevelName => {
         switch (s) {
             case 'TRACE':
@@ -104,4 +104,4 @@ export const getLogger = async (label: string) => {
         error: (msg: string, ...args: unknown[]) => logger._log(LogLevels.ERROR, label, msg, ...args),
         critical: (msg: string, ...args: unknown[]) => logger._log(LogLevels.CRITICAL, label, msg, ...args),
     };
-};
+}
