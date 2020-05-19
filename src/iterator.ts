@@ -1,11 +1,11 @@
+import type { ForEachFn, FoldFn, MapFn, PredicateFn, CompareFn, KeyFn, ScanFn, EqualFn } from './types/functions/mod.ts';
+
 import { getLogger } from './logger.ts';
 
 import { compare } from './lib/compare/mod.ts';
 import { next_async, sequence } from './lib/iterable/mod.ts';
 
 import { Flatten, Pair, pair, Nullable } from './types/mod.ts';
-
-import { ForEachFn, FoldFn, MapFn, PredicateFn, CompareFn, KeyFn, ScanFn, EqualFn } from './types/functions/mod.ts';
 
 import {
     all,

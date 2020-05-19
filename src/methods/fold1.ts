@@ -1,6 +1,6 @@
-import { getLogger } from '../logger.ts';
+import type { FoldFn } from '../types/functions/mod.ts';
 
-import { FoldFn } from '../types/functions/mod.ts';
+import { getLogger } from '../logger.ts';
 
 import { next_async } from '../lib/iterable/mod.ts';
 import { _curry } from '../lib/utils/mod.ts';

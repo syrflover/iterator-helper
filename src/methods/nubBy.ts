@@ -1,6 +1,6 @@
-import { getLogger } from '../logger.ts';
+import type { EqualFn } from '../types/functions/mod.ts';
 
-import { EqualFn } from '../types/functions/mod.ts';
+import { getLogger } from '../logger.ts';
 
 import { sequence } from '../lib/iterable/mod.ts';
 import { _curry } from '../lib/utils/mod.ts';

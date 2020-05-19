@@ -1,6 +1,6 @@
-import { getLogger } from '../logger.ts';
+import type { CompareFn } from '../types/functions/mod.ts';
 
-import { CompareFn } from '../types/functions/mod.ts';
+import { getLogger } from '../logger.ts';
 
 import { _curry, id } from '../lib/utils/mod.ts';
 

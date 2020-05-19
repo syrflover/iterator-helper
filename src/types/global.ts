@@ -1,8 +1,8 @@
+import type { EP } from './promise.ts';
+
 import { getLogger } from '../logger.ts';
 
 import { iterator, ToAsyncIterator } from '../mod.ts';
-
-import { EP } from './promise.ts';
 
 const logger = await getLogger('global');
 
