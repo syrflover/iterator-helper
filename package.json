@@ -38,18 +38,18 @@
         "async"
     ],
     "devDependencies": {
-        "@types/node": "^12.12.39",
-        "@typescript-eslint/eslint-plugin": "^2.33.0",
-        "@typescript-eslint/parser": "^2.33.0",
+        "@types/node": "^12.12.54",
+        "@typescript-eslint/eslint-plugin": "^2.34.0",
+        "@typescript-eslint/parser": "^2.34.0",
         "eslint": "^6.8.0",
-        "eslint-config-airbnb": "^18.1.0",
-        "eslint-plugin-import": "^2.20.2",
-        "rollup": "^2.10.4",
-        "rollup-plugin-ignore": "^1.0.5",
+        "eslint-config-airbnb": "^18.2.0",
+        "eslint-plugin-import": "^2.22.0",
+        "rollup": "^2.23.1",
+        "rollup-plugin-ignore": "^1.0.9",
         "rollup-plugin-re": "^1.0.7",
-        "rollup-plugin-typescript2": "^0.27.1",
+        "rollup-plugin-typescript2": "^0.27.2",
         "typedoc": "^0.15.8",
-        "typescript": "^3.9.2",
-        "typescript-deno-plugin": "^1.27.0"
+        "typescript": "^3.9.7",
+        "typescript-deno-plugin": "^1.31.0"
     }
 }
