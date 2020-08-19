@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>FilterMap | @syrflover/iterator@master</title>
+	<title>Curry4 | @syrflover/iterator@v0.4.1</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@syrflover/iterator@master</a>
+					<a href="../index.html" class="title">@syrflover/iterator@v0.4.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -54,97 +54,144 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="filtermap.html">FilterMap</a>
+					<a href="curry4.html">Curry4</a>
 				</li>
 			</ul>
-			<h1>Interface FilterMap</h1>
+			<h1>Interface Curry4&lt;P1, P2, P3, P4, R&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>P1</h4>
+					</li>
+					<li>
+						<h4>P2</h4>
+					</li>
+					<li>
+						<h4>P3</h4>
+					</li>
+					<li>
+						<h4>P4</h4>
+					</li>
+					<li>
+						<h4>R</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">FilterMap</span>
+						<span class="target">Curry4</span>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel">
 				<h3 class="tsd-before-signature">Callable</h3>
 				<ul class="tsd-signatures tsd-kind-interface tsd-has-type-parameter">
-					<li class="tsd-signature tsd-kind-icon">__call&lt;T, R&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><a href="../index.html#mapfn" class="tsd-signature-type">MapFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><a href="../index.html#nullable" class="tsd-signature-type">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, iter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
-					<li class="tsd-signature tsd-kind-icon">__call&lt;T, R&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><a href="../index.html#mapfn" class="tsd-signature-type">MapFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><a href="../index.html#nullable" class="tsd-signature-type">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>p1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="curry3.html" class="tsd-signature-type">Curry3</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>p1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P1</span>, p2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P2</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="curry2.html" class="tsd-signature-type">Curry2</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>p1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P1</span>, p2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P2</span>, p3<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P3</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>p1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P1</span>, p2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P2</span>, p3<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P3</span>, p4<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P4</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/syrflover/iterator-helper/blob/master/src/methods/filterMap.ts#L26">src/methods/filterMap.ts:26</a></li>
+								<li>Defined in <a href="https://github.com/syrflover/iterator-helper/blob/v0.4.1/src/lib/utils/curry.ts#L50">src/lib/utils/curry.ts:50</a></li>
 							</ul>
 						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>T</h4>
-							</li>
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>fn: <a href="../index.html#mapfn" class="tsd-signature-type">MapFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><a href="../index.html#nullable" class="tsd-signature-type">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-							<li>
-								<h5>iter: <span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>p1: <span class="tsd-signature-type">P1</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<h4 class="tsd-returns-title">Returns <a href="curry3.html" class="tsd-signature-type">Curry3</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/syrflover/iterator-helper/blob/master/src/methods/filterMap.ts#L27">src/methods/filterMap.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/syrflover/iterator-helper/blob/v0.4.1/src/lib/utils/curry.ts#L51">src/lib/utils/curry.ts:51</a></li>
 							</ul>
 						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>T</h4>
-							</li>
-							<li>
-								<h4>R</h4>
-							</li>
-						</ul>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>fn: <a href="../index.html#mapfn" class="tsd-signature-type">MapFn</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><a href="../index.html#nullable" class="tsd-signature-type">Nullable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>p1: <span class="tsd-signature-type">P1</span></h5>
+							</li>
+							<li>
+								<h5>p2: <span class="tsd-signature-type">P2</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="curry2.html" class="tsd-signature-type">Curry2</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">P3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/syrflover/iterator-helper/blob/v0.4.1/src/lib/utils/curry.ts#L52">src/lib/utils/curry.ts:52</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>p1: <span class="tsd-signature-type">P1</span></h5>
+							</li>
+							<li>
+								<h5>p2: <span class="tsd-signature-type">P2</span></h5>
+							</li>
+							<li>
+								<h5>p3: <span class="tsd-signature-type">P3</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>iter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>p4<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P4</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>iter: <span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<h5>p4: <span class="tsd-signature-type">P4</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span></h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
 									</li>
 								</ul>
 							</li>
 						</ul>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/syrflover/iterator-helper/blob/v0.4.1/src/lib/utils/curry.ts#L53">src/lib/utils/curry.ts:53</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>p1: <span class="tsd-signature-type">P1</span></h5>
+							</li>
+							<li>
+								<h5>p2: <span class="tsd-signature-type">P2</span></h5>
+							</li>
+							<li>
+								<h5>p3: <span class="tsd-signature-type">P3</span></h5>
+							</li>
+							<li>
+								<h5>p4: <span class="tsd-signature-type">P4</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">R</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -162,7 +209,7 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-has-type-parameter">
-						<a href="filtermap.html" class="tsd-kind-icon">Filter<wbr>Map</a>
+						<a href="curry4.html" class="tsd-kind-icon">Curry4</a>
 					</li>
 				</ul>
 				<ul class="after-current">
