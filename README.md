@@ -7,12 +7,12 @@ Iterator Helper used `AsyncIterator`
 
 ## Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Path of internal modules](#path-of-internal-modules)
-- [TypeDoc](#typedoc)
-- [Releases](#releases)
-- [References](#references)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Path of internal modules](#path-of-internal-modules)
+-   [TypeDoc](#typedoc)
+-   [Releases](#releases)
+-   [References](#references)
 
 ## Installation
 
@@ -24,16 +24,16 @@ npm install @syrflover/iterator
 
 ### Deno
 
-Fetch master branch (as latest)
+Install master branch (as latest)
 
 ```bash
-deno fetch https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts
+deno install https://raw.githubusercontent.com/syrflover/iterator-helper/master/mod.ts
 ```
 
 Fetch specified version
 
 ```bash
-deno fetch https://raw.githubusercontent.com/syrflover/iterator-helper/v0.2.3/mod.ts
+deno install https://raw.githubusercontent.com/syrflover/iterator-helper/v0.4.1/mod.ts
 ```
 
 ## Usage
@@ -73,17 +73,17 @@ import 'https://raw.githubusercontent.com/syrflover/iterator-helper/master/deno/
 
 #### List of supported ArrayLike.prototype.iter
 
-- `String`
-- `Array`
-- `Int8Array`
-- `Int16Array`
-- `Int32Array`
-- `Uint8Array`
-- `Uint8ClampedArray`
-- `Uint16Array`
-- `Uint32Array`
-- `Float32Array`
-- `Float64Array`
+-   `String`
+-   `Array`
+-   `Int8Array`
+-   `Int16Array`
+-   `Int32Array`
+-   `Uint8Array`
+-   `Uint8ClampedArray`
+-   `Uint16Array`
+-   `Uint32Array`
+-   `Float32Array`
+-   `Float64Array`
 
 ## Path of internal modules
 
@@ -110,8 +110,8 @@ src
 
 ## TypeDoc
 
-- [latest](https://syrflover.github.io/iterator-helper/docs/master)
-- [v0.2.3](https://syrflover.github.io/iterator-helper/docs/v0.2.3)
+-   [latest](https://syrflover.github.io/iterator-helper/docs/master)
+-   [v0.2.3](https://syrflover.github.io/iterator-helper/docs/v0.2.3)
 
 ## Releases
 
