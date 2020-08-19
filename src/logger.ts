@@ -94,14 +94,14 @@ export async function getLogger(label: string) {
     const LOG_LEVEL_ = isEnvGranted ? Deno.env.get('LOG_LEVEL')?.trim().toUpperCase() ?? 'ERROR' : 'ERROR';
     const LOG_LEVEL = toLogLevel(LOG_LEVEL_);
 
-    const logger = new Logger(LOG_LEVEL, [new LogHandler(LOG_LEVEL)]);
+    const logger = new Logger('logger', LOG_LEVEL, { handlers: [new LogHandler(LOG_LEVEL)] });
 
     return {
-        trace: (msg: string, ...args: unknown[]) => logger._log(LogLevels.NOTSET, label, msg, ...args),
-        debug: (msg: string, ...args: unknown[]) => logger._log(LogLevels.DEBUG, label, msg, ...args),
-        info: (msg: string, ...args: unknown[]) => logger._log(LogLevels.INFO, label, msg, ...args),
-        warning: (msg: string, ...args: unknown[]) => logger._log(LogLevels.WARNING, label, msg, ...args),
-        error: (msg: string, ...args: unknown[]) => logger._log(LogLevels.ERROR, label, msg, ...args),
-        critical: (msg: string, ...args: unknown[]) => logger._log(LogLevels.CRITICAL, label, msg, ...args),
+        trace: (msg: string, ...args: unknown[]) => (logger as any)._log(LogLevels.NOTSET, label, msg, ...args),
+        debug: (msg: string, ...args: unknown[]) => (logger as any)._log(LogLevels.DEBUG, label, msg, ...args),
+        info: (msg: string, ...args: unknown[]) => (logger as any)._log(LogLevels.INFO, label, msg, ...args),
+        warning: (msg: string, ...args: unknown[]) => (logger as any)._log(LogLevels.WARNING, label, msg, ...args),
+        error: (msg: string, ...args: unknown[]) => (logger as any)._log(LogLevels.ERROR, label, msg, ...args),
+        critical: (msg: string, ...args: unknown[]) => (logger as any)._log(LogLevels.CRITICAL, label, msg, ...args),
     };
 }
