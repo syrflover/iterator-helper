@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
-        "sourceMap": true,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
