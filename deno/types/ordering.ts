@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 export enum Ord {
   Less = -1,
   Equal = 0,
