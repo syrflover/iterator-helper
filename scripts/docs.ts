@@ -36,8 +36,8 @@ async function main() {
     if (await exists(`docs/v${VERSION}`)) {
         await Deno.remove(`docs/v${VERSION}`, { recursive: true });
     }
-    await docsGen(MASTER);
-    await docsGen(`v${VERSION}`);
+    docsGen(MASTER);
+    docsGen(`v${VERSION}`);
 }
 
 main();

@@ -1,9 +1,8 @@
 {
-    "mode": "file",
+    "mode": "modules",
     "readme": "none",
     "ignoreCompilerErrors": true,
     "excludeExternals": true,
-    "includes": "src/",
     "exclude": ["src/logger.ts", "src/playground.ts", "src/**/*_test.ts", "bench/*.ts"],
-    "tsconfig": "tsconfig.build.json"
+    "tsconfig": "tsconfig.doc.json"
 }
