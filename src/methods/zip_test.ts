@@ -1,6 +1,6 @@
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Pair } from '../types/mod.ts';
+import type { Pair } from '../types/mod.ts';
 import { iterator } from '../mod.ts';
 
 Deno.test('zip() [1,2,3,4].zip([5,6,7,8])', async () => {

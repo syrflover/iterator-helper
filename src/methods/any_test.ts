@@ -1,6 +1,6 @@
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
-import { Pair } from '../types/mod.ts';
+import type { Pair } from '../types/mod.ts';
 import { iterator } from '../mod.ts';
 
 Deno.test('any() x > 0', async () => {
