@@ -18,7 +18,7 @@ async function _any_impl_fn<T>(
 }
 
 /* export function _any<T>(fn: PredicateFn<T>, iter: AsyncIterable<T>) {
-    
+
     return _any_impl_fn(iter, fn);
 } */
 

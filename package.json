@@ -1,6 +1,6 @@
 {
     "name": "@syrflover/iterator",
-    "version": "0.4.3",
+    "version": "0.5.0",
     "description": "Iterator Helper for TypeScript",
     "main": "dist/mod.js",
     "types": "dist/mod.d.ts",
@@ -15,10 +15,7 @@
         "build:deno": "rm -rf ./deno && deno run --reload --allow-read --allow-write scripts/deno_build.ts && npm run fmt",
         "lint": "eslint src/**/*.ts",
         "fmt": "deno fmt ./deno/**/*.ts",
-        "doc": "deno run --allow-run --allow-write --allow-read --reload --unstable ./scripts/docs.ts",
-        "doc:master": "deno --allow-run scripts/docs.ts onlyMaster",
-        "prepublishOnly": "npm run lint && npm run fmt && npm run test:reload && npm run build:node && npm run build:deno",
-        "postpublish": "npm run doc"
+        "prepublishOnly": "npm run lint && npm run fmt && npm run test:reload && npm run build:node && npm run build:deno"
     },
     "author": {
         "name": "Lee Tae Woo",

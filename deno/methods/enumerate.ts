@@ -1,4 +1,4 @@
-import { pair, Pair } from "../types/mod.ts";
+import { Pair, pair } from "../types/mod.ts";
 
 import { next_async } from "../lib/iterable/mod.ts";
 
