@@ -50,6 +50,7 @@
 
         "func-names": "off",
 
+        "no-use-before-define": "off",
         "@typescript-eslint/explicit-member-accessibility": [
             "error",
             {
