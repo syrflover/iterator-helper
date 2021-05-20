@@ -108,10 +108,9 @@ src
         └── mod.ts
 ```
 
-## TypeDoc
+## Document
 
--   [latest](https://syrflover.github.io/iterator-helper/docs/master)
--   [v0.2.3](https://syrflover.github.io/iterator-helper/docs/v0.2.3)
+Not Ready
 
 ## Releases
 
